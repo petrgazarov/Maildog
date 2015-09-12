@@ -2,23 +2,23 @@
 
 [Heroku link][heroku]
 
-[heroku]: http://flux-capacitr.herokuapp.com
+[heroku]: https://maildog.herokuapp.com/
 
 ## Minimum Viable Product
-Flux-capacitr is a clone of Tumblr built on Rails and Backbone. Users can:
+Maildog is a clone of Gmail built on Rails and Backbone. Users can:
 
-<!-- This is a Markdown checklist. Use it to keep track of your progress! -->
-
-- [x] Create accounts
-- [x] Create sessions (log in)
-- [x] Create blogs
-- [x] Create blog posts
-- [ ] View blogs and posts
-- [ ] Subscribe to blogs
-- [ ] View a feed of subscribed blogs
-- [ ] Tag blog posts
-- [ ] Search for blogs by title
-- [ ] Search for posts by tag
+- [ ] Create accounts
+- [ ] Create sessions (log in)
+- [ ] View and send emails
+- [ ] Reply to and forward emails
+- [ ] Save unfinished emails in the Drafts folder
+- [ ] Star emails
+- [ ] Search entire content by text fragment
+- [ ] Search entire content by sender/receiver
+- [ ] Edit text style in their emails (font, font-size, font-color, font weight and indentation)
+- [ ] label and organize emails in folders
+- [ ] Chat with other users in real time
+- [ ] View their chat history
 
 ## Design Docs
 * [View Wireframes][views]
@@ -73,19 +73,25 @@ collections, but they will fetch from the new `search` routes.
 [Details][phase-five]
 
 ### Bonus Features (TBD)
-- [ ] "Like" button and counter for posts
-- [ ] Custom blog urls
-- [ ] Pagination/infinite scroll
-- [ ] Activity history (e.g. likes, reblogs, taggings)
-- [ ] Post types (image posts, quote posts, etc)
-- [ ] Reblogging
-- [ ] Multiple sessions/session management
-- [ ] User avatars
 - [ ] Typeahead search bar
+- [ ] Users able to change theme/background image
+- [ ] Users able to mark emails unread
+- [ ] Multiple sessions/session management
+- [ ] Users able to attach files to emails
+- [ ] Users able to attach files by dragging them into the email body
+- [ ] Users able to set custom signature
+- [ ] Vacation automatic responder
+- [ ] User profile
+- [ ] Contacts page
+- [ ] Display time of last account activity
+- [ ] Users able to set maximum page size (number of messages displayed)
+- [ ] Users able to print emails
+- [ ] User able to change display density (layout)
+- [ ] "Pop in new window" button for emails
+- [ ] Display total size of content in GB
 
 [phase-one]: ./docs/phases/phase1.md
 [phase-two]: ./docs/phases/phase2.md
 [phase-three]: ./docs/phases/phase3.md
 [phase-four]: ./docs/phases/phase4.md
 [phase-five]: ./docs/phases/phase5.md
-
