@@ -15,6 +15,7 @@ Maildog is a clone of Gmail built on Rails and Backbone. Users can:
 - [ ] Star emails
 - [ ] Search entire content by text fragment
 - [ ] Search entire content by sender/receiver
+- [ ] See search results instantly (typeahead search)
 - [ ] Edit text style in their emails (font, font-size, font-color, font weight and indentation)
 - [ ] label and organize emails in folders
 - [ ] Chat with other users in real time
@@ -29,51 +30,87 @@ Maildog is a clone of Gmail built on Rails and Backbone. Users can:
 
 ## Implementation Timeline
 
-### Phase 1: User Authentication, Blog Creation (~1 day)
-I will implement user authentication in Rails based on the practices learned at
-App Academy. By the end of this phase, users will be able to create blogs using
-a simple text form in a Rails view. The most important part of this phase will
-be pushing the app to Heroku and ensuring that everything works before moving on
-to phase 2.
+### Phase 1: User Authentication (~1 day)
+* Implement user authentication in Rails.
+* Build pages: sessions/new (2), users/new (2).
+* Push project to heroku and ensure that everything works.
+
+By the end of this phase, users will be able to sign in and sign up using
+text forms provided on backbone views.
 
 [Details][phase-one]
 
-### Phase 2: Viewing Blogs and Posts (~2 days)
-I will add API routes to serve blog and post data as JSON, then add Backbone
-models and collections that fetch data from those routes. By the end of this
-phase, users will be able to create blogs and view both blogs and posts, all
-inside a single Backbone app.
+### Phase 2: Creating Emails and Viewing a List of Emails (~1 day)
+* Set up the layout of the MailIndex Backbone View.
+* Create EmailIndex, EmailListItem and EmailCompose Backbone Views.
+
+By the end of this phase users will be able to create (fake) emails and view a list of their emails on their mail homepage.
 
 [Details][phase-two]
 
-### Phase 3: Editing and Displaying Posts (~2 days)
-I plan to use third-party libraries to add functionality to the `PostForm` and
-`PostShow` views in this phase. First I'll need to add a Markdown editor to the
-`PostForm`, and make sure that the Markdown is properly escaped and formatted in
-the `PostShow` view. I also plan to integrate Filepicker for file upload so
-users can add images to blog posts.
+### Phase 3: Showing Emails, Folders, Labels and Contacts (~2 days)
+* Create EmailThreadIndex, EmailShow, EmailAddressList and EmailAddressListItem Backbone views.
+* Add routes to show emails.
+* Create Folder and Label Backbone Models and Collections.
+* Create user interface and functionality for organizing emails.
+* Create Contacts model to hold email addresses and names of all senders/receivers that the user corresponds with.
+
+By the end of this phase, users will be able to view individual emails and email threads, move emails between folders, star, check and delete emails and create custom labels.
 
 [Details][phase-three]
 
-### Phase 4: User Feeds (~1-2 days)
-I'll start by adding a `feed` route that uses the `current_user`'s
-`subscribed_blogs` association to serve a list of blog posts ordered
-chronologically. On the Backbone side, I'll make a `FeedShow` view whose `posts`
-collection fetches from the new route.  Ultimately, this will be the page users
-see after logging in.
+### Phase 4: Sending/Receiving Emails (~1-2 days)
+A basic guideline on implementing emails in Rails:
+http://altoros.github.io/2014/email-on-rails/
+
+* Sending emails: ActionMailer::Base class (Rails). Build EmailMessagesController to
+handle send/edit/save actions.
+* Mailman gem for receiving emails.
+* Configure Email server (3rd party, e.g. gmail, yahoo, etc).
+* LetterOpener, MailCatcher, Mailtrap for development environment.
+* Sidekiq gem for sending emails asynchronously.
+
+By the end of this phase, users will be able to send real emails to real people. CC and BCC functionality will also be configured at this stage.
 
 [Details][phase-four]
 
-### Phase 5: Searching for Blogs and Posts (~2 days)
-I'll need to add `search` routes to both the Blogs and Posts controllers. On the
-Backbone side, there will be a `SearchResults` composite view has `BlogsIndex`
-and `PostsIndex` subviews. These views will use plain old `blogs` and `posts`
-collections, but they will fetch from the new `search` routes.
+### Phase 5: Styling and Formatting Emails (~1 day)
+* Use third-party gems to add markdown functionality to emails. Make sure that the Markdown is properly escaped when displaying emails.
+* Integrate Filepicker for file upload so users can attach files to emails.
+* Ensure emails are sent/received with correct formatting before moving on to the next stage.
+
+By the end of this stage, users will be able to edit email body with their choice of font, font-weight, font-style, font-size, font-color and indentation.
 
 [Details][phase-five]
 
+### Phase 6: Search (~1 day)
+* Implement search bar to search for messages by text or by sender/receiver.
+* Add typeahead search feature.
+* Add Search routes to both Emails and Contacts controllers.
+* Add SearchBox and EmailSearchItem Backbone Views.
+
+By the end of this stage users will be able to dynamically search for content in their messages.  
+
+[Details][phase-six]
+
+### Phase 7: Chat (~1 day)
+
+* Create ChatBox and ChatItem Backbone Views.
+* Use third-party gem for instant message functionality.
+
+By the end of this phase, users will be able to send instant messages to other users and receive responses.
+
+[Details][phase-seven]
+
+### Phase 8: CSS Styling (~1 day)
+
+* Make it look like Gmail using CSS.
+
+By the end of this phase, users will accidentally confuse Maildog with their Gmail account.
+
+[Details][phase-eight]
+
 ### Bonus Features (TBD)
-- [ ] Typeahead search bar
 - [ ] Users able to change theme/background image
 - [ ] Users able to mark emails unread
 - [ ] Multiple sessions/session management
@@ -95,3 +132,6 @@ collections, but they will fetch from the new `search` routes.
 [phase-three]: ./docs/phases/phase3.md
 [phase-four]: ./docs/phases/phase4.md
 [phase-five]: ./docs/phases/phase5.md
+[phase-six]: ./docs/phases/phase6.md
+[phase-seven]: ./docs/phases/phase7.md
+[phase-eight]: ./docs/phases/phase8.md

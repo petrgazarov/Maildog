@@ -1,4 +1,4 @@
-# Phase 5: Styling and Formatting Emails
+# Phase 7: Chat
 
 ## Rails
 ### Models
@@ -13,8 +13,8 @@
 ### Collections
 
 ### Views
+* ChatBox
+* ChatItem
 
 ## Gems/Libraries
-* marked
-* markdown-js
-* Filepicker
+* Pusher gem

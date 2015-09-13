@@ -1,13 +1,21 @@
-# Phase 4: User Feeds
+# Phase 4: Sending/Receiving Emails
 
 ## Rails
 ### Models
+* EmailTo
+* EmailCc
+* EmailBcc
 
 ### Controllers
-Api::PostsController (feed)
+* Api::EmailMessagesController
+* Api::EmailTosController
+* Api::EmailCcsController
+* Api::EmailBccsController
 
 ### Views
-posts/feed.json.jbuilder
+
+### Mailers
+* EmailMessagesMailer (inherits from ApplicationMailer)
 
 ## Backbone
 ### Models
@@ -15,6 +23,10 @@ posts/feed.json.jbuilder
 ### Collections
 
 ### Views
-* FeedShow (composite view, contains PostsIndex subview)
 
 ## Gems/Libraries
+* LetterOpener
+* MailCatcher
+* Mailtrap
+* Mailman
+* Sidekiq

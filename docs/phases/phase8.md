@@ -1,4 +1,4 @@
-# Phase 5: Styling and Formatting Emails
+# Phase 8: CSS Styling
 
 ## Rails
 ### Models
@@ -15,6 +15,3 @@
 ### Views
 
 ## Gems/Libraries
-* marked
-* markdown-js
-* Filepicker
