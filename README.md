@@ -1,4 +1,4 @@
-# Flux-capacitr
+# Maildog
 
 [Heroku link][heroku]
 
