@@ -1,4 +1,4 @@
-# Phase 7: Chat
+# Phase 7: CSS Styling
 
 ## Rails
 ### Models
@@ -13,8 +13,5 @@
 ### Collections
 
 ### Views
-* ChatBox
-* ChatItem
 
 ## Gems/Libraries
-* Pusher gem

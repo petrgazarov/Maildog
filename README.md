@@ -18,8 +18,6 @@ Maildog is a clone of Gmail built on Rails and Backbone. Users can:
 - [ ] See search results instantly (typeahead search)
 - [ ] Edit text style in their emails (font, font-size, font-color, font weight and indentation)
 - [ ] label and organize emails in folders
-- [ ] Chat with other users in real time
-- [ ] View their chat history
 
 ## Design Docs
 * [View Wireframes][views]
@@ -93,20 +91,21 @@ By the end of this stage users will be able to dynamically search for content in
 
 [Details][phase-six]
 
-### Phase 7: Chat (~1 day)
+
+### Phase 7: CSS Styling (~1 day)
+
+* Make it look like Gmail using CSS.
+
+By the end of this phase, users will accidentally confuse Maildog with their Gmail account.
+
+[Details][phase-seven]
+
+### Phase 8: Chat (~1 day)
 
 * Create ChatBox and ChatItem Backbone Views.
 * Use third-party gem for instant message functionality.
 
 By the end of this phase, users will be able to send instant messages to other users and receive responses.
-
-[Details][phase-seven]
-
-### Phase 8: CSS Styling (~1 day)
-
-* Make it look like Gmail using CSS.
-
-By the end of this phase, users will accidentally confuse Maildog with their Gmail account.
 
 [Details][phase-eight]
 
@@ -126,6 +125,8 @@ By the end of this phase, users will accidentally confuse Maildog with their Gma
 - [ ] User able to change display density (layout)
 - [ ] "Pop in new window" button for emails
 - [ ] Display total size of content in GB
+- [ ] Chat with other users in real time
+- [ ] View their chat history
 
 [phase-one]: ./docs/phases/phase1.md
 [phase-two]: ./docs/phases/phase2.md

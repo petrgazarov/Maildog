@@ -29,22 +29,11 @@ time         | time      | not null
 parent_email | integer   | foreign key (references emails)
 
 ## email_to
-column name  | data type | details
--------------|-----------|-----------------------
-email_id     | integer   | not null, foreign key (references emails)
-addressee_id | integer   | not null, foreign key (references contacts)
-
-## email_cc
-column name | data type | details
-------------|-----------|-----------------------
-email_id    | integer   | not null, foreign key (references emails)
-cc_id       | integer   | not null, foreign key (references contacts)
-
-## email_bcc
-column name | data type | details
-------------|-----------|-----------------------
-email_id    | integer   | not null, foreign key (references emails)
-bcc_id       | integer   | not null, foreign key (references contacts)
+column name    | data type | details
+---------------|-----------|-----------------------
+email_id       | integer   | not null, foreign key (references emails)
+addressee_id   | integer   | not null, foreign key (references contacts)
+addressee_kind | string    | not null, default: "to" (can contain "to", "cc" or "bcc")
 
 ## contacts
 column name     | data type | details
@@ -57,14 +46,7 @@ photo_src_path  | string    |
 job_title       | string    |
 birth_day       | date      |
 gender          | string    |  
-
-## owner-contact
-column name | data type | details
-------------|-----------|-----------------------
-owner_id          | integer   | not null, foreign key (references users)
-contact_id        | integer   | not null, foreign key (references contacts)
-num_conversations | integer   | not null, default: 0
-starred           | boolean   | not null, default: false
+owner_id        | integer   | not null, foreign key (references users)
 
 ## labels
 column name | data type | details
@@ -85,6 +67,7 @@ column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 name        | string    | not null
+author_id   | integer   | not null, foreign key (references users)
 
 ## email_folder
 column name | data type | details
