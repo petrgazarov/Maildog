@@ -11,10 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150915200510) do
+ActiveRecord::Schema.define(version: 20150915205628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contacts", force: :cascade do |t|
+    t.string   "email",          null: false
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "photo_src_path"
+    t.string   "job_title"
+    t.date     "birth_date"
+    t.string   "gender"
+    t.integer  "owner_id",       null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "contacts", ["email"], name: "index_contacts_on_email", unique: true, using: :btree
+  add_index "contacts", ["owner_id"], name: "index_contacts_on_owner_id", using: :btree
 
   create_table "email_addressees", force: :cascade do |t|
     t.integer  "email_id",     null: false
