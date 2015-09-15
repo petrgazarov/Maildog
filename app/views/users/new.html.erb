@@ -1,2 +1,23 @@
 <h1>Maildog</h1>
 <div id='content'></div>
+
+<a href='<%= new_session_url %>'>Sign in</a>
+
+Sign up
+
+<form action='<%= users_url %>' method='post'>
+  <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+  <label>Username
+  <input type='text' name='user[username]' value='<%= @user.username %>'>
+  </label>
+  <label>First Name
+  <input type='text' name='user[first_name]' value='<%= @user.first_name %>'>
+  </label>
+  <label>Last Name
+  <input type='text' name='user[last_name]' value='<%= @user.last_name %>'>
+  </label>
+  <label>Password
+  <input type='password' name='user[password]'>
+  </label>
+  <button>Submit</button>
+</form>

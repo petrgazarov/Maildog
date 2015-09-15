@@ -1,5 +1,5 @@
 window.Maildog = {
-  Models {},
+  Models: {},
   Collections: {},
   Views: {},
   Routers: {},
@@ -10,5 +10,5 @@ window.Maildog = {
 };
 
 $(function() {
-  new Maildog();
+  Maildog.initialize();
 })
