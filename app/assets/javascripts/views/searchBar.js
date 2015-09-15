@@ -1,8 +1,9 @@
 Maildog.Views.SearchBar = Backbone.CompositeView.extend({
-  template: JST['SearchBar'],
+  template: JST['searchBar'],
   id: 'search-bar',
 
   render: function() {
-
+    this.$el.html(this.template());
+    return this;
   }
 });
