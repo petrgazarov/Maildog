@@ -1,8 +1,19 @@
 class EmailsController < ApplicationController
   def create
     @email = current_user.emails.new(email_params)
-    params[:addressees].keys.each do |addressee|
-      
+    params[:addressees].each do |email, type|
+      contact = Contact.create_or_get(email)
+
+      email_addressee = @email.addressees.new({
+        type: type,
+        addressee_id: contact.id
+      })
+      email_addressee.save!
+    end
+    if @email.save
+      render json: @email
+    else
+      render json: @email.errors
     end
   end
 
