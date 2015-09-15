@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
   after_initialize :ensure_session_token
   before_validation :ensure_email
 
+  has_many: :emails,
+    class_name: "Email",
+    foreign_key: :sender_id
+
   def self.generate_session_token
     SecureRandom.urlsafe_base64
   end
