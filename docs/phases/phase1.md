@@ -28,3 +28,7 @@
 
 ## Gems/Libraries
 * SerializeJSON
+* Require.js for multipage app
+
+Links for Require.js:
+https://cdnjs.com/libraries/backbone.js/tutorials/organizing-backbone-using-modules

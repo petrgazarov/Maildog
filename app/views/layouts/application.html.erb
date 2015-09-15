@@ -7,6 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<ul>
+  <% flash[:errors].try(:each) do |error|  %>
+  <li>error</li>
+  <% end %>
+</ul>
 
 <%= yield %>
 
