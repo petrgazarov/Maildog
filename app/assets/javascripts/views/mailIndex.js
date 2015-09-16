@@ -24,7 +24,7 @@ Maildog.Views.MailIndex = Backbone.CompositeView.extend({
       }.bind(this));
 
     [ Maildog.Views.EmailFolders,
-      Maildog.Views.EmailIndexContent ].forEach(function(view) {
+      Maildog.Views.EmailIndexList ].forEach(function(view) {
         this.addSubview(this.$('#mail-index-content'), new view())
       }.bind(this));
   }

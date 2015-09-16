@@ -8,6 +8,8 @@ window.Maildog = {
     Maildog.currentUser = new Maildog.Models.CurrentUser();
     new Maildog.Routers.Router({ $rootEl: $('#content') });
     Backbone.history.start();
+    var view = new Maildog.Views.MailIndex();
+    $("#mail-index").html(view.render().$el);
   }
 };
 
