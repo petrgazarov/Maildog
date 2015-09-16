@@ -1,6 +1,7 @@
 Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend({
   template: JST['composeEmailBox'],
   tagName: 'form',
+  className: 'compose-email-popup',
 
   events: {
     "submit": "sendEmail"
