@@ -4,6 +4,7 @@ window.Maildog = {
   Views: {},
   Routers: {},
   initialize: function() {
+    Maildog.emails = new Maildog.Collections.Emails();
     new Maildog.Routers.Router({ $rootEl: $('#content') });
     Backbone.history.start();
   }

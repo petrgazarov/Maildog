@@ -1,5 +1,5 @@
 class EmailAddressee < ActiveRecord::Base
-  validates :email, :addressee, :type, presence: true
+  validates :email, :addressee, :email_type, presence: true
 
   belongs_to :email,
     foreign_key: :email_id
@@ -7,4 +7,5 @@ class EmailAddressee < ActiveRecord::Base
   belongs_to :addressee,
     class_name: "Contact",
     foreign_key: :addressee_id
+
 end

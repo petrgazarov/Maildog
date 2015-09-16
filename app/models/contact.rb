@@ -5,13 +5,12 @@ class Contact < ActiveRecord::Base
     class_name: "EmailAddressee",
     foreign_key: :email_id
 
+  belongs_to :owner,
+    class_name: "User",
+    foreign_key: :owner_id
+
   def self.create_or_get(email_address)
     contact = Contact.find_by({ email: email_address })
-    if !contact
-      contact = current_user.contacts.new({ email: email_address })
-      contact.save!
-    end
-
-    contact
+    contact ? contact : Contact.new({ email: email_address })
   end
 end
