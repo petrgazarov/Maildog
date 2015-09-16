@@ -5,6 +5,14 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create]
 
   namespace :api, defaults: { format: :json } do
+    resources :emails do
+      collection do
+        get :inbox
+        get :starred
+        get :sent
+        get :drafts
+      end
+    end
     resources :emails, except: [:new, :edit]
     resource :user
   end

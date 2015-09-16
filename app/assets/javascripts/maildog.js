@@ -4,7 +4,6 @@ window.Maildog = {
   Views: {},
   Routers: {},
   initialize: function() {
-    Maildog.emails = new Maildog.Collections.Emails();
     Maildog.currentUser = new Maildog.Models.CurrentUser();
     var view = new Maildog.Views.MailIndex();
     $("#mail-index").html(view.render().$el);

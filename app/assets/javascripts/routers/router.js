@@ -10,6 +10,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
 
   inbox: function() {
     
+    var view = new Maildog.Views.EmailListShow()
   },
 
   _swapView: function(newView) {

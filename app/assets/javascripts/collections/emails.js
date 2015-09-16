@@ -1,3 +1,5 @@
-Maildog.Collections.Emails = Backbone.Collection.extend({
-  url: "api/emails"
+Maildog.Collections.InboxEmails = Backbone.Collection.extend({
+  url: "api/emails/inbox",
+
+
 });

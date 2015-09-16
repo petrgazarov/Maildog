@@ -31,6 +31,12 @@ class Api::EmailsController < ApplicationController
     render json: Email.all
   end
 
+  def inbox
+    render json: Email.all
+  end
+
+  private
+
   def email_params
     params.require(:email).permit(:subject, :body, :parent_email_id)
   end
