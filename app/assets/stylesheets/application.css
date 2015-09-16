@@ -55,6 +55,7 @@ button {
 
 .mail-header {
   border: 1px solid red;
+  height: 60px;
 }
 
 .mail-nav {
@@ -79,6 +80,11 @@ button {
 .current-user-info > aside {
   display: block;
   float: right;
+  background: url(petr-photo.jpg);
+  background-size: cover;
+  width: 60px;
+  height: 60px;
+  border: 1px solid purple;
 }
 
 .email-options {
