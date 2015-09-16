@@ -24,3 +24,12 @@
    text-decoration: inherit;
    background: transparent;
  }
+
+ul {
+  list-style: none;
+}
+
+body {
+  font-family: sans-serif;
+  font-size: 18px;
+}
