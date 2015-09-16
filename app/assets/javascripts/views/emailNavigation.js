@@ -1,6 +1,6 @@
 Maildog.Views.EmailNavigation = Backbone.CompositeView.extend({
   template: JST['emailNavigation'],
-  id: 'email-navigation',
+  className: 'email-nav',
 
   render: function() {
     this.$el.html(this.template());

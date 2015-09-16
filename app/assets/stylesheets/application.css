@@ -80,3 +80,15 @@ button {
   display: block;
   float: right;
 }
+
+.email-options {
+  float: left;
+}
+
+.pages-menu {
+  float: left;
+}
+
+.email-nav {
+  float: right;
+}
