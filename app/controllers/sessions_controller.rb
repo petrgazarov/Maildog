@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
       log_in!(@user)
       redirect_to root_url
     else
+      @user = User.new
       flash.now[:errors] = ['bad username/password combo']
       render :new
     end

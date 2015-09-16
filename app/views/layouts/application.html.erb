@@ -9,7 +9,7 @@
 <body>
 <ul>
   <% flash[:errors].try(:each) do |error|  %>
-  <li>error</li>
+  <li><%= error %></li>
   <% end %>
 </ul>
 <% if logged_in? %>
