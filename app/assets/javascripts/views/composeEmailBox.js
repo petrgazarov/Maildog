@@ -4,7 +4,8 @@ Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend({
   className: 'compose-email-popup',
 
   events: {
-    "submit": "sendEmail"
+    "submit": "sendEmail",
+    "click .cancel-compose-box-popup": "removeView"
   },
 
   render: function() {
@@ -24,5 +25,9 @@ Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend({
         Backbone.history.navigate("#", { trigger: true })
       }.bind(this)
     })
+  },
+
+  removeView: function() {
+    this.remove();
   }
 });

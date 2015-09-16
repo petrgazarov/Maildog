@@ -61,6 +61,7 @@ button {
 .cancel-compose-box-popup {
   display: block;
   float: right;
+  cursor: pointer;
 }
 
 .compose-email-to {
