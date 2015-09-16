@@ -1,7 +1,6 @@
 Maildog.Views.EmailIndexContent = Backbone.CompositeView.extend({
   template: JST['emailIndexContent'],
-
-  className: "email-index-content",
+  className: "email-list",
 
   render: function() {
     this.$el.html(this.template());

@@ -85,10 +85,24 @@ button {
   float: left;
 }
 
+.email-folders {
+  float: left;
+  width: 200px;
+  border: 1px solid orange;
+}
+
 .pages-menu {
   float: left;
 }
 
 .email-nav {
   float: right;
+}
+
+.email-list {
+  border: 1px solid green;
+  display: block;
+  float: right;
+  width: calc(100% - 204px);
+  min-height: 100px;
 }
