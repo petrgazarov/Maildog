@@ -38,6 +38,12 @@ button {
   cursor: pointer;
 }
 
+.group:after {
+  clear: both;
+  display: block;
+  content: "";
+}
+
 .compose-email-popup {
   border: 1px solid black;
   width: 600px;
@@ -45,4 +51,32 @@ button {
   position: fixed;
   bottom: 0;
   right: 25px;
+}
+
+.mail-header {
+  border: 1px solid red;
+}
+
+.mail-nav {
+  border: 1px solid blue;
+}
+
+.header-title-text {
+  display: block;
+  float: left;
+}
+
+.search-bar {
+  border: 1px solid yellow;
+  float: left;
+}
+
+.current-user-info > p {
+  display: block;
+  float: right;
+}
+
+.current-user-info > aside {
+  display: block;
+  float: right;
 }
