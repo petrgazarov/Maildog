@@ -2,6 +2,7 @@ Maildog.Views.MailIndex = Backbone.CompositeView.extend({
   template: JST['mailIndex'],
 
   initialize: function() {
+    Maildog.currentUser.fetch();
   },
 
   render: function() {

@@ -1,3 +1,3 @@
 Maildog.Models.CurrentUser = Backbone.Model.extend({
-  urlRoot: "api/user"
+  url: "api/user"
 })
