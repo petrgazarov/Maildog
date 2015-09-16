@@ -1,15 +1,19 @@
-<h4>New Message</h4>
-<label>To:
+<header class='compose-email-popup-header group'>
+  <h4 class='compose-email-popup-header-text'>New Message</h4>
+  <aside class='cancel-compose-box-popup'>x</aside>
+</header>
+
+<label class='compose-email-to'>To:
   <input type='text' name='email[addressees][email]'>
   <input type='hidden' name='email[addressees][email_type]' value='to'>
 </label>
-<label>From:
+<label class='compose-email-from'>From:
   <input type='text' name='email[from]'>
 </label>
-<label>Subject:
+<label class='compose-email-subject'>Subject:
   <input type='text' name='email[subject]'>
 </label>
-<label>Body:
+<label class='compose-email-body'>Body:
   <textarea name='email[body]'></textarea>
 </label>
-<button>Send</button>
+<button class='compose-email-send-button'>Send</button>

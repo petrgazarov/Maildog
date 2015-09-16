@@ -53,6 +53,40 @@ button {
   right: 25px;
 }
 
+.compose-email-popup-header-text {
+  display: block;
+  float: left;
+}
+
+.cancel-compose-box-popup {
+  display: block;
+  float: right;
+}
+
+.compose-email-to {
+  display: block;
+}
+
+.compose-email-from {
+  display: block;
+}
+
+.compose-email-subject {
+  display: block;
+}
+
+.compose-email-body {
+  display: block;
+}
+.compose-email-body > textarea {
+  width: 80%;
+  height: 150px;
+}
+
+.compose-email-send-button {
+  display: block;
+}
+
 .mail-header {
   border: 1px solid red;
   height: 60px;
