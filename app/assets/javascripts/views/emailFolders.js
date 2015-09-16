@@ -1,6 +1,6 @@
 Maildog.Views.EmailFolders = Backbone.CompositeView.extend({
   template: JST['emailFolders'],
-  id: 'email-folders',
+  className: 'email-folders',
 
   events: {
     "click .compose-button": "popUpComposeEmailBox"
