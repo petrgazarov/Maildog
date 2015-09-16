@@ -65,6 +65,9 @@ button {
 .header-title-text {
   display: block;
   float: left;
+  font-size: 26px;
+  margin: 10px 30px;
+  height: 40px;
 }
 
 .search-bar {
