@@ -1,12 +1,9 @@
 class Api::EmailsController < ApplicationController
   def create
     @email = current_user.emails.new(email_params)
-
+    
     contact = Contact.create_or_get(params[:addressees][:email])
-    if !contact.owner
-      contact.owner = current_user
-      contact.save!
-    end
+    save_contact_if_new(contact)
 
     email_addressee = @email.addressees.new(
       email_type: params[:addressees][:email_type],
@@ -17,7 +14,6 @@ class Api::EmailsController < ApplicationController
       email_addressee.save!
       render json: @email
     else
-      debugger
       render json: @email.errors.full_messages, status: :unprocessable_entity
     end
   end
@@ -36,6 +32,13 @@ class Api::EmailsController < ApplicationController
   end
 
   private
+
+  def save_contact_if_new(contact)
+    if !contact.owner
+      contact.owner = current_user
+      contact.save!
+    end
+  end
 
   def email_params
     params.require(:email).permit(:subject, :body, :parent_email_id)
