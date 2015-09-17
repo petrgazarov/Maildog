@@ -53,6 +53,7 @@ button {
   position: fixed;
   bottom: 0;
   right: 25px;
+  background: white;
 }
 
 .compose-email-popup-header-text {
@@ -155,6 +156,7 @@ button {
 
 .email-list-item {
   height: 35px;
+  font-size: 14px;
 }
 
 .email-list-item-check {
@@ -172,7 +174,7 @@ button {
 
 .email-list-item-subject {
   float: left;
-  margin-left: 30px;
+  margin-left: 80px;
 }
 
 .email-list-item-preview {
