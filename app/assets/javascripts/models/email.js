@@ -3,9 +3,10 @@ Maildog.Models.Email = Backbone.Model.extend({
 
   parse: function(payload) {
     if (payload.sender) {
-      this.sender().set(payload.sender, { parse: true })
+      this.sender().set(payload.sender, { parse: true });
       delete payload.sender
-    }
+    };
+
     return payload
   },
 

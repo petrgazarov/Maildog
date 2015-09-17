@@ -2,7 +2,7 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
   template: JST['showEmailThread'],
 
   initialize: function() {
-    this.collection.forEach(this.addSubviewToEmailThread.bind(this));
+    this.addSubviewsToEmailThread(this.model);
   },
 
   render: function() {
@@ -11,8 +11,14 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     return this;
   },
 
-  addSubviewToEmailThread: function(email) {
+  addSubviewsToEmailThread: function(email) {
     var subview = new Maildog.Views.EmailShow({ model: email });
     this.addSubview(".email-thread-list", subview);
+
+    if (this.model.responses_forwards()) {
+      this.model.responses_forwards().forEach(function(response_forward) {
+        this.addSubviewsToEmailThread(response_forward);
+      }.bind(this))
+    }
   }
 });
