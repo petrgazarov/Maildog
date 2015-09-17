@@ -32,6 +32,16 @@ class Api::EmailsController < ApplicationController
     render :inbox
   end
 
+  def thread
+    email = Email.find(params[:id])
+    if email.original_email_id
+      @emails = Email.where(original_email_id: email.original_email_id)
+    else
+      @emails = Email.where(original_email_id: email.id).push(email)
+    end
+    render json: @emails
+  end
+
   private
 
   def save_contact_if_new(contact)

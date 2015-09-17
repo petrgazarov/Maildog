@@ -12,6 +12,9 @@ Rails.application.routes.draw do
         get :sent
         get :drafts
       end
+      member do
+        get :thread
+      end
     end
     resources :emails, except: [:new, :edit]
     resource :user
