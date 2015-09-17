@@ -21,7 +21,7 @@ class Api::EmailsController < ApplicationController
   def show
     @email = Email.find(params[:id])
     if @email.original_email_id
-      @original_email = Email.find(email.original_email_id)
+      @original_email = Email.find(@email.original_email_id)
     else
       @original_email = @email
     end

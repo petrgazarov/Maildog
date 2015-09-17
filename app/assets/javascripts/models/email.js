@@ -7,16 +7,23 @@ Maildog.Models.Email = Backbone.Model.extend({
       delete payload.sender;
     };
 
-    if (payload.responses_forwards) {
-      this.responses_forwards.set(payload.responses_forwards, { parse: true });
+    if (payload.response_forwards) {
+      this.responsesForwards.set(payload.responses_forwards, { parse: true });
       delete payload.responses_forwards;
     }
     return payload;
   },
 
+  responsesForwards: function() {
+    this._responsesForwards = (
+      this._responsesForwards || new Maildog.Collections.Emails()
+    );
+    return this._responsesForwards;
+  },
+
   sender: function() {
     this._sender = (this._sender || new Maildog.Models.Contact())
-    return this._sender
+    return this._sender;
   },
 
   preview: function() {
