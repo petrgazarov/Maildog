@@ -25,6 +25,6 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
 
   showEmail: function(e) {
     var id = $(e.currentTarget).data('id');
-    Backbone.history.navigate("#inbox/" + id, { trigger: true });
+    Backbone.history.navigate("#emails/" + id, { trigger: true });
   }
 });

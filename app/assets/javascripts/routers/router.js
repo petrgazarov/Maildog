@@ -5,13 +5,18 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   routes: {
-    "inbox": "inbox"
+    "inbox": "inbox",
+    "emails/:id": "showEmailThead"
   },
 
   inbox: function() {
     var emails = new Maildog.Collections.InboxEmails();
     var view = new Maildog.Views.EmailList({ collection: emails });
     this._swapView(view);
+  },
+
+  showEmailThead: function(id) {
+    var emailThread
   },
 
   _swapView: function(newView) {
