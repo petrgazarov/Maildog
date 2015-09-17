@@ -20,7 +20,13 @@ class Api::EmailsController < ApplicationController
 
   def show
     @email = Email.find(params[:id])
-    render json: @email
+    if @email.original_email_id
+      @original_email = Email.find(email.original_email_id)
+    else
+      @original_email = @email
+    end
+
+    render :show
   end
 
   def index
