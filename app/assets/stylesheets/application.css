@@ -14,7 +14,9 @@
  *= require_self
  */
 
- html, body, figure, section, aside, ul, li, a, p, h1, h2, h3, h4, h5, main, div, form, label, footer, article, nav, header {
+ html, body, figure, section, aside, ul,
+ li, a, p, h1, h2, h3, h4, h5, main, div, form,
+ label, footer, article, nav, header {
    border: 0;
    padding: 0;
    margin: 0;
@@ -149,4 +151,36 @@ button {
   float: right;
   width: calc(100% - 204px);
   min-height: 100px;
+}
+
+.email-list-item {
+  height: 35px;
+}
+
+.email-list-item-check {
+  float: left;
+}
+
+.email-list-item-star {
+  float: left;
+}
+
+.email-list-item-sender {
+  float: left;
+  margin: 0 10px;
+}
+
+.email-list-item-subject {
+  float: left;
+  margin-left: 30px;
+}
+
+.email-list-item-preview {
+  float: left;
+  margin-left: 5px;
+  color: gray;
+}
+
+.email-list-item-time-date {
+  float: right;
 }
