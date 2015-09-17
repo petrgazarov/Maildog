@@ -1,7 +1,8 @@
 <input type='checkbox' class='email-list-item-check'>
 <input type='radio' class='email-list-item-star'>
 <p class='email-list-item-sender'>
-  <%= email.sender().escape('name') %>
+  <%= email.sender().escape('first_name') %>
+  <%= email.sender().escape('last_name') %>
 </p>
 <p class='email-list-item-subject'>
   <%= email.escape('subject') %>

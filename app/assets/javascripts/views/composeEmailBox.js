@@ -20,7 +20,6 @@ Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend({
 
     email.save(formData.email, {
       success: function() {
-        Maildog.emails.add(email);
         this.remove();
         Backbone.history.navigate("#", { trigger: true })
       }.bind(this)
