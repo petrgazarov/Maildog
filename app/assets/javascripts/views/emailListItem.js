@@ -4,6 +4,7 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
   className: "email-list-item",
 
   render: function() {
+    debugger
     var content = this.template({ email: this.model });
     this.$el.html(content);
     return this;

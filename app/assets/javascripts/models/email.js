@@ -10,7 +10,8 @@ Maildog.Models.Email = Backbone.Model.extend({
   },
 
   sender: function() {
-    this._sender || (this._sender = new Maildog.Models.Contact())
+    debugger
+    this._sender = (this._sender || new Maildog.Models.Contact())
     return this._sender
   },
 
