@@ -10,10 +10,14 @@ window.Maildog = {
     Maildog.inboxEmails.fetch();
     Maildog.currentUser.fetch();
 
-    Maildog.router = new Maildog.Routers.Router();
-    Maildog.mailIndex = new Maildog.Views.MailIndex();
-    $("#mail-index").html(Maildog.mailIndex.render().$el);
-    Maildog.router.$rootEl = $('.email-show-container');
+    Maildog.router = new Maildog.Routers.Router({
+      $rootEl: $('.email-show-container')
+    });
+    Maildog.Views.mailNav = new Maildog.Views.MailNav();
+    $("#mail-nav").html(Maildog.Views.mailNav.render().$el);
+
+    Maildog.Views.mailSidebar = new Maildog.Views.MailSidebar();
+    $("#mail-sidebar").html(Maildog.Views.mailSidebar.render().$el);
     Backbone.history.start();
   }
 };

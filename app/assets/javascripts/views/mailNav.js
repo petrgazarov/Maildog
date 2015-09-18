@@ -1,4 +1,4 @@
-Maildog.Views.MailIndex = Backbone.CompositeView.extend({
+Maildog.Views.MailNav = Backbone.CompositeView.extend({
   template: JST['mailIndex'],
 
   initialize: function() {
@@ -19,19 +19,17 @@ Maildog.Views.MailIndex = Backbone.CompositeView.extend({
         this.addSubview(this.$('.mail-header'), new view());
       }.bind(this));
 
-    [ Maildog.Views.PagesMenu,
-      Maildog.Views.EmailOptions,
-      Maildog.Views.EmailNavigation ].forEach(function(view) {
-        this.addSubview(this.$('.mail-nav'), new view());
-      }.bind(this));
-
+    this.addSubview(this.$('.pages-menu'), new Maildog.Views.PagesMenu());
     this.addSubview(
-      this.$('.mail-main-section'),
-      new Maildog.Views.EmailFolders()
+      this.$('.email-options'), new Maildog.Views.EmailOptions()
+    );
+    this.addSubview(
+      this.$('.email-navigation'), new Maildog.Views.EmailNavigation()
     );
   },
 
   changeEmailOptions: function(id) {
     alert(id)
+
   }
 });

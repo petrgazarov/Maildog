@@ -132,10 +132,14 @@ button {
   float: left;
 }
 
-.email-folders {
+.mail-main-section {
   float: left;
+}
+
+.email-folders {
   width: 200px;
   border: 1px solid orange;
+  float: left;
 }
 
 .pages-menu {
@@ -192,7 +196,7 @@ button {
 }
 
 .email-show-subject {
-  
+
 }
 
 .email-show-sender-name {
