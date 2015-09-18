@@ -15,6 +15,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'bcrypt-ruby'
 gem 'bcrypt'
 gem 'backbone-on-rails'
+gem "figaro"
 # Use Unicorn as the app server
 # gem 'unicorn'
 # Use Capistrano for deployment
