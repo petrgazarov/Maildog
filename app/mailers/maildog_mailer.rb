@@ -3,9 +3,11 @@ class MaildogMailer < ApplicationMailer
 
   def send_email(contact, email)
     @email = email
+
     mail(
       to: contact.email,
-      subject: @email.subject
+      subject: @email.subject,
+      from: @email.sender.full_name
       )
     end
 end

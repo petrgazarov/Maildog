@@ -50,4 +50,8 @@ class User < ActiveRecord::Base
     self.session_token = self.class.generate_session_token
     self.save!
   end
+
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
 end
