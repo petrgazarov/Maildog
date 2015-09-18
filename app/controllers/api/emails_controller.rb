@@ -42,11 +42,17 @@ class Api::EmailsController < ApplicationController
   def thread
     email = Email.find(params[:id])
     if email.original_email_id
-      @emails = Email.where(original_email_id: email.original_email_id)
+      @emails = Email.order(:created_at).where(
+        "original_email_id = ? OR id = ?",
+        email.original_email_id, email.original_email_id
+      )
     else
-      @emails = Email.where(original_email_id: email.id).push(email)
+      @emails = Email.order(:created_at).where(
+      original_email_id: email.id
+    ).push(email)
     end
-    render json: @emails
+
+    render :thread
   end
 
   private

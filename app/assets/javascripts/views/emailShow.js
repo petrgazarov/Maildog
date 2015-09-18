@@ -4,7 +4,8 @@ Maildog.Views.EmailShow = Backbone.CompositeView.extend({
   className: "email-show-item",
 
   initialize: function() {
-    this.listenTo(this.model, "sync", this.render)
+    this.listenTo(this.model, "sync", this.render);
+    this.listenTo(this.collection, "sync", this.render);
   },
 
   render: function() {

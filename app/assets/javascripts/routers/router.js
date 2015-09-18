@@ -17,9 +17,10 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   showEmailThead: function(id) {
-    var email = Maildog.inboxEmails.getOrFetch(id);
-    this.trigger("showEmailMessageOptions", email);
-    var view = new Maildog.Views.ShowEmailThread({ model: email });
+    var thread = new Maildog.Collections.EmailThreads({ id: id });
+    thread.fetch();
+    this.trigger("showEmailMessageOptions", thread);
+    var view = new Maildog.Views.ShowEmailThread({ collection: thread });
     this._swapView(view);
   },
 
