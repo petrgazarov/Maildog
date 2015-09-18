@@ -7,10 +7,6 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
     this.collection.forEach(this.addSubviewForEmail.bind(this));
   },
 
-  events: {
-    "click li": "showEmail"
-  },
-
   render: function() {
     this.$el.html(this.template())
     this.attachSubviews();
@@ -20,10 +16,5 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
   addSubviewForEmail: function(email) {
     var subview = new Maildog.Views.EmailListItem({ model: email });
     this.addSubview(".email-list", subview);
-  },
-
-  showEmail: function(e) {
-    var id = $(e.currentTarget).data('id');
-    Backbone.history.navigate("#emails/" + id, { trigger: true });
   }
 });

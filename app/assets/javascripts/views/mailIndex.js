@@ -2,7 +2,9 @@ Maildog.Views.MailIndex = Backbone.CompositeView.extend({
   template: JST['mailIndex'],
 
   initialize: function() {
-    Maildog.currentUser.fetch();
+    this.listenTo(
+      Maildog.router, "showEmailMessageOptions", this.changeEmailOptions
+    )
   },
 
   render: function() {
@@ -27,5 +29,9 @@ Maildog.Views.MailIndex = Backbone.CompositeView.extend({
       this.$('.mail-main-section'),
       new Maildog.Views.EmailFolders()
     );
+  },
+
+  changeEmailOptions: function(id) {
+    alert(id)
   }
 });

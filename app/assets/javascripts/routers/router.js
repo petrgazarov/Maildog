@@ -1,7 +1,7 @@
 Maildog.Routers.Router = Backbone.Router.extend({
 
-  initialize: function(options) {
-    this.$rootEl = options.$rootEl
+  initialize: function() {
+    // this.$rootEl = options.$rootEl
   },
 
   routes: {
@@ -16,6 +16,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   showEmailThead: function(id) {
+    this.trigger("showEmailMessageOptions", id);
     var email = Maildog.inboxEmails.getOrFetch(id);
     var view = new Maildog.Views.ShowEmailThread({ model: email });
     this._swapView(view);

@@ -8,10 +8,12 @@ window.Maildog = {
     Maildog.inboxEmails = new Maildog.Collections.Emails(
       [], { urlAction: "inbox" });
     Maildog.inboxEmails.fetch();
+    Maildog.currentUser.fetch();
 
-    var view = new Maildog.Views.MailIndex();
-    $("#mail-index").html(view.render().$el);
-    new Maildog.Routers.Router({ $rootEl: $('.email-show-container') });
+    Maildog.router = new Maildog.Routers.Router();
+    Maildog.mailIndex = new Maildog.Views.MailIndex();
+    $("#mail-index").html(Maildog.mailIndex.render().$el);
+    Maildog.router.$rootEl = $('.email-show-container');
     Backbone.history.start();
   }
 };
