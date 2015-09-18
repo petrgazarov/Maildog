@@ -28,8 +28,8 @@ Maildog.Views.MailNav = Backbone.CompositeView.extend({
     );
   },
 
-  changeEmailOptions: function(id) {
-    alert(id)
+  changeEmailOptions: function(email) {
+    alert("here")
 
   }
 });
