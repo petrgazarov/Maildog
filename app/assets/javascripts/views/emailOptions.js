@@ -9,6 +9,10 @@ Maildog.Views.EmailOptions = Backbone.View.extend({
     this.listenTo(Maildog.router, "folderLinkClick", this.render);
   },
 
+  events: {
+    "click .delete-email-thread": "fireDeleteThread"
+  },
+
   render: function(state, email) {
     var content;
     if (typeof state === "undefined") {
@@ -20,7 +24,10 @@ Maildog.Views.EmailOptions = Backbone.View.extend({
 
     this.$el.html(content);
     return this;
-  }
+  },
 
-
+  fireDeleteThread: function(e) {
+    e.preventDefault();
+    Backbone.pubSub.trigger("deleteThread");
+  },
 });

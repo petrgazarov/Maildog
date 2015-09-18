@@ -23,9 +23,8 @@ class Api::ThreadsController < ApplicationController
         email.original_email_id, email.original_email_id
       ).destroy
     else
-      emails = Email.where(
-      original_email_id: email.id
-    ).push(email).destroy
+      emails = Email.where(original_email_id: email.id).destroy_all
+      email.destroy
     end
 
     render json: emails

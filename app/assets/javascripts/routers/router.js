@@ -11,6 +11,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   inbox: function() {
+    Maildog.inboxEmails.fetch();
     this.trigger("folderLinkClick");
     var view = new Maildog.Views.EmailList({ collection: Maildog.inboxEmails });
     this._swapView(view);

@@ -7,8 +7,8 @@ window.Maildog = {
     Maildog.currentUser = new Maildog.Models.CurrentUser();
     Maildog.inboxEmails = new Maildog.Collections.Emails(
       [], { urlAction: "inbox" });
-    Maildog.inboxEmails.fetch();
     Maildog.currentUser.fetch();
+    Backbone.pubSub = _.extend({}, Backbone.Events);
 
     Maildog.router = new Maildog.Routers.Router({
       $rootEl: $('.email-show-container')
