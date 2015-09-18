@@ -13,7 +13,6 @@ window.Maildog = {
     $("#mail-index").html(view.render().$el);
     new Maildog.Routers.Router({ $rootEl: $('.email-show-container') });
     Backbone.history.start();
-    // Backbone.history.navigate("inbox", { trigger: true })
   }
 };
 

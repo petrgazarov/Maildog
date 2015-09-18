@@ -5,6 +5,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   routes: {
+    "": "inbox",
     "inbox": "inbox",
     "emails/:id": "showEmailThead"
   },
