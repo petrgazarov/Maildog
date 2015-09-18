@@ -4,6 +4,7 @@ class Api::EmailsController < ApplicationController
 
     contact = Contact.create_or_get(params[:addressees][:email])
     save_contact_if_new(contact)
+    MaildogMailer.send_email(contact).deliver
 
     email_addressee = @email.addressees.new(
       email_type: params[:addressees][:email_type],

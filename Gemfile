@@ -34,6 +34,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'pry-rails'
   gem 'quiet_assets'
+  gem "letter_opener"
 end
 
 group :production do
