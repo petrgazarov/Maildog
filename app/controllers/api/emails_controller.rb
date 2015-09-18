@@ -39,22 +39,6 @@ class Api::EmailsController < ApplicationController
     render :inbox
   end
 
-  def thread
-    email = Email.find(params[:id])
-    if email.original_email_id
-      @emails = Email.order(:created_at).where(
-        "original_email_id = ? OR id = ?",
-        email.original_email_id, email.original_email_id
-      )
-    else
-      @emails = Email.order(:created_at).where(
-      original_email_id: email.id
-    ).push(email)
-    end
-
-    render :thread
-  end
-
   private
 
   def save_contact_if_new(contact)

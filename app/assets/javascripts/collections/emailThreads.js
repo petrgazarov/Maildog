@@ -6,6 +6,6 @@ Maildog.Collections.EmailThreads = Backbone.Collection.extend({
   },
 
   url: function() {
-    return "api/emails/" + this.emailId + "/thread"
+    return "api/threads/" + this.emailId 
   }
 })
