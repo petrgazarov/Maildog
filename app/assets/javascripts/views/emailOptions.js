@@ -2,9 +2,16 @@ Maildog.Views.EmailOptions = Backbone.View.extend({
   template_list: JST['emailOptionsList'],
   template_show: JST['emailOptionsShow'],
 
+  initialize: function() {
+    this.listenTo(
+      Maildog.router, "showEmailMessageOptions", this.render.bind(this, "show")
+    );
+    this.listenTo(Maildog.router, "folderLinkClick", this.render);
+  },
+
   render: function(state, email) {
     var content;
-    if (state === "list") {
+    if (typeof state === "undefined") {
       content = this.template_list();
     }
     else if (state === "show") {

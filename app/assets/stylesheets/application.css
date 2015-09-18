@@ -130,6 +130,8 @@ button {
 
 .email-options {
   float: left;
+  position: absolute;
+  left: 200px;
 }
 
 .mail-main-section {
@@ -146,7 +148,7 @@ button {
   float: left;
 }
 
-.email-nav {
+.email-navigation {
   float: right;
 }
 

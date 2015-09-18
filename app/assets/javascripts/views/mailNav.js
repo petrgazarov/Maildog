@@ -1,12 +1,6 @@
 Maildog.Views.MailNav = Backbone.CompositeView.extend({
   template: JST['mailIndex'],
 
-  initialize: function() {
-    this.listenTo(
-      Maildog.router, "showEmailMessageOptions", this.changeEmailOptions
-    )
-  },
-
   render: function() {
     this.$el.html(this.template());
     this._initializeSubviews();
@@ -26,10 +20,5 @@ Maildog.Views.MailNav = Backbone.CompositeView.extend({
     this.addSubview(
       this.$('.email-navigation'), new Maildog.Views.EmailNavigation()
     );
-  },
-
-  changeEmailOptions: function(email) {
-    alert("here")
-
   }
 });
