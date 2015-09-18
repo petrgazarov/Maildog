@@ -4,7 +4,6 @@ class Api::EmailsController < ApplicationController
 
     contact = Contact.create_or_get(params[:addressees][:email])
     save_contact_if_new(contact)
-    MaildogMailer.send_email(contact).deliver
 
     email_addressee = @email.addressees.new(
       email_type: params[:addressees][:email_type],
@@ -13,6 +12,7 @@ class Api::EmailsController < ApplicationController
 
     if @email.save
       email_addressee.save!
+      MaildogMailer.send_email(contact, @email).deliver
       render json: @email
     else
       render json: @email.errors.full_messages, status: :unprocessable_entity

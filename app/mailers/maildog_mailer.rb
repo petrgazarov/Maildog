@@ -1,10 +1,11 @@
 class MaildogMailer < ApplicationMailer
   default :from => 'admin@example.com'
 
-  def send_email(contact)
+  def send_email(contact, email)
+    @email = email
     mail(
       to: contact.email,
-      subject: 'Test email using Sendgrid!'
+      subject: @email.subject
       )
     end
 end

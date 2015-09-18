@@ -17,10 +17,10 @@ Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend({
     e.preventDefault();
     var formData = this.$el.serializeJSON();
     var email = new Maildog.Models.Email()
+    this.remove();
 
     email.save(formData.email, {
       success: function() {
-        this.remove();
         Backbone.history.navigate("#", { trigger: true })
       }.bind(this)
     })
