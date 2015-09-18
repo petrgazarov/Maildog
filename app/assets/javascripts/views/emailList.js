@@ -2,7 +2,6 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
   template: JST['emailList'],
 
   initialize: function() {
-    this.collection.fetch();
     this.listenTo(this.collection, 'sync', this.render);
     this.listenTo(this.collection, 'add', this.addSubviewForEmail);
     this.collection.forEach(this.addSubviewForEmail.bind(this));

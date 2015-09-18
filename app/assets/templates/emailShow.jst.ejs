@@ -1,3 +1,6 @@
+<p class='email-show-subject'>
+  <%= email.escape('subject') %>
+</p>
 <p class='email-show-sender-name'>
   <%= email.sender().escape('first_name') %>
   <%= email.sender().escape('last_name') %>

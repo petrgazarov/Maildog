@@ -186,3 +186,27 @@ button {
 .email-list-item-time-date {
   float: right;
 }
+
+.email-show-item {
+  border: 1px solid blue;
+}
+
+.email-show-subject {
+  
+}
+
+.email-show-sender-name {
+
+}
+
+.email-show-sender-email {
+
+}
+
+.email-show-date-time {
+
+}
+
+.email-show-body {
+
+}

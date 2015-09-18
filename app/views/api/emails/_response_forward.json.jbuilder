@@ -1,4 +1,7 @@
 json.extract! email, :id, :subject, :body, :time, :date
+json.sender do
+  json.extract! email.sender, :first_name, :last_name
+end
 
 if !email.responses_forwards.empty?
   json.responses_forwards do
