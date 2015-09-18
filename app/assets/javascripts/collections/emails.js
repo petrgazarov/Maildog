@@ -17,7 +17,7 @@ Maildog.Collections.Emails = Backbone.Collection.extend({
     else {
       email = new Maildog.Models.Email({ id: id });
       this.add(email);
-      email.save({
+      email.fetch({
         errors: function() {
           this.remove(email)
         }.bind(this)

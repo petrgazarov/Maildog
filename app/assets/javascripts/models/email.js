@@ -7,8 +7,8 @@ Maildog.Models.Email = Backbone.Model.extend({
       delete payload.sender;
     };
 
-    if (payload.response_forwards) {
-      this.responsesForwards.set(payload.responses_forwards, { parse: true });
+    if (payload.responses_forwards) {
+      this.responsesForwards().set(payload.responses_forwards, { parse: true });
       delete payload.responses_forwards;
     }
     return payload;
