@@ -7,7 +7,7 @@ class MaildogMailer < ApplicationMailer
     mail(
       to: contact.email,
       subject: @email.subject,
-      from: @email.sender.full_name
+      from: @email.sender.email
       )
     end
 end
