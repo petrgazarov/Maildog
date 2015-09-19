@@ -1,7 +1,10 @@
 Maildog.Routers.Router = Backbone.Router.extend({
 
   initialize: function(options) {
-    this.$rootEl = options.$rootEl
+    this.$rootEl = options.$rootEl;
+    this.$flashEl = options.$flashEl;
+    this.flashMessages = new Maildog.Views.FlashMessageList();
+    this.$flashEl.html(this.flashMessages.render().$el);
   },
 
   routes: {
@@ -11,6 +14,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   inbox: function() {
+    this._removeFlashes();
     Maildog.inboxEmails.fetch();
     this.trigger("folderLinkClick");
     var view = new Maildog.Views.EmailList({ collection: Maildog.inboxEmails });
@@ -18,6 +22,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   showEmailThead: function(id) {
+    this._removeFlashes();
     var thread = new Maildog.Collections.EmailThreads({ id: id });
     thread.fetch();
     this.trigger("showEmailMessageOptions", thread);
@@ -25,10 +30,12 @@ Maildog.Routers.Router = Backbone.Router.extend({
     this._swapView(view);
   },
 
-  swapFlash: function(newFlash) {
-    this._currentFlash && this._currentFlash.remove();
-    this._currentFlash = newFlash;
-    this.$rootEl.prepend(newFlash.render().$el);
+  addFlash: function(message) {
+    this.flashMessages.addMessage(message);
+  },
+
+  _removeFlashes: function() {
+    this.flashMessages.removeMessages();
   },
 
   _swapView: function(newView) {

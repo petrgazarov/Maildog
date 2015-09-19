@@ -216,3 +216,10 @@ button {
 .email-show-body {
 
 }
+
+.flash-message {
+  background: red;
+  color: white;
+  width: 400px;
+  height: 200px;
+}

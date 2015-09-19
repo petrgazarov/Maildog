@@ -70,7 +70,17 @@ Email.create(
   subject: "Hello World",
   body: "Just saying...",
   sender_id: User.all.sample.id,
-  date: 'Thu, 17 Sep 2015',
+  date: 'Thu, 19 Sep 2015',
+  time: '2000-01-01 10:44:22 UTC',
+  original_email_id: nil,
+  parent_email_id: nil
+)
+
+Email.create(
+  subject: "Good Saturday",
+  body: "Have a good saturday! ^_^",
+  sender_id: User.all.sample.id,
+  date: 'Thu, 18 Sep 2015',
   time: '2000-01-01 10:44:22 UTC',
   original_email_id: nil,
   parent_email_id: nil
