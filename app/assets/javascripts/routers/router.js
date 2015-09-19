@@ -25,9 +25,15 @@ Maildog.Routers.Router = Backbone.Router.extend({
     this._swapView(view);
   },
 
+  swapFlash: function(newFlash) {
+    this._currentFlash && this._currentFlash.remove();
+    this._currentFlash = newFlash;
+    this.$rootEl.prepend(newFlash.render().$el);
+  },
+
   _swapView: function(newView) {
     this._currentView && this._currentView.remove();
     this._currentView = newView;
-    this.$rootEl.html(newView.render().$el)
+    this.$rootEl.html(newView.render().$el);
   }
 });
