@@ -14,8 +14,14 @@ Maildog.Routers.Router = Backbone.Router.extend({
     "emails/:id": "showEmailThead"
   },
 
-  signIn: function() {
-
+  signIn: function(callback) {
+    if (!this._requireSignedOut(callback)) {
+      return;
+    }
+    var signInView = new Maildog.Views.SignIn({
+      callback: callback
+    });
+    this._swapView(signInView);
   },
 
   inbox: function() {
