@@ -32,16 +32,6 @@ Maildog.Routers.Router = Backbone.Router.extend({
     this._swapView(view);
   },
 
-  _requireSignedOut: function(callback) {
-    if (Maildog.currentUser.isSignedIn()) {
-      callback = callback || this._goHome.bind(this);
-      callback();
-      return false;
-    }
-
-    return true;
-  },
-
   showEmailThead: function(id) {
     this._removeFlashes();
     var thread = new Maildog.Collections.EmailThreads({ id: id });
@@ -57,6 +47,26 @@ Maildog.Routers.Router = Backbone.Router.extend({
 
   _removeFlashes: function() {
     this.flashMessages.removeMessages();
+  },
+
+  _requireSignedIn: function(callback) {
+    if (!Maildog.currentUser.isSignedIn()) {
+      callback = callback || this._goHome.bind(this);
+      this.signIn(callback);
+      return false;
+    }
+
+    return true;
+  },
+
+  _requireSignedOut: function(callback) {
+    if (Maildog.currentUser.isSignedIn()) {
+      callback = callback || this._goHome.bind(this);
+      callback();
+      return false;
+    }
+
+    return true;
   },
 
   _swapView: function(newView) {
