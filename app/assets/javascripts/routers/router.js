@@ -15,9 +15,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   signIn: function(callback) {
-    if (!this._requireSignedOut(callback)) {
-      return;
-    }
+    if (!this._requireSignedOut(callback)) { return; }
     var signInView = new Maildog.Views.SignIn({
       callback: callback
     });
@@ -25,6 +23,9 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   inbox: function() {
+    var callback = this.inbox.bind(this);
+    if (!this._requireSignedIn(callback)) { return; }
+
     this._removeFlashes();
     Maildog.inboxEmails.fetch();
     this.trigger("folderLinkClick");
@@ -33,6 +34,9 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   showEmailThead: function(id) {
+    var callback = this.inbox.bind(this, id);
+    if (!this._requireSignedIn(callback)) { return; }
+
     this._removeFlashes();
     var thread = new Maildog.Collections.EmailThreads({ id: id });
     thread.fetch();
