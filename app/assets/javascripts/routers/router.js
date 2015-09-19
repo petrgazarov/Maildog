@@ -69,6 +69,10 @@ Maildog.Routers.Router = Backbone.Router.extend({
     return true;
   },
 
+  _goHome: function(){
+    Backbone.history.navigate("", { trigger: true });
+  },
+
   _swapView: function(newView) {
     this._currentView && this._currentView.remove();
     this._currentView = newView;
