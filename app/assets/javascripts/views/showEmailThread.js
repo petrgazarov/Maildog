@@ -22,7 +22,8 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
   },
 
   deleteThread: function() {
-    this.collection.destroy();
-    Backbone.history.navigate("#", { trigger: true })
+    this.collection.destroy(function() {
+      Backbone.history.navigate("#", { trigger: true })
+    });
   }
 });

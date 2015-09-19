@@ -9,12 +9,13 @@ Maildog.Collections.EmailThreads = Backbone.Collection.extend({
     return "api/threads/" + this.emailId
   },
 
-  destroy: function() {
+  destroy: function(callback) {
     $.ajax({
       url: this.url(),
-      type: 'DELETE',
+      method: 'DELETE',
       success: function() {
-        alert("deleted");
+        Maildog.inboxEmails.remove(this.emailId);
+        callback();
       }
     });
   }
