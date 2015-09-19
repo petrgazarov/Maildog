@@ -14,6 +14,7 @@ window.Maildog = {
       $rootEl: $('.email-show-container'),
       $flashEl: $('.flash-container')
     });
+
     Maildog.Views.mailNav = new Maildog.Views.MailNav();
     $("#mail-nav").html(Maildog.Views.mailNav.render().$el);
 

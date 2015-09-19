@@ -7,7 +7,7 @@ Maildog.Collections.Emails = Backbone.Collection.extend({
   },
 
   url: function() {
-    return "api/emails/" + this.urlAction
+    return "/api/emails/" + this.urlAction
   },
 
   getOrFetch: function(id) {

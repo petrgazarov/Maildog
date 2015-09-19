@@ -8,9 +8,14 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   routes: {
+    "session/new": "signIn",
     "": "inbox",
     "inbox": "inbox",
     "emails/:id": "showEmailThead"
+  },
+
+  signIn: function() {
+
   },
 
   inbox: function() {
