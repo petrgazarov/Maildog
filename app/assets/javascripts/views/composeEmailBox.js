@@ -22,6 +22,7 @@ Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend({
     email.save(formData.email, {
       success: function() {
         Backbone.history.navigate("#", { trigger: true })
+        Maildog.router.addFlash("Email message sent");
       }.bind(this)
     })
   },
