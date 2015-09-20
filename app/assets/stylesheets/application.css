@@ -20,10 +20,13 @@
    border: 0;
    padding: 0;
    margin: 0;
+   outline: 0;
 
    font: inherit;
    color: inherit;
    text-decoration: inherit;
+   text-align: inherit;
+   box-sizing: inherit;
    background: transparent;
  }
 
