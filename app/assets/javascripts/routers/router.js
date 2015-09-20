@@ -2,13 +2,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
 
   initialize: function(options) {
     this.$rootEl = options.$rootEl;
-
-    this.flashMessages = new Maildog.Views.FlashMessageList();
-    $('.flash-container').html(this.flashMessages.render().$el);
-    Maildog.Views.mailNav = new Maildog.Views.MailNav();
-    $("#mail-nav").html(Maildog.Views.mailNav.render().$el);
-    Maildog.Views.mailSidebar = new Maildog.Views.MailSidebar();
-    $("#mail-sidebar").html(Maildog.Views.mailSidebar.render().$el);
+    this.initializeForSignedIn();
   },
 
   routes: {
@@ -16,6 +10,17 @@ Maildog.Routers.Router = Backbone.Router.extend({
     "": "inbox",
     "inbox": "inbox",
     "emails/:id": "showEmailThead"
+  },
+
+  initializeForSignedIn: function() {
+    if (!Maildog.currentUser.isSignedIn()) { return; }
+
+    this.flashMessages = new Maildog.Views.FlashMessageList();
+    $('.flash-container').html(this.flashMessages.render().$el);
+    this.mailNav = Maildog.Views.mailNav = new Maildog.Views.MailNav();
+    $("#mail-nav").html(this.mailNav.render().$el);
+    this.mailSidebar = new Maildog.Views.MailSidebar();
+    $("#mail-sidebar").html(this.mailSidebar.render().$el);
   },
 
   signIn: function(callback) {
@@ -84,6 +89,6 @@ Maildog.Routers.Router = Backbone.Router.extend({
   _swapView: function(newView) {
     this._currentView && this._currentView.remove();
     this._currentView = newView;
-    $(".email-show-container").html(newView.render().$el);
+    $(".show-container").html(newView.render().$el);
   }
 });

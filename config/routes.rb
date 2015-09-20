@@ -13,7 +13,9 @@ Rails.application.routes.draw do
         get :drafts
       end
     end
-    resource :session, only: [:show, :fetch, :create, :destroy]
+    resource :session, only: [:show, :create, :destroy] do
+      post :fetch
+    end
     resources :threads, only: [:show, :destroy]
     resources :emails, except: [:new, :edit]
     resource :user

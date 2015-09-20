@@ -9,22 +9,16 @@ Maildog.Views.SignInBox = Backbone.View.extend({
     "submit": "transitionOut"
   },
 
-  template: function() {
-    if (this.viewOption = "user") {
-      return JST['signInUser'];
-    }
-    else {
-      return JST['signInPassword'];
-    }
-  },
+  templateUser: JST['signInUser'],
+  templateAuth: JST['signInPassword'],
 
   render: function() {
     var content;
     if (this.viewOption = "user") {
-      content = JST['signInUser']();
+      content = this.templateUser();
     }
     else {
-      template = JST['signInPassword']({ user: Maildog.currentUser });
+      content = this.templateAuth({ user: Maildog.currentUser });
     }
     this.$el.html(content);
     return this;
@@ -32,6 +26,5 @@ Maildog.Views.SignInBox = Backbone.View.extend({
 
   transitionOut: function(e) {
     e.preventDefault();
-    alert("transitionOut")
   }
 });
