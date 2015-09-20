@@ -1,10 +1,6 @@
 Maildog.Views.SignInBox = Backbone.View.extend({
   tagName: "form",
 
-  initialize: function(options) {
-    this.viewOption = options.viewOption;
-  },
-
   events: {
     "submit": "transitionOut"
   },
@@ -13,15 +9,18 @@ Maildog.Views.SignInBox = Backbone.View.extend({
   templateAuth: JST['signInPassword'],
 
   render: function() {
-    var content;
-    if (this.viewOption = "user") {
-      content = this.templateUser();
-    }
-    else {
-      content = this.templateAuth({ user: Maildog.currentUser });
-    }
+    var content = this.templateUser();
     this.$el.html(content);
     return this;
+  },
+
+  switchToAuth: function() {
+    var content = this.templateAuth({ user: Maildog.currentUser })
+    this.$el.html(content);
+  },
+
+  tryAgain: function() {
+    alert("Sorry, Maildog doesn't recognize that email.");
   },
 
   transitionOut: function(e) {

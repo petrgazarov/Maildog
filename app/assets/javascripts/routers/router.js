@@ -29,6 +29,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
       callback: callback
     });
     this._swapView(signInView);
+    $('.username-text-box').focus();
   },
 
   inbox: function() {
@@ -68,7 +69,6 @@ Maildog.Routers.Router = Backbone.Router.extend({
       this.signIn(callback);
       return false;
     }
-
     return true;
   },
 
@@ -78,7 +78,6 @@ Maildog.Routers.Router = Backbone.Router.extend({
       callback();
       return false;
     }
-
     return true;
   },
 

@@ -8,23 +8,23 @@ class Api::SessionsController < ApplicationController
   end
 
   def fetch
-    user = User.find_by_username(params[:user][:username])
-    if user.nil?
-      head :unprocessable_entity
+    @user = User.find_by_username(params[:user][:username])
+    if @user.nil?
+      render json: {}
     else
-      render json: user
+      render :fetch
     end
   end
 
   def create
     user = User.find_by_credentials(
-                  params[:user][:email],
+                  params[:user][:username],
                   params[:user][:password])
 
     if user.nil?
       head :unprocessable_entity
     else
-      sign_in!(user)
+      log_in!(user)
       render :show
     end
   end

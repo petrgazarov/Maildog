@@ -6,7 +6,7 @@ Maildog.Models.CurrentUser = Backbone.Model.extend({
   },
 
   isSignedIn: function() {
-    return !this.isNew();
+    return (!this.isNew())
   },
 
   fetchUser: function(options) {
