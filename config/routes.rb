@@ -13,7 +13,7 @@ Rails.application.routes.draw do
         get :drafts
       end
     end
-    resource :sessions, only: [:show, :create, :destroy]
+    resource :session, only: [:show, :fetch, :create, :destroy]
     resources :threads, only: [:show, :destroy]
     resources :emails, except: [:new, :edit]
     resource :user

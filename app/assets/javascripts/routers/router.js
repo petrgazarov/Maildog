@@ -2,9 +2,13 @@ Maildog.Routers.Router = Backbone.Router.extend({
 
   initialize: function(options) {
     this.$rootEl = options.$rootEl;
-    this.$flashEl = options.$flashEl;
+
     this.flashMessages = new Maildog.Views.FlashMessageList();
-    this.$flashEl.html(this.flashMessages.render().$el);
+    $('.flash-container').html(this.flashMessages.render().$el);
+    Maildog.Views.mailNav = new Maildog.Views.MailNav();
+    $("#mail-nav").html(Maildog.Views.mailNav.render().$el);
+    Maildog.Views.mailSidebar = new Maildog.Views.MailSidebar();
+    $("#mail-sidebar").html(Maildog.Views.mailSidebar.render().$el);
   },
 
   routes: {
@@ -80,6 +84,6 @@ Maildog.Routers.Router = Backbone.Router.extend({
   _swapView: function(newView) {
     this._currentView && this._currentView.remove();
     this._currentView = newView;
-    this.$rootEl.html(newView.render().$el);
+    $(".email-show-container").html(newView.render().$el);
   }
 });

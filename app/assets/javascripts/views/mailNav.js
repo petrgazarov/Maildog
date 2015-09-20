@@ -8,6 +8,7 @@ Maildog.Views.MailNav = Backbone.CompositeView.extend({
   },
 
   _initializeSubviews: function() {
+    debugger
     [ Maildog.Views.SearchBar,
       Maildog.Views.CurrentUser ].forEach(function(view) {
         this.addSubview(this.$('.mail-header'), new view());

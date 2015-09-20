@@ -2,12 +2,12 @@ Maildog.Views.EmailOptions = Backbone.View.extend({
   template_list: JST['emailOptionsList'],
   template_show: JST['emailOptionsShow'],
 
-  initialize: function() {
-    this.listenTo(
-      Maildog.router, "showEmailMessageOptions", this.render.bind(this, "show")
-    );
-    this.listenTo(Maildog.router, "folderLinkClick", this.render);
-  },
+  // initialize: function() {
+  //   this.listenTo(
+  //     Maildog.router, "showEmailMessageOptions", this.render.bind(this, "show")
+  //   );
+  //   this.listenTo(Maildog.router, "folderLinkClick", this.render);
+  // },
 
   events: {
     "click .delete-email-thread": "fireDeleteThread"

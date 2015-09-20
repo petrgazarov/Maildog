@@ -8,18 +8,12 @@ window.Maildog = {
     Maildog.inboxEmails = new Maildog.Collections.Emails(
       [], { urlAction: "inbox" });
     Maildog.currentUser.fetch();
-    Backbone.pubSub = _.extend({}, Backbone.Events);
+    // Backbone.pubSub = _.extend({}, Backbone.Events);
 
     Maildog.router = new Maildog.Routers.Router({
-      $rootEl: $('.email-show-container'),
-      $flashEl: $('.flash-container')
+      $rootEl: $('.main-container')
     });
 
-    Maildog.Views.mailNav = new Maildog.Views.MailNav();
-    $("#mail-nav").html(Maildog.Views.mailNav.render().$el);
-
-    Maildog.Views.mailSidebar = new Maildog.Views.MailSidebar();
-    $("#mail-sidebar").html(Maildog.Views.mailSidebar.render().$el);
     Backbone.history.start();
   }
 };
