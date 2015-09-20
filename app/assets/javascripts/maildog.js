@@ -8,7 +8,7 @@ window.Maildog = {
     Maildog.inboxEmails = new Maildog.Collections.Emails(
       [], { urlAction: "inbox" });
     Maildog.currentUser.fetch();
-    // Backbone.pubSub = _.extend({}, Backbone.Events);
+    Backbone.pubSub = _.extend({}, Backbone.Events);
 
     Maildog.router = new Maildog.Routers.Router({
       $rootEl: $('.main-container')

@@ -33,6 +33,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   inbox: function() {
+    Backbone.pubSub.off();
     var callback = this.inbox.bind(this);
     if (!this._requireSignedIn(callback)) { return; }
 
