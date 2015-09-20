@@ -54,4 +54,9 @@ class User < ActiveRecord::Base
   def full_name
     "#{self.first_name} #{self.last_name}"
   end
+
+  def find_by_username(username)
+    user = User.find_by(username: username)
+    user.empty? ? nil : user
+  end
 end
