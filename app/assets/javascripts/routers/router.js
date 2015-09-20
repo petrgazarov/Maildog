@@ -29,6 +29,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
       callback: callback
     });
     this._swapView(signInView);
+    $('.show-container').removeClass('show-container').addClass('sign-in-view');
     $('.username-text-box').focus();
   },
 

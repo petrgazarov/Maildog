@@ -157,10 +157,50 @@ button {
 
 .show-container {
   border: 1px solid green;
-  display: block;
   float: right;
   width: calc(100% - 204px);
   min-height: 100px;
+}
+
+.sign-in-view {
+  border: 1px solid orange;
+  width: 600px;
+  height: 670px;
+  position: relative;
+  margin: auto;
+  text-align: center;
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+.canvas {
+  width: 96px;
+  height: 96px;
+  background-image: url(avatar.png);
+  background-size: cover;
+}
+
+.sign-in-view h1 {
+  margin: 50px 0;
+  font-size: 38px;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 300;
+}
+
+.sign-in-view h2 {
+  margin: 20px 0;
+  font-size: 18px;
+  color: #555;
+  font-family: 'Open Sans';
+}
+
+.sign-in-view form {
+  border: 1px solid brown;
+  height: 320px;
+  width: 355px;
+  margin: auto;
 }
 
 .email-list-item {

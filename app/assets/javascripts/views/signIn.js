@@ -15,7 +15,7 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
 
   render: function(){
     this.$el.html(this.template());
-    this.attachSubviews();
+    this.attachSubview(".sign-in-box", this.$signInBox);
     return this;
   },
 
@@ -36,7 +36,7 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
       username: formData.username,
       success: function() {
         if (Maildog.currentUser.get('username')) {
-          this._switchToAuth()
+          this._shiftToAuth()
         } else {
           this._tryAgain()
         }
@@ -61,8 +61,8 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
     });
   },
 
-  _switchToAuth: function() {
-    this.$signInBox.switchToAuth();
+  _shiftToAuth: function() {
+    this.$signInBox.shiftToAuth();
     $('.password-text-box').focus();
   },
 

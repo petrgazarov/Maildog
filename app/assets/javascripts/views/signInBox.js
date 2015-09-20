@@ -9,14 +9,14 @@ Maildog.Views.SignInBox = Backbone.View.extend({
   templateAuth: JST['signInPassword'],
 
   render: function() {
-    var content = this.templateUser();
+    var content = this.templateUser({ user: Maildog.currentUser });
     this.$el.html(content);
     return this;
   },
 
-  switchToAuth: function() {
-    var content = this.templateAuth({ user: Maildog.currentUser })
-    this.$el.html(content);
+  shiftToAuth: function() {
+    this.$('button').removeClass('.sign-in-next-button')
+                    .addClass('.sign-in-submit-button');
   },
 
   tryAgain: function() {
