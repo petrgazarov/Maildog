@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root to: "static_pages#mail"
 
-  resource :session, only: [:new, :create, :destroy]
+  resource :session, only: [:new, :create, :destroy] do
+    post :create_guest
+  end
   resources :users, only: [:new, :create]
 
   namespace :api, defaults: { format: :json } do

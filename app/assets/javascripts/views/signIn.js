@@ -17,6 +17,7 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
   render: function(){
     this.$el.html(this.template());
     this.attachSubview(".sign-in-box", this.$signInBox);
+    $.rails.refreshCSRFTokens();
     return this;
   },
 

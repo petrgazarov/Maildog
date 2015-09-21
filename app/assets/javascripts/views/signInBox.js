@@ -1,12 +1,22 @@
 Maildog.Views.SignInBox = Backbone.View.extend({
   tagName: "form",
-
   template: JST['signInBox'],
 
   render: function() {
     var content = this.template({ user: Maildog.currentUser });
     this.$el.html(content);
     return this;
+  },
+
+  signInGuest: function(e) {
+    e.preventDefault();
+    $.ajax({
+      url: "session/create_guest",
+      type: "POST",
+      success: function() {
+        Backbone.history.navigate("", { trigger: true })
+      }
+    })
   },
 
   shiftToAuth: function() {

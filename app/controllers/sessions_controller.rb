@@ -18,6 +18,12 @@ class SessionsController < ApplicationController
     end
   end
 
+  def create_guest
+    @user = User.find_by_credentials("petr", "password")
+    log_in!(@user)
+    redirect_to root_url
+  end
+
   def destroy
     current_user.reset_session_token!
     session[:session_token] = nil
