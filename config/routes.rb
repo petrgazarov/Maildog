@@ -11,6 +11,7 @@ Rails.application.routes.draw do
         get :starred
         get :sent
         get :drafts
+        get :trash
       end
     end
     resource :session, only: [:show, :create, :destroy] do

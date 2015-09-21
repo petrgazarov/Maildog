@@ -35,6 +35,11 @@ class Api::EmailsController < ApplicationController
     render :inbox
   end
 
+  def sent
+    @emails = current_user_contact.sent_emails
+    render :sent
+  end
+
   private
 
   def save_contact_if_new(contact)
