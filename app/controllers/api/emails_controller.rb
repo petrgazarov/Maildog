@@ -31,7 +31,7 @@ class Api::EmailsController < ApplicationController
   end
 
   def inbox
-    @emails = current_user_contact.emails
+    @emails = current_user_contact.received_emails
     render :inbox
   end
 
