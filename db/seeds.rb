@@ -63,7 +63,7 @@ tommy = petr_user.contacts.create(
   gender: "M"
 )
 
-practice_email = petr_user.emails.create(
+practice_email = petr.emails.create(
   subject: "What is best practice?",
   body: "A best practice is a technique or methodology that, \n"\
         "through experience and research, has proven to reliably \n"\
@@ -78,7 +78,7 @@ practice_email = petr_user.emails.create(
   time: '2000-01-01 09:07:48 UTC'
 )
 
-hillary_email = petr_user.emails.create(
+hillary_email = petr.emails.create(
   subject: "hi",
   body: "Friend -- \n"\
         "When I take the stage in Las Vegas at the first Democratic \n"\
@@ -95,7 +95,7 @@ hillary_email = petr_user.emails.create(
   time: '2000-01-01 09:16:34 UTC'
 )
 
-atom_message_1 = petr_user.emails.create(
+atom_message_1 = petr.emails.create(
   subject: "Atom editor",
   body: "You should check this out! --\n"\
         "GitHub recently released the awesome Atom text editor, \n"\
@@ -106,7 +106,7 @@ atom_message_1 = petr_user.emails.create(
   time: '2000-01-01 09:27:51 UTC'
 )
 
-atom_message_2 = petr_user.emails.create(
+atom_message_2 = petr.emails.create(
   subject: "Atom editor",
   body: "Yeah, it's great. I've used it on a number of projects\n"\
         "Petr",
@@ -117,7 +117,7 @@ atom_message_2 = petr_user.emails.create(
   parent_email: atom_message_1
 )
 
-atom_message_3 = petr_user.emails.create(
+atom_message_3 = petr.emails.create(
   subject: "Atom editor",
   body: "Send me the link to your chess game\n"\
         "Nikita",
@@ -128,7 +128,7 @@ atom_message_3 = petr_user.emails.create(
   parent_email: atom_message_2
 )
 
-atom_message_4 = petr_user.emails.create(
+atom_message_4 = petr.emails.create(
   subject: "Atom editor",
   body: "https://github.com/petrgazarov/Chess",
   sender: petr,
@@ -138,7 +138,7 @@ atom_message_4 = petr_user.emails.create(
   parent_email: atom_message_3
 )
 
-barack_email_1 = petr_user.emails.create(
+barack_email_1 = petr.emails.create(
   subject: "Have a good weekend!",
   body: "Hi Barack,\n"\
         "Have a good weekend, man!\n"\
@@ -148,7 +148,7 @@ barack_email_1 = petr_user.emails.create(
   time: '2000-01-01 10:44:22 UTC'
 )
 
-barack_email_2 = petr_user.emails.create(
+barack_email_2 = petr.emails.create(
   subject: "Have a good weekend!",
   body: "Thanks!\n"\
         "Barack",

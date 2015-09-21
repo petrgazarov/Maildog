@@ -5,10 +5,14 @@ class Email < ActiveRecord::Base
     class_name: "Contact",
     foreign_key: "sender_id"
 
-  has_many :addressees,
+  has_many :email_addressees,
     class_name: "EmailAddressee",
     foreign_key: :email_id,
     inverse_of: :email
+
+  has_many :addressees,
+    through: :email_addressees,
+    source: :addressee
 
   belongs_to :parent_email,
     class_name: "Email",

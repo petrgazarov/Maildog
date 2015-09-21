@@ -1,9 +1,17 @@
 class Contact < ActiveRecord::Base
   validates :email, :owner, presence: true
 
-  has_many :emails,
+  has_many :received_emails,
+    through: :email_addressees,
+    source: :email
+
+  has_many :sent_emails,
+    class_name: "Email",
+    foreign_key: :sender_id
+
+  has_many :email_addressees
     class_name: "EmailAddressee",
-    foreign_key: :email_id
+    foreign_key: :addressee_id
 
   belongs_to :owner,
     class_name: "User",
