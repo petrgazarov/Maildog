@@ -9,7 +9,7 @@ class Contact < ActiveRecord::Base
     class_name: "Email",
     foreign_key: :sender_id
 
-  has_many :email_addressees
+  has_many :email_addressees,
     class_name: "EmailAddressee",
     foreign_key: :addressee_id
 
