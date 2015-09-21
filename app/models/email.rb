@@ -2,7 +2,7 @@ class Email < ActiveRecord::Base
   validates :sender, :date, :time, presence: true
 
   belongs_to :sender,
-    class_name: "User",
+    class_name: "Contact",
     foreign_key: "sender_id"
 
   has_many :addressees,

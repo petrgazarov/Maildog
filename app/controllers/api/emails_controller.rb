@@ -30,12 +30,8 @@ class Api::EmailsController < ApplicationController
     render :show
   end
 
-  def index
-    render json: Email.all
-  end
-
   def inbox
-    @emails = Email.all
+    @emails = current_user.emails
     render :inbox
   end
 

@@ -21,8 +21,10 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
   },
 
   signInCallback: function() {
+
     $('.sign-in-view').removeClass('sign-in-view').addClass('show-container');
     Maildog.router.initializeForSignedIn();
+
     if(this.callback) {
       this.callback();
     } else {
