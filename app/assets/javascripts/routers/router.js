@@ -9,6 +9,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
     "session/new": "signIn",
     "": "inbox",
     "inbox": "inbox",
+    "sent": "sent",
     "emails/:id": "showEmailThead"
   },
 
@@ -42,6 +43,19 @@ Maildog.Routers.Router = Backbone.Router.extend({
     Maildog.inboxEmails.fetch();
     this.trigger("folderLinkClick");
     var view = new Maildog.Views.EmailList({ collection: Maildog.inboxEmails });
+    this._swapView(view);
+  },
+
+  sent: function() {
+    Backbone.pubSub.off();
+    var callback = this.sent.bind(this);
+    if (!this._requireSignedIn(callback)) { return; }
+
+    this._removeFlashes();
+    var sentEmails = new Maildog.Collections.Emails([], { urlAction: "sent" });
+    sentEmails.fetch();
+    this.trigger("folderLinkClick");
+    var view = new Maildog.Views.EmailList({ collection: sentEmails });
     this._swapView(view);
   },
 
