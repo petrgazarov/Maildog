@@ -16,6 +16,7 @@ Maildog.Views.SignInBox = Backbone.View.extend({
     this.$('.sign-in-text-box').val("");
     this.$('.sign-in-text-box').attr("name", 'user[password]');
     this.$('.sign-in-text-box').attr("type", 'password');
+    this.$('.sign-in-text-box').attr("placeholder", 'Password');
   },
 
   tryAgain: function() {
