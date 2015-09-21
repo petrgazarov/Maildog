@@ -84,3 +84,12 @@
   box-shadow: 0 1px 1px rgba(0,0,0,0.1);
   background: rgb(48, 109, 241);
 }
+
+.sign-in-view .sign-in-as-guest-form {
+  height: 0;
+  width: 275px;
+  position: relative;
+  top: -70px;
+  padding: 0;
+  background: transparent;
+}
