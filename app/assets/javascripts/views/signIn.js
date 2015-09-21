@@ -9,6 +9,7 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
   initialize: function(options){
     this.callback = options.callback;
     this.listenTo(Maildog.currentUser, "signIn", this.signInCallback);
+    this.listenTo(Maildog.currentUser, "sync", this.styleSignIn);
     this.$signInBox = new Maildog.Views.SignInBox();
     this.addSubview(".sign-in-box", this.$signInBox)
   },
@@ -20,12 +21,18 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
   },
 
   signInCallback: function() {
+    $('.sign-in-view').removeClass('sign-in-view').addClass('show-container');
     Maildog.router.initializeForSignedIn();
     if(this.callback) {
       this.callback();
     } else {
       Backbone.history.navigate("", { trigger: true });
     }
+  },
+
+  styleSignIn: function() {
+    $('.show-container').removeClass('show-container').addClass('sign-in-view');
+    $('.sign-in-text-box').focus();
   },
 
   fetchUser: function(e) {
@@ -47,14 +54,9 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
   submit: function(e){
     e.preventDefault();
     var formData = this.$('.sign-in-box form').serializeJSON().user;
-
     Maildog.currentUser.signIn({
       username: Maildog.currentUser.get('username'),
       password: formData.password,
-      success: function() {
-        Maildog.router.initializeForSignedIn();
-        Backbone.history.navigate("#", { trigger: true });
-      },
       error: function() {
         alert("The email and password you entered don't match.");
       }

@@ -15,6 +15,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   initializeForSignedIn: function() {
     if (!Maildog.currentUser.isSignedIn()) { return; }
 
+    this._currentView && this._currentView.remove();
     this.flashMessages = new Maildog.Views.FlashMessageList();
     $('.flash-container').html(this.flashMessages.render().$el);
     this.mailNav = Maildog.Views.mailNav = new Maildog.Views.MailNav();
@@ -25,12 +26,11 @@ Maildog.Routers.Router = Backbone.Router.extend({
 
   signIn: function(callback) {
     if (!this._requireSignedOut(callback)) { return; }
-    var signInView = new Maildog.Views.SignIn({
+
+    Maildog.signInView = new Maildog.Views.SignIn({
       callback: callback
     });
-    this._swapView(signInView);
-    $('.show-container').removeClass('show-container').addClass('sign-in-view');
-    $('.username-text-box').focus();
+    this._swapView(Maildog.signInView);
   },
 
   inbox: function() {
