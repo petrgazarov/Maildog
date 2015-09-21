@@ -5,7 +5,7 @@ class Api::EmailsController < ApplicationController
     contact = Contact.create_or_get(params[:addressees][:email])
     save_contact_if_new(contact)
 
-    email_addressee = @email.addressees.new(
+    email_addressee = @email.email_addressees.new(
       email_type: params[:addressees][:email_type],
       addressee_id: contact.id
     )
