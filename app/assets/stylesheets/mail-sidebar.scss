@@ -1,0 +1,40 @@
+.compose-button {
+  background-color: #d14836;
+  background-image: -webkit-linear-gradient(top,#dd4b39,#d14836);
+  color: #fff;
+  text-shadow: 0 1px rgba(0,0,0,0.1);
+  text-transform: uppercase;
+  border-radius: 2px;
+  cursor: default;
+  font-size: 11px;
+  font-weight: bold;
+  white-space: nowrap;
+  height: 27px;
+  line-height: 27px;
+  padding: 0 8px;
+  width: 97px;
+  margin: auto;
+  display: block;
+  text-align: center;
+}
+
+.email-folders {
+  width: 200px;
+  border: 1px solid orange;
+  float: left;
+}
+
+.email-folders-list {
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+.email-folders-list > li {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 80%;
+}
+
+.email-folders-list > li:hover {
+  background: rgb(234,234,234);
+}
