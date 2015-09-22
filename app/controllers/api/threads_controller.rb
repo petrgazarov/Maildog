@@ -2,14 +2,15 @@ class Api::ThreadsController < ApplicationController
   def show
     email = Email.find(params[:id])
     if email.original_email_id
-      @emails = Email.order(:created_at).where(
-        "original_email_id = ? OR id = ?",
+      @emails = Email.where(
+        'original_email_id = ? OR id = ?',
         email.original_email_id, email.original_email_id
-      )
+      ).order(date: :asc, time: :asc).to_a
     else
-      @emails = Email.order(:created_at).where(
-      original_email_id: email.id
-    ).push(email)
+      @emails = Email.where(
+      'original_email_id = ? OR id = ?',
+      email.id, email.id
+      ).order(date: :asc, time: :asc).to_a
     end
 
     render :show

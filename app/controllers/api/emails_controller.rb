@@ -31,12 +31,12 @@ class Api::EmailsController < ApplicationController
   end
 
   def inbox
-    @emails = current_user_contact.received_emails
+    @emails = current_user_contact.received_emails.order(date: :desc, time: :desc)
     render :inbox
   end
 
   def sent
-    @emails = current_user_contact.sent_emails
+    @emails = current_user_contact.sent_emails.order(date: :desc, time: :desc)
     render :sent
   end
 

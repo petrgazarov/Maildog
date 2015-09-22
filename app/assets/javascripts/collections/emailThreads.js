@@ -1,7 +1,7 @@
 Maildog.Collections.EmailThreads = Backbone.Collection.extend({
   model: Maildog.Models.Email,
 
-  initialize: function(options) {
+  initialize: function(models, options) {
     this.emailId = options.id
   },
 

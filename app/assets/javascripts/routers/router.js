@@ -10,7 +10,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
     "": "inbox",
     "inbox": "inbox",
     "sent": "sent",
-    "emails/:id": "showEmailThead"
+    "emails/:id": "showEmailThread"
   },
 
   initializeForSignedIn: function() {
@@ -59,12 +59,12 @@ Maildog.Routers.Router = Backbone.Router.extend({
     this._swapView(view);
   },
 
-  showEmailThead: function(id) {
-    var callback = this.inbox.bind(this, id);
+  showEmailThread: function(id) {
+    var callback = this.showEmailThread.bind(this, id);
     if (!this._requireSignedIn(callback)) { return; }
 
     this._removeFlashes();
-    var thread = new Maildog.Collections.EmailThreads({ id: id });
+    var thread = new Maildog.Collections.EmailThreads([], { id: id });
     thread.fetch();
     this.trigger("showEmailMessageOptions", thread);
     var view = new Maildog.Views.ShowEmailThread({ collection: thread });

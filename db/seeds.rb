@@ -73,9 +73,18 @@ practice_email = petr.received_emails.create(
         "frequently in the fields of health care, government administration, \n"\
         "the education system, project management, hardware and software \n"\
         "product development, and elsewhere.",
-  date: 'Thu, 17 Sep 2015',
   sender: petr,
+  date: 'Thu, 17 Sep 2015',
   time: '2000-01-01 09:07:48 UTC'
+)
+
+tommy_email = petr.received_emails.create(
+  subject: "Happy Birthday!",
+  body: "Congratulations on turning 26, man!\n"\
+        "Tommy",
+  sender: tommy,
+  date: 'Thu, 21 Sep 2015',
+  time: '2000-01-01 11:59:48 UTC'
 )
 
 hillary_email = petr.received_emails.create(
@@ -102,7 +111,7 @@ atom_message_1 = petr.received_emails.create(
         "and although many of the keyboard shortcuts will be familiar \n"\
         "to Sublime Text users, there are many subtle differences.",
   sender: nikita,
-  date: 'Thu, 19 Sep 2015',
+  date: 'Thu, 11 Sep 2015',
   time: '2000-01-01 09:27:51 UTC'
 )
 
@@ -111,7 +120,7 @@ atom_message_2 = nikita.received_emails.create(
   body: "Yeah, it's great. I've used it on a number of projects\n"\
         "Petr",
   sender: petr,
-  date: 'Thu, 20 Sep 2015',
+  date: 'Thu, 12 Sep 2015',
   time: '2000-01-01 10:44:22 UTC',
   original_email: atom_message_1,
   parent_email: atom_message_1
@@ -122,8 +131,8 @@ atom_message_3 = petr.received_emails.create(
   body: "Send me the link to your chess game\n"\
         "Nikita",
   sender: nikita,
-  date: 'Thu, 21 Sep 2015',
-  time: '2000-01-01 8:44:22 UTC',
+  date: 'Thu, 12 Sep 2015',
+  time: '2000-01-01 11:50:22 UTC',
   original_email: atom_message_1,
   parent_email: atom_message_2
 )
@@ -132,7 +141,7 @@ atom_message_4 = nikita.received_emails.create(
   subject: "Atom editor",
   body: "https://github.com/petrgazarov/Chess",
   sender: petr,
-  date: 'Thu, 21 Sep 2015',
+  date: 'Thu, 13 Sep 2015',
   time: '2000-01-01 8:44:22 UTC',
   original_email: atom_message_1,
   parent_email: atom_message_3
@@ -144,13 +153,14 @@ barack_email_1 = barack.received_emails.create(
         "Have a good weekend, man!\n"\
         "Cheers, Petr",
   sender: petr,
-  date: 'Thu, 18 Sep 2015',
+  date: 'Thu, 17 Sep 2015',
   time: '2000-01-01 10:44:22 UTC'
 )
 
 barack_email_2 = petr.received_emails.create(
   subject: "Have a good weekend!",
-  body: "Thanks!\n"\
+  body: "Thanks! What are you doing this weekend?\n"\
+        "Wanna come along to see the commander-in-chief at the White House?\n"\
         "Barack",
   sender: barack,
   date: 'Thu, 18 Sep 2015',
@@ -158,43 +168,37 @@ barack_email_2 = petr.received_emails.create(
   original_email: barack_email_1,
   parent_email: barack_email_1
 )
-#
-# practice_email.addressees.create(
-#   addressee: petr,
-#   email_type: "to"
-# )
-#
-# hillary_email.addressees.create(
-#   addressee: petr,
-#   email_type: "to"
-# )
-#
-# atom_message_1.addressees.create(
-#   addressee: petr,
-#   email_type: "to"
-# )
-#
-# atom_message_2.addressees.create(
-#   addressee: nikita,
-#   email_type: "to"
-# )
-#
-# atom_message_3.addressees.create(
-#   addressee: petr,
-#   email_type: "to"
-# )
-#
-# atom_message_4.addressees.create(
-#   addressee: nikita,
-#   email_type: "to"
-# )
-#
-# barack_email_1.addressees.create(
-#   addressee: barack,
-#   email_type: "to"
-# )
-#
-# barack_email_2.addressees.create(
-#   addressee: petr,
-#   email_type: "to"
-# )
+
+barack_email_3 = barack.received_emails.create(
+  subject: "Have a good weekend!",
+  body: "Ahh, I wish I could. I got to finish my final project at App Academy.\n"\
+        "Thanks for your kind offer!\n"\
+        "Petr",
+  sender: petr,
+  date: 'Thu, 19 Sep 2015',
+  time: '2000-01-01 10:44:22 UTC',
+  original_email: barack_email_1,
+  parent_email: barack_email_2
+)
+
+barack_email_4 = petr.received_emails.create(
+  subject: "Have a good weekend!",
+  body: "Alright then. I'm going to try to set up a meeting with Tiger Woods.\n"\
+        "Farewell!\n"\
+        "Barack",
+  sender: barack,
+  date: 'Thu, 20 Sep 2015',
+  time: '2000-01-01 10:44:22 UTC',
+  original_email: barack_email_1,
+  parent_email: barack_email_3
+)
+
+barack_email_5 = petr.received_emails.create(
+  subject: "Have a good weekend!",
+  body: "Barack, are you mad at me?! Barack!!!",
+  sender: petr,
+  date: 'Thu, 21 Sep 2015',
+  time: '2000-01-01 10:44:22 UTC',
+  original_email: barack_email_1,
+  parent_email: barack_email_4
+)
