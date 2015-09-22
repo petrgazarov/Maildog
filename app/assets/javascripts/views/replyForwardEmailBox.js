@@ -6,10 +6,15 @@ Maildog.Views.ReplyForwardEmailBox = Backbone.View.extend({
       parent_email_id: options.parentEmail.id,
       original_email_id: options.originalEmail.id
     });
+    this.recipient = options.recipient;
   },
 
   render: function() {
-    var content = this.template();
+    var content = this.template({
+      email: this.model,
+      recipient: this.receipient
+    });
+    this.$el.html(content);
 
     return this;
   }

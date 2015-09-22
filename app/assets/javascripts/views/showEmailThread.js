@@ -30,7 +30,8 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
   addReplyForwardView: function() {
     var subview = new Maildog.Views.ReplyForwardEmailBox({
       parentEmail: this.collection.last(),
-      originalEmail: this.collection.first()
+      originalEmail: this.collection.first(),
+      recipient: this.collection.last().sender();
     });
     $('.reply-forward-email-box').addClass('invisible');
     this.addSubview(".reply-forward-email-section", subview);
