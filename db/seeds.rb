@@ -193,7 +193,7 @@ barack_email_4 = petr.received_emails.create(
   parent_email: barack_email_3
 )
 
-barack_email_5 = petr.received_emails.create(
+barack_email_5 = barack.received_emails.create(
   subject: "Have a good weekend!",
   body: "Barack, are you mad at me?! Barack!!!",
   sender: petr,
