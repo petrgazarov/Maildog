@@ -55,7 +55,10 @@ Maildog.Routers.Router = Backbone.Router.extend({
     var sentEmails = new Maildog.Collections.Emails([], { urlAction: "sent" });
     sentEmails.fetch();
     this.trigger("folderLinkClick");
-    var view = new Maildog.Views.EmailList({ collection: sentEmails });
+    var view = new Maildog.Views.EmailList({
+      folder: "sent",
+      collection: sentEmails
+    });
     this._swapView(view);
   },
 

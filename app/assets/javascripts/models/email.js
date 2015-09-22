@@ -31,6 +31,19 @@ Maildog.Models.Email = Backbone.Model.extend({
     return this._sender;
   },
 
+  correspondentString: function(folder) {
+    var string;
+    if (folder === "sent") {
+      string = this.addressees().first().escape('email');
+    }
+    else {
+      string = this.sender().escape('first_name') + " " +
+               this.sender().escape('last_name');
+    }
+
+    return string;
+  },
+
   addressees: function() {
     this._addressees = (this._addressees || new Maildog.Collections.Contacts())
     return this._addressees;
