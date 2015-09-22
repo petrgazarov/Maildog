@@ -1,18 +1,12 @@
-<header class='compose-email-popup-header group'>
-  <h4 class='compose-email-popup-header-text'>New Message</h4>
-  <aside class='cancel-compose-box-popup'>x</aside>
-</header>
-
 <label class='compose-email-to'>To:
-  <input type='text' name='email[addressees][email]'>
+  <input type='text' name='email[addressees][email]'
+         val="<%= recipient.escape('email') %>">
   <input type='hidden' name='email[addressees][email_type]' value='to'>
 </label>
 <p class='compose-email-from'>
   From: <% Maildog.currentUser.escape('email') %>
 </p>
-<label class='compose-email-subject'>Subject:
-  <input type='text' name='email[subject]'>
-</label>
+<input type='hidden' name='email[subject]' val="<%= email.escape('subject') %>">
 <label class='compose-email-body'>Body:
   <textarea name='email[body]'></textarea>
 </label>
