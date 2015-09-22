@@ -2,39 +2,18 @@ Maildog.Routers.Router = Backbone.Router.extend({
 
   initialize: function(options) {
     this.$rootEl = options.$rootEl;
-    this.initializeForSignedIn();
+    // this._currentView && this._currentView.remove();
   },
 
   routes: {
-    "session/new": "signIn",
     "": "inbox",
     "inbox": "inbox",
     "sent": "sent",
     "emails/:id": "showEmailThread"
   },
 
-  initializeForSignedIn: function() {
-    if (!Maildog.currentUser.isSignedIn()) { return; }
-
-    this._currentView && this._currentView.remove();
-    this.flashMessages = new Maildog.Views.FlashMessageList();
-    $('.flash-container').html(this.flashMessages.render().$el);
-    this.mailNav = Maildog.Views.mailNav = new Maildog.Views.MailNav();
-    $("#mail-nav").html(this.mailNav.render().$el);
-    this.mailSidebar = new Maildog.Views.MailSidebar();
-    $("#mail-sidebar").html(this.mailSidebar.render().$el);
-  },
-
-  signIn: function(callback) {
-    if (!this._requireSignedOut(callback)) { return; }
-
-    this._swapView(Maildog.signInView);
-  },
-
   inbox: function() {
     Backbone.pubSub.off();
-    var callback = this.inbox.bind(this);
-    if (!this._requireSignedIn(callback)) { return; }
 
     this._removeFlashes();
     Maildog.inboxEmails.fetch({ reset: true });
@@ -48,8 +27,6 @@ Maildog.Routers.Router = Backbone.Router.extend({
 
   sent: function() {
     Backbone.pubSub.off();
-    var callback = this.sent.bind(this);
-    if (!this._requireSignedIn(callback)) { return; }
 
     this._removeFlashes();
     var sentEmails = new Maildog.Collections.Emails([], { urlAction: "sent" });
@@ -63,9 +40,6 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   showEmailThread: function(id) {
-    var callback = this.showEmailThread.bind(this, id);
-    if (!this._requireSignedIn(callback)) { return; }
-
     this._removeFlashes();
     var thread = new Maildog.Collections.EmailThreads([], { id: id });
     thread.fetch({ reset: true });
@@ -75,33 +49,11 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   addFlash: function(message) {
-    this.flashMessages.addMessage(message);
+    Maildog.flashMessages.addMessage(message);
   },
 
   _removeFlashes: function() {
-    this.flashMessages.removeMessages();
-  },
-
-  _requireSignedIn: function(callback) {
-    if (!Maildog.currentUser.isSignedIn()) {
-      callback = callback || this._goHome.bind(this);
-      this.signIn(callback);
-      return false;
-    }
-    return true;
-  },
-
-  _requireSignedOut: function(callback) {
-    if (Maildog.currentUser.isSignedIn()) {
-      callback = callback || this._goHome.bind(this);
-      callback();
-      return false;
-    }
-    return true;
-  },
-
-  _goHome: function(){
-    Backbone.history.navigate("", { trigger: true });
+    Maildog.flashMessages.removeMessages();
   },
 
   _swapView: function(newView) {
