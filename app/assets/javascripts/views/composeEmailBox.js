@@ -25,9 +25,5 @@ Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend({
         Maildog.router.addFlash("Email message sent");
       }.bind(this)
     })
-  },
-
-  removeView: function() {
-    this.remove();
   }
 });
