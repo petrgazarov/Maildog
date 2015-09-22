@@ -6,21 +6,25 @@ Maildog.Views.EmailOptions = Backbone.View.extend({
     this.listenTo(
       Maildog.router, "showEmailMessageOptions", this.render.bind(this, "show")
     );
-    this.listenTo(Maildog.router, "folderLinkClick", this.render);
+    this.listenTo(Maildog.router, "folderLinkClick", function(state, email) {
+      this.render(state, email);
+      this.backButtonValue = state;
+    });
   },
 
   events: {
-    "click .delete-email-thread": "fireDeleteThread"
+    "click .delete-email-thread": "fireDeleteThread",
+    "click .email-show-back-button": "goBack"
   },
 
   render: function(state, email) {
     var content;
-    if (typeof state === "undefined") {
+    if (state === "show") {
+      content = this.template_show({ email: email })
+    }
+    else {
       content = this.template_list();
     }
-    else if (state === "show") {
-      content = this.template_show({ email: email })
-    };
 
     this.$el.html(content);
     return this;
@@ -30,4 +34,8 @@ Maildog.Views.EmailOptions = Backbone.View.extend({
     e.preventDefault();
     Backbone.pubSub.trigger("deleteThread");
   },
+
+  goBack: function() {
+    Backbone.history.navigate(this.backButtonValue, { trigger: true });
+  }
 });

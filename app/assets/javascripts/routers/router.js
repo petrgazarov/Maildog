@@ -41,8 +41,11 @@ Maildog.Routers.Router = Backbone.Router.extend({
 
     this._removeFlashes();
     Maildog.inboxEmails.fetch();
-    this.trigger("folderLinkClick");
-    var view = new Maildog.Views.EmailList({ collection: Maildog.inboxEmails });
+    this.trigger("folderLinkClick", "inbox");
+    var view = new Maildog.Views.EmailList({
+      collection: Maildog.inboxEmails,
+      folder: "inbox"
+    });
     this._swapView(view);
   },
 
@@ -54,7 +57,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
     this._removeFlashes();
     var sentEmails = new Maildog.Collections.Emails([], { urlAction: "sent" });
     sentEmails.fetch();
-    this.trigger("folderLinkClick");
+    this.trigger("folderLinkClick", "sent");
     var view = new Maildog.Views.EmailList({
       folder: "sent",
       collection: sentEmails
