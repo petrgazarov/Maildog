@@ -2,21 +2,21 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
   template: JST['signIn'],
 
   events: {
-    "click .sign-in-next-button": "fetchUser",
-    "click .sign-in-submit-button": "submit"
+    "click .sign-in-next-button": "fetchUser"
+    // "click .sign-in-submit-button": "submit"
   },
 
   initialize: function(){
     // this.listenTo(Maildog.currentUser, "signIn", this.signInCallback);
     // this.listenTo(Maildog.currentUser, "sync", this.styleSignIn);
+    Maildog.currentUser = new Maildog.Models.CurrentUser();
     this.signInBox = new Maildog.Views.SignInBox();
-    this.addSubview(".sign-in-box", this.signInBox)
+    this.addSubview(".sign-in-box", this.signInBox);
   },
 
   render: function(){
     this.$el.html(this.template());
     this.attachSubviews();
-    $.rails.refreshCSRFTokens();
     $('.sign-in-text-box').focus();
     return this;
   },
@@ -39,12 +39,13 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
 
   fetchUser: function(e) {
     e.preventDefault();
-    var formData = this.$('.sign-in-box form').serializeJSON().user;
+    var formData = this.$('.sign-in-username-form').serializeJSON().user;
 
     Maildog.currentUser.fetchUser({
       username: formData.username,
       success: function() {
         if (Maildog.currentUser.get('username')) {
+
           this._shiftToAuth()
         } else {
           this._tryAgain()
@@ -53,24 +54,24 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
     })
   },
 
-  submit: function(e){
-    e.preventDefault();
-    var formData = this.$('.sign-in-box form').serializeJSON().user;
-    Maildog.currentUser.signIn({
-      username: Maildog.currentUser.get('username'),
-      password: formData.password,
-      error: function() {
-        alert("The email and password you entered don't match.");
-      }
-    });
-  },
+  // submit: function(e){
+  //   e.preventDefault();
+  //   var formData = this.$('.sign-in-box form').serializeJSON().user;
+  //   Maildog.currentUser.signIn({
+  //     username: Maildog.currentUser.get('username'),
+  //     password: formData.password,
+  //     error: function() {
+  //       alert("The email and password you entered don't match.");
+  //     }
+  //   });
+  // },
 
   _shiftToAuth: function() {
-    this.$signInBox.shiftToAuth();
+    this.signInBox.shiftToAuth();
     $('.password-text-box').focus();
   },
 
   _tryAgain: function() {
-    this.$signInBox.tryAgain();
+    this.signInBox.tryAgain();
   }
 });

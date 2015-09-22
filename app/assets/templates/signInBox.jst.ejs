@@ -1,3 +1,17 @@
 <canvas class='circle canvas'></canvas>
-<input type='text' name='user[username]' class='sign-in-text-box' placeholder='Enter your username'>
-<button class='sign-in-next-button'>Next</button>
+
+<form class='sign-in-username-form'>
+  <input type='text' name='user[username]' class='sign-in-text-box'
+         placeholder='Enter your username'>
+  <button class='sign-in-next-button'>Next</button>
+</form>
+
+<form action='/session' method='post'
+      class='sign-in-password-form invisible'>
+  <input type='hidden' name='authenticity_token'>
+  <input type='password' name='user[password]' class='sign-in-text-box'
+         placeholder='Password'>
+  <input type='hidden' name='user[username]'
+         value="<%= currentUser.escape('username') %>">
+  <button class='sign-in-submit-button'>Sign in</button>
+</form>

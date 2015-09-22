@@ -6,7 +6,9 @@
 </section>
 
 <script>
-  Maildog.currentUser = new Maildog.Models.CurrentUser();
+  Maildog.currentUser = (
+    Maildog.currentUser || new Maildog.Models.CurrentUser()
+  );
   Maildog.inboxEmails = new Maildog.Collections.Emails(
     [], { urlAction: "inbox" });
   Maildog.currentUser.fetch({ reset: true });
