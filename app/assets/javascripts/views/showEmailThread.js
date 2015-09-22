@@ -4,12 +4,12 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
   initialize: function() {
     this.listenTo(this.collection, "reset", this.render);
     this.listenTo(this.collection, "add", this._addSubviewToEmail);
-    this._addReplyForwardSubview();
     Backbone.pubSub.on("deleteThread", this.deleteThread, this);
   },
 
   render: function() {
     this.collection.forEach(this._addSubviewToEmail.bind(this));
+    this._addReplyForwardSubview();
     this.$el.html(this.template());
     this.attachSubviews();
     return this;
@@ -25,7 +25,13 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
   },
 
   _addReplyForwardSubview: function() {
-
+    if (this.collection.length > 0) {
+      var subview = new Maildog.Views.ReplyForwardEmailBox({
+        parentEmail: this.collection.last(),
+        original_email: this.collection.first()
+      });
+      this.addSubview(".reply-forward-email-box", subview);
+    }
   },
 
   _addSubviewToEmail: function(email) {
