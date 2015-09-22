@@ -1,10 +1,11 @@
 <label class='compose-email-to'>To:
+  <% debugger %>
   <input type='text' name='email[addressees][email]'
-         val="<%= recipient.escape('email') %>">
+         value="<%= recipient.escape('email') %>">
   <input type='hidden' name='email[addressees][email_type]' value='to'>
 </label>
 <p class='compose-email-from'>
-  From: <% Maildog.currentUser.escape('email') %>
+  From: <%= Maildog.currentUser.escape('email') %>
 </p>
 <input type='hidden' name='email[subject]' val="<%= email.escape('subject') %>">
 <label class='compose-email-body'>Body:
