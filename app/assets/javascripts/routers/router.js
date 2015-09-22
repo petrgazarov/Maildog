@@ -28,9 +28,6 @@ Maildog.Routers.Router = Backbone.Router.extend({
   signIn: function(callback) {
     if (!this._requireSignedOut(callback)) { return; }
 
-    Maildog.signInView = new Maildog.Views.SignIn({
-      callback: callback
-    });
     this._swapView(Maildog.signInView);
   },
 

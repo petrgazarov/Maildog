@@ -6,37 +6,36 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
     "click .sign-in-submit-button": "submit"
   },
 
-  initialize: function(options){
-    this.callback = options.callback;
-    this.listenTo(Maildog.currentUser, "signIn", this.signInCallback);
-    this.listenTo(Maildog.currentUser, "sync", this.styleSignIn);
-    this.$signInBox = new Maildog.Views.SignInBox();
-    this.addSubview(".sign-in-box", this.$signInBox)
+  initialize: function(){
+    // this.listenTo(Maildog.currentUser, "signIn", this.signInCallback);
+    // this.listenTo(Maildog.currentUser, "sync", this.styleSignIn);
+    this.signInBox = new Maildog.Views.SignInBox();
+    this.addSubview(".sign-in-box", this.signInBox)
   },
 
   render: function(){
     this.$el.html(this.template());
-    this.attachSubview(".sign-in-box", this.$signInBox);
+    this.attachSubviews();
     $.rails.refreshCSRFTokens();
+    $('.sign-in-text-box').focus();
     return this;
   },
 
-  signInCallback: function() {
+  // signInCallback: function() {
+  //
+  //   $('.sign-in-view').removeClass('sign-in-view').addClass('show-container');
+  //   Maildog.router.initializeForSignedIn();
+  //
+  //   if(this.callback) {
+  //     this.callback();
+  //   } else {
+  //     Backbone.history.navigate("", { trigger: true });
+  //   }
+  // },
 
-    $('.sign-in-view').removeClass('sign-in-view').addClass('show-container');
-    Maildog.router.initializeForSignedIn();
-
-    if(this.callback) {
-      this.callback();
-    } else {
-      Backbone.history.navigate("", { trigger: true });
-    }
-  },
-
-  styleSignIn: function() {
-    $('.show-container').removeClass('show-container').addClass('sign-in-view');
-    $('.sign-in-text-box').focus();
-  },
+  // styleSignIn: function() {
+  //   $('.show-container').removeClass('show-container').addClass('sign-in-view');
+  // },
 
   fetchUser: function(e) {
     e.preventDefault();

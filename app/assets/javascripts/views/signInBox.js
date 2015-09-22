@@ -3,7 +3,7 @@ Maildog.Views.SignInBox = Backbone.View.extend({
   template: JST['signInBox'],
 
   render: function() {
-    var content = this.template({ user: Maildog.currentUser });
+    var content = this.template();
     this.$el.html(content);
     return this;
   },

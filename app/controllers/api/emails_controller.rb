@@ -19,17 +19,6 @@ class Api::EmailsController < ApplicationController
     end
   end
 
-  def show
-    @email = Email.find(params[:id])
-    if @email.original_email_id
-      @original_email = Email.find(@email.original_email_id)
-    else
-      @original_email = @email
-    end
-
-    render :show
-  end
-
   def inbox
     @emails = current_user_contact.received_emails.order(date: :desc, time: :desc)
     render :inbox

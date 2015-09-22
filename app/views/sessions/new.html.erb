@@ -1,18 +1,6 @@
-<h1>Maildog</h1>
-<h2>Sign in to continue</h2>
-<div id='content'></div>
-
-<a href='<%= new_user_url %>'>Sign up</a>
-
-Sign in
-
-<form action='<%= session_url %>' method='post'>
-  <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
-  <label>Username
-  <input type='text' name='user[username]' value='<%= @user.username %>'>
-  </label>
-  <label>Password
-  <input type='password' name='user[password]'>
-  </label>
-  <button>Submit</button>
-</form>
+<figure class='sign-in-view'></figure>
+<script>
+  var view = new Maildog.Views.SignIn();
+  $('.sign-in-view').html(view.$el);
+  view.render();
+</script>

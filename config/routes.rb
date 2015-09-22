@@ -16,7 +16,7 @@ Rails.application.routes.draw do
         get :trash
       end
     end
-    resource :session, only: [:show, :create, :destroy] do
+    resource :session do
       post :fetch
     end
     resources :threads, only: [:show, :destroy]
