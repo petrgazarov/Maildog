@@ -6,9 +6,12 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
     this.listenTo(this.collection, 'sync', this.render);
     this.listenTo(this.collection, 'add', this.addSubviewForEmail);
     this.collection.forEach(this.addSubviewForEmail.bind(this));
+
+    Backbone.pubSub.on("refreshCollection", this.refreshCollection, this);
   },
 
   render: function() {
+    debugger
     this.$el.html(this.template())
     this.attachSubviews();
     return this;
@@ -20,5 +23,9 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
       folder: this.folder
     });
     this.addSubview(".email-list", subview);
+  },
+
+  refreshCollection: function() {
+    this.collection.fetch();
   }
 });

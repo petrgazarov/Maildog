@@ -14,7 +14,8 @@ Maildog.Views.EmailOptions = Backbone.View.extend({
 
   events: {
     "click .delete-email-thread": "fireDeleteThread",
-    "click .email-show-back-button": "goBack"
+    "click .email-show-back-button": "goBack",
+    "click .refresh-button": "refreshCollection"
   },
 
   render: function(state, email) {
@@ -35,7 +36,13 @@ Maildog.Views.EmailOptions = Backbone.View.extend({
     Backbone.pubSub.trigger("deleteThread");
   },
 
-  goBack: function() {
+  goBack: function(e) {
+    e.preventDefault();
     Backbone.history.navigate(this.backButtonValue, { trigger: true });
+  },
+
+  refreshCollection: function(e) {
+    e.preventDefault();
+    Backbone.pubSub.trigger("refreshCollection");
   }
 });
