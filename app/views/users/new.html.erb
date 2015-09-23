@@ -1,11 +1,9 @@
 <h1>Maildog</h1>
-<div id='content'></div>
 
 <a href='<%= new_session_url %>'>Sign in</a>
+<div id='content'></div>
 
-Sign up
-
-<form action='<%= users_url %>' method='post'>
+<form action='<%= users_url %>' class='create-account-form' method='post'>
   <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
   <label>Username
   <input type='text' name='user[username]' value='<%= @user.username %>'>
