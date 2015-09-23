@@ -1,21 +1,49 @@
-<h1>Maildog</h1>
+<header class='header'>
+  <h1 class='logo'>Maildog</h1>
+  <aside>
+    <a href="/session/new">Sign in</a>
+  </aside>
+</header>
 
-<a href='<%= new_session_url %>'>Sign in</a>
-<div id='content'></div>
-
-<form action='<%= users_url %>' class='create-account-form' method='post'>
+<form action='<%= users_url %>' class='create-account-form group' method='post'>
   <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
-  <label>Username
-  <input type='text' name='user[username]' value='<%= @user.username %>'>
+  <label>Name
+  <input type='text' name='user[first_name]' value='<%= @user.first_name %>'
+                     placeholder="First">
   </label>
-  <label>First Name
-  <input type='text' name='user[first_name]' value='<%= @user.first_name %>'>
-  </label>
-  <label>Last Name
-  <input type='text' name='user[last_name]' value='<%= @user.last_name %>'>
-  </label>
-  <label>Password
+  <label>
+  <input type='text' name='user[last_name]' value='<%= @user.last_name %>'
+                     placeholder="Last">
+  <label>Choose your username
+  <input type='text' name='user[username]' value='<%= @user.username %>'
+                     data-placeholder="@maildog.xyz">
+  <label>Create a password
   <input type='password' name='user[password]'>
+  </label>
+  <label>Confirm your password
+  <input type='password' name='user[password]'>
+  </label>
+  </label>
+  <label>Birthday
+  <select>
+    <option>January</option>
+    <option>February</option>
+    <option>March</option>
+    <option>April</option>
+    <option>May</option>
+    <option>June</option>
+    <option>July</option>
+    <option>August</option>
+    <option>September</option>
+    <option>October</option>
+    <option>November</option>
+    <option>December</option>
+  </select>
+  <input type='text' placeholder="Day">
+  <input type='text' placeholder="Year">
+  </label>
+  <label>Gender
+
   </label>
   <button>Submit</button>
 </form>
