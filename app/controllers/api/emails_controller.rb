@@ -12,7 +12,7 @@ class Api::EmailsController < ApplicationController
 
     if @email.save
       email_addressee.save!
-      MaildogMailer.send_email(contact, @email).deliver if !@email.draft
+      MaildogMailer.send_email(contact, @email).deliver if !@email.draft_email
       render :show
     else
       render json: @email.errors.full_messages, status: :unprocessable_entity
