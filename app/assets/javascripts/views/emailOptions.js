@@ -6,8 +6,9 @@ Maildog.Views.EmailOptions = Backbone.View.extend({
     this.listenTo(
       Maildog.router, "showEmailMessageOptions", this.render.bind(this, "show")
     );
-    this.listenTo(Maildog.router, "folderLinkClick", function(state, email) {
-      this.render(state, email);
+    this.listenTo(Maildog.router, "folderNavigation", function(state, email) {
+      this.model = email;
+      this.render(state);
       this.backButtonValue = state;
     });
   },
@@ -19,15 +20,9 @@ Maildog.Views.EmailOptions = Backbone.View.extend({
   },
 
   render: function(state, email) {
-    var content;
-    if (state === "show") {
-      content = this.template_show({ email: email })
-    }
-    else {
-      content = this.template_list();
-    }
+    var template = (state === "show" ? this.template_show : this.template_list);
 
-    this.$el.html(content);
+    this.$el.html(template());
     return this;
   },
 
