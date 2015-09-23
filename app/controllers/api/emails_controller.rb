@@ -1,6 +1,6 @@
 class Api::EmailsController < ApplicationController
   def create
-    @email = current_user_contact.sent_emails.new(email_params)
+    @email = current_user_contact.written_emails.new(email_params)
 
     contact = Contact.create_or_get(params[:addressees][:email])
     save_contact_if_new(contact)
@@ -12,7 +12,7 @@ class Api::EmailsController < ApplicationController
 
     if @email.save
       email_addressee.save!
-      MaildogMailer.send_email(contact, @email).deliver
+      MaildogMailer.send_email(contact, @email).deliver if !@email.draft
       render :show
     else
       render json: @email.errors.full_messages, status: :unprocessable_entity
@@ -21,12 +21,19 @@ class Api::EmailsController < ApplicationController
 
   def inbox
     @emails = current_user_contact.received_emails.order(date: :desc, time: :desc)
-    render :inbox
+    render :emails_with_sender
   end
 
   def sent
-    @emails = current_user_contact.sent_emails.order(date: :desc, time: :desc)
-    render :sent
+    @emails = current_user_contact.written_emails.order(date: :desc, time: :desc)
+                                  .where(draft: false)
+    render :emails_with_addressees
+  end
+
+  def drafts
+    @emails = current_user_contact.written_emails.order(date: :desc, time: :desc)
+                                  .where(draft: true);
+    render :emails_with_addressees
   end
 
   private
@@ -39,6 +46,8 @@ class Api::EmailsController < ApplicationController
   end
 
   def email_params
-    params.require(:email).permit(:subject, :body, :parent_email_id, :original_email_id)
+    params.require(:email).permit(
+      :subject, :body, :parent_email_id, :original_email_id, :draft
+    )
   end
 end

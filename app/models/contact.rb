@@ -5,7 +5,7 @@ class Contact < ActiveRecord::Base
     through: :email_addressees,
     source: :email
 
-  has_many :sent_emails,
+  has_many :written_emails,
     class_name: "Email",
     foreign_key: :sender_id
 

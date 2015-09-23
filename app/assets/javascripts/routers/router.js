@@ -8,13 +8,14 @@ Maildog.Routers.Router = Backbone.Router.extend({
     "": "inbox",
     "inbox": "inbox",
     "sent": "sent",
+    "drafts": "drafts",
     "emails/:id": "showEmailThread"
   },
 
   inbox: function() {
     Backbone.pubSub.off();
-
     this._removeFlashes();
+
     Maildog.inboxEmails.fetch({ reset: true });
     this.trigger("folderNavigation", "inbox");
     var view = new Maildog.Views.EmailList({
@@ -26,14 +27,28 @@ Maildog.Routers.Router = Backbone.Router.extend({
 
   sent: function() {
     Backbone.pubSub.off();
-
     this._removeFlashes();
+
     var sentEmails = new Maildog.Collections.Emails([], { urlAction: "sent" });
     sentEmails.fetch({ reset: true });
     this.trigger("folderNavigation", "sent");
     var view = new Maildog.Views.EmailList({
       folder: "sent",
       collection: sentEmails
+    });
+    this._swapView(view);
+  },
+
+  drafts: function() {
+    Backbone.pubSub.off();
+    this._removeFlashes();
+
+    var draftsEmails = new Maildog.Collections.Emails([], { urlAction: "drafts" });
+    draftsEmails.fetch({ reset: true });
+    this.trigger("folderNavigation", "drafts");
+    var view = new Maildog.Views.EmailList({
+      folder: "drafts",
+      collection: draftsEmails
     });
     this._swapView(view);
   },
