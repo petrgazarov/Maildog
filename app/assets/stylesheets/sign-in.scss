@@ -83,6 +83,7 @@
   height: 36px;
   transition: all 0.218s;
   margin: 7px auto;
+  cursor: default;
 }
 
 .sign-in-view button:hover {
@@ -97,4 +98,15 @@
   top: -70px;
   padding: 0;
   background: transparent;
+}
+
+.create-account-link {
+  color: #427fed;
+  font-size: 14px;
+  display: block;
+  margin-top: 25px;
+}
+
+.create-account-link:hover {
+  text-decoration: underline;
 }
