@@ -1,5 +1,5 @@
 class Email < ActiveRecord::Base
-  validates :sender, :date, :time, presence: true
+  validates :date, :time, presence: true
 
   belongs_to :sender,
     class_name: "Contact",

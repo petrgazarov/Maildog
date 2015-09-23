@@ -9,11 +9,12 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :emails do
       collection do
-        get :inbox
-        get :starred
-        get :sent
-        get :drafts
-        get :trash
+        get  :inbox
+        get  :starred
+        get  :sent
+        get  :drafts
+        get  :trash
+        post :send
       end
     end
     resource :session do

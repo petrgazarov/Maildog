@@ -64,6 +64,6 @@ Maildog.Models.Email = Backbone.Model.extend({
   },
 
   isBlank: function() {
-    
+
   }
 });

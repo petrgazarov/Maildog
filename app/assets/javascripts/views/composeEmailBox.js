@@ -10,7 +10,7 @@ Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend({
 
   initialize: function() {
     this.model = new Maildog.Models.Email();
-    this.$el.keypress(this.saveEmail);
+    // this.$el.keypress($.proxy(this.saveEmail, this));
   },
 
   render: function() {
@@ -37,14 +37,12 @@ Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend({
   },
 
   saveEmail: function() {
-    debugger
     if (this.saving === true) { return };
     var email = this.model;
 
     var saving;
     this.saving = saving = true;
     window.setTimeout(function() {
-      debugger
       var formData = this.$el.serializeJSON();
       email.set(formData.email);
       if (email.isBlank) {
@@ -65,7 +63,7 @@ Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend({
   removeView: function(options) {
     this.$el.off('keypress');
     this.remove();
-    if (options && options.save) { return }
+    if (options && !options.save) { return }
     this.saveEmail();
   }
 });

@@ -13,6 +13,7 @@ Maildog.Collections.EmailThreads = Backbone.Collection.extend({
     $.ajax({
       url: this.url(),
       method: 'DELETE',
+      dataType: "json",
       success: function() {
         Maildog.inboxEmails.remove(this.emailId);
         options.success();
