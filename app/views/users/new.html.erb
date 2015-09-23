@@ -5,8 +5,7 @@
   </aside>
 </header>
 
-<form action='<%= users_url %>' class='create-account-form group' method='post'>
-  <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+<form class='create-account-form group' id='create-account-form'>
   <label>Name
   <input type='text' name='user[first_name]' value='<%= @user.first_name %>'
                      placeholder="First">
@@ -15,8 +14,7 @@
   <input type='text' name='user[last_name]' value='<%= @user.last_name %>'
                      placeholder="Last">
   <label>Choose your username
-  <input type='text' name='user[username]' value='<%= @user.username %>'
-                     data-placeholder="@maildog.xyz">
+  <input type='text' name='user[username]' value='<%= @user.username %>'>
   <label>Create a password
   <input type='password' name='user[password]'>
   </label>
@@ -25,7 +23,7 @@
   </label>
   </label>
   <label>Birthday
-  <select>
+  <select name='birthday-month'>
     <option>January</option>
     <option>February</option>
     <option>March</option>
@@ -39,11 +37,15 @@
     <option>November</option>
     <option>December</option>
   </select>
-  <input type='text' placeholder="Day">
-  <input type='text' placeholder="Year">
+  <input name='birthday-day' type='text' placeholder="Day">
+  <input name='birthday-year' type='text' placeholder="Year">
   </label>
   <label>Gender
-
+    <select name="user[gender]">
+      <option value='M'>Male</option>
+      <option value='F'>Female</option>
+      <option value='O'>Other</option>
+    </select>
   </label>
   <button>Submit</button>
 </form>
