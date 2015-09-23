@@ -13,7 +13,7 @@ class Api::EmailsController < ApplicationController
     if @email.save
       email_addressee.save!
       MaildogMailer.send_email(contact, @email).deliver
-      render json: @email
+      render :show
     else
       render json: @email.errors.full_messages, status: :unprocessable_entity
     end
@@ -39,6 +39,6 @@ class Api::EmailsController < ApplicationController
   end
 
   def email_params
-    params.require(:email).permit(:subject, :body, :parent_email_id)
+    params.require(:email).permit(:subject, :body, :parent_email_id, :original_email_id)
   end
 end

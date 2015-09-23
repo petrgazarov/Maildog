@@ -1,6 +1,7 @@
 Maildog.Views.ReplyForwardEmailBox = Backbone.View.extend({
   template: JST['replyForwardEmailBox'],
   tagName: "form",
+  className: "reply-forward-email-form",
 
   events: {
     "submit": "sendEmail"
@@ -32,12 +33,12 @@ Maildog.Views.ReplyForwardEmailBox = Backbone.View.extend({
     this.remove();
 
     this.model.save(formData.email, {
-      success: function() {
-        Backbone.history.navigate("#", { trigger: true })
+      success: function(model) {
+        this.collection.add(model);
         Maildog.router.addFlash("Email message sent");
       }.bind(this),
       error: function() {
-        alert("something went wrong!")
+        Maildog.router.addFlash("something went wrong!");
       }
     })
   }
