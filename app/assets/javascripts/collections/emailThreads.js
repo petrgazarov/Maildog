@@ -19,5 +19,15 @@ Maildog.Collections.EmailThreads = Backbone.Collection.extend({
         this.remove();
       }.bind(this)
     });
+  },
+
+  replyTo: function() {
+    for (var i = this.length - 1; i >= 0; i--) {
+      var sender = this.at(i).sender();
+      if (sender.get('email') != Maildog.currentUser.get('email')) {
+        return sender
+      }
+    }
+    return this.last().sender();
   }
-})
+});

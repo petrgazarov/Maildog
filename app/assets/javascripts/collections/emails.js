@@ -3,7 +3,6 @@ Maildog.Collections.Emails = Backbone.Collection.extend({
 
   initialize: function(models, options) {
     options && (this.urlAction = options.urlAction);
-
   },
 
   url: function() {
