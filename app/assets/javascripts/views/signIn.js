@@ -3,12 +3,9 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
 
   events: {
     "click .sign-in-next-button": "fetchUser"
-    // "click .sign-in-submit-button": "submit"
   },
 
   initialize: function(){
-    // this.listenTo(Maildog.currentUser, "signIn", this.signInCallback);
-    // this.listenTo(Maildog.currentUser, "sync", this.styleSignIn);
     Maildog.currentUser = new Maildog.Models.CurrentUser();
     this.signInBox = new Maildog.Views.SignInBox();
     this.addSubview(".sign-in-box", this.signInBox);
@@ -20,22 +17,6 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
     $('.sign-in-text-box').focus();
     return this;
   },
-
-  // signInCallback: function() {
-  //
-  //   $('.sign-in-view').removeClass('sign-in-view').addClass('show-container');
-  //   Maildog.router.initializeForSignedIn();
-  //
-  //   if(this.callback) {
-  //     this.callback();
-  //   } else {
-  //     Backbone.history.navigate("", { trigger: true });
-  //   }
-  // },
-
-  // styleSignIn: function() {
-  //   $('.show-container').removeClass('show-container').addClass('sign-in-view');
-  // },
 
   fetchUser: function(e) {
     e.preventDefault();

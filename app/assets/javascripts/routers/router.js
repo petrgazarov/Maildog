@@ -2,7 +2,6 @@ Maildog.Routers.Router = Backbone.Router.extend({
 
   initialize: function(options) {
     this.$rootEl = options.$rootEl;
-    // this._currentView && this._currentView.remove();
   },
 
   routes: {
