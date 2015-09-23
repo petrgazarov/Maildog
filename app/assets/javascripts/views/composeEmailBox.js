@@ -8,6 +8,11 @@ Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend({
     "click .cancel-compose-box-popup": "removeView"
   },
 
+  initialize: function() {
+    this.model = new Maildog.Models.Email();
+    this.$el.keypress(this.saveEmail);
+  },
+
   render: function() {
     this.$el.html(this.template());
     return this;
@@ -15,9 +20,10 @@ Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend({
 
   sendEmail: function(e) {
     e.preventDefault();
+
     var formData = this.$el.serializeJSON();
-    var email = new Maildog.Models.Email()
-    this.remove();
+    var email = this.model;
+    this.removeView({ save: false });
 
     email.save(formData.email, {
       success: function() {
@@ -30,7 +36,36 @@ Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend({
     })
   },
 
-  removeView: function() {
+  saveEmail: function() {
+    debugger
+    if (this.saving === true) { return };
+    var email = this.model;
+
+    var saving;
+    this.saving = saving = true;
+    window.setTimeout(function() {
+      debugger
+      var formData = this.$el.serializeJSON();
+      email.set(formData.email);
+      if (email.isBlank) {
+      //...
+      }
+      email.save({}, {
+        success: function() {
+          alert("saved")
+        },
+        error: function() {
+          alert("error")
+        }
+      });
+      saving = false;
+    }.bind(this), 2000);
+  },
+
+  removeView: function(options) {
+    this.$el.off('keypress');
     this.remove();
+    if (options && options.save) { return }
+    this.saveEmail();
   }
 });

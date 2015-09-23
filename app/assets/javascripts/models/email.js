@@ -61,5 +61,9 @@ Maildog.Models.Email = Backbone.Model.extend({
     else {
       return this.get('date');
     };
+  },
+
+  isBlank: function() {
+    
   }
 });
