@@ -1,6 +1,6 @@
 class Api::EmailsController < ApplicationController
   def create
-    @email = current_user.emails.new(email_params)
+    @email = current_user_contact.sent_emails.new(email_params)
 
     contact = Contact.create_or_get(params[:addressees][:email])
     save_contact_if_new(contact)

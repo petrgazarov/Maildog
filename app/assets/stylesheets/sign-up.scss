@@ -16,7 +16,8 @@
   margin: 25px 58px 24px 0;
 }
 
-.header a {
+.header a,
+.create-account-form button {
   font-size: 13px;
   border: 1px solid #3079ed;
   background-color: #4d90fe;
@@ -43,4 +44,8 @@
   display: block;
   border: 1px solid #d9d9d9;
   border-top: 1px solid #c0c0c0;
+}
+
+.create-account-form button {
+  // font-size: 
 }

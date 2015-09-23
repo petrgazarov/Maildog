@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_contact
-    current_user ? Contact.find_by(email: current_user.email) : nil
+    logged_in? ? Contact.find_by(email: current_user.email) : nil
   end
 
   def logged_in?

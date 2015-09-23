@@ -8,10 +8,6 @@ class User < ActiveRecord::Base
   after_initialize :ensure_session_token
   before_validation :ensure_email
 
-  has_many :emails,
-    class_name: "Email",
-    foreign_key: :sender_id
-
   has_many :contacts,
     class_name: "Contact",
     foreign_key: :owner_id
