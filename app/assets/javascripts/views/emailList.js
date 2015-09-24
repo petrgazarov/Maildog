@@ -3,6 +3,7 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
 
   initialize: function(options) {
     this.folder = options.folder;
+    this.refreshCollection();
     this.listenTo(this.collection, 'reset', this.render);
     Backbone.pubSub.on("refreshCollection", this.refreshCollection, this);
   },
