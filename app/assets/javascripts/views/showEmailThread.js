@@ -38,7 +38,7 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     });
     $('.reply-forward-email-box').addClass('invisible');
     this.addSubview(".reply-forward-email-section", subview);
-    $('textarea').focus()
+    $('textarea').focus();
   },
 
   returnBox: function(e) {

@@ -43,9 +43,9 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
           Maildog.emailFolders.addSubview('.compose-email-popup-container', view);
           $('.compose-email-body').focus();
         } else {
-          //...
+          Backbone.history.navigate("/emails/" + this.model.id, { trigger: true });
         }
-      },
+      }.bind(this),
       error: function() {
         alert("error")
       }
