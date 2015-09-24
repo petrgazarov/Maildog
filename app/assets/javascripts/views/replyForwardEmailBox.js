@@ -5,17 +5,24 @@ Maildog.Views.ReplyForwardEmailBox = Backbone.View.extend(
     className: "reply-forward-email-form",
 
     initialize: function(options) {
-      this.$el.on("submit", function(e) {
-        this.sendEmail(e, {
-          saveEmail: false,
-          success: function(model) {
-            this.collection.add(model);
-          }.bind(this)
-        })
-      }.bind(this));
-
       this.recipient = options.recipient;
-      this.$el.on("input", $.proxy(this.saveEmail, this));
+    },
+
+    events: {
+      "submit": "submit",
+      "input": "saveEmail"
+    },
+
+    submit: function(e) {
+      e.preventDefault();
+
+      this.sendEmail({
+        saveEmail: false,
+        success: function(model) {
+          debugger
+          this.collection.add(model);
+        }.bind(this)
+      })
     },
 
     render: function() {

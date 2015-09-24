@@ -16,7 +16,7 @@ Maildog.Mixins.NewEmail = {
           window.setTimeout(function() {
             this.$('.saving-saved').text("Saved");
             this.saving = false;
-          }.bind(this), 1000);
+          }.bind(this), 700);
         }.bind(this),
         error: function() {
           alert("error")
@@ -25,9 +25,9 @@ Maildog.Mixins.NewEmail = {
     }.bind(this), 2000);
   },
 
-  sendEmail: function(e, sendOptions) {
+  sendEmail: function(sendOptions) {
     this.sending = true;
-    e.preventDefault();
+
     var formData = this.$el.serializeJSON();
     this.removeView(sendOptions);
     this.model.set("draft", false);
@@ -44,7 +44,6 @@ Maildog.Mixins.NewEmail = {
   },
 
   removeView: function(sendOptions) {
-    this.$el.off();
     this.remove();
     if (sendOptions && !sendOptions.saveEmail) { return }
     this.saveEmail();
