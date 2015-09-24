@@ -1,7 +1,6 @@
 Maildog.Mixins.NewEmail = {
   saveEmail: function() {
     if (this.saving === true) { return; };
-    console.log("here")
 
     this.saving = true;
     var email = this.model;

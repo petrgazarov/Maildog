@@ -20,6 +20,7 @@ Maildog.Views.ReplyForwardEmailBox = Backbone.View.extend(
         subject: options.originalEmail.get('subject')
       });
       this.recipient = options.recipient;
+      this.$el.on("input", $.proxy(this.saveEmail, this));
     },
 
     render: function() {
