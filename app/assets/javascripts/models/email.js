@@ -33,8 +33,11 @@ Maildog.Models.Email = Backbone.Model.extend({
 
   correspondentString: function(folder) {
     var string;
-    if (folder === "sent" || folder === "drafts") {
+    if (folder === "sent") {
       string = this.addressees().first().escape('email');
+    }
+    else if (folder === "drafts") {
+      string = "Draft";
     }
     else {
       string = this.sender().escape('first_name') + " " +
