@@ -52,3 +52,18 @@ button {
 .invisible {
   display: none;
 }
+
+
+.blue-button {
+  font-size: 13px;
+  border: 1px solid #3079ed;
+  background-color: #4d90fe;
+  background-image: -webkit-linear-gradient(top,#4d90fe,#4787ed);
+  color: #fff;
+  min-width: 46px;
+  text-align: center;
+  border-radius: 2px;
+  padding: 6px 11px;
+  transition: all 0.218s;
+  cursor: default;
+}

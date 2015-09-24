@@ -35,18 +35,6 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
     })
   },
 
-  // submit: function(e){
-  //   e.preventDefault();
-  //   var formData = this.$('.sign-in-box form').serializeJSON().user;
-  //   Maildog.currentUser.signIn({
-  //     username: Maildog.currentUser.get('username'),
-  //     password: formData.password,
-  //     error: function() {
-  //       alert("The email and password you entered don't match.");
-  //     }
-  //   });
-  // },
-
   _shiftToAuth: function() {
     this.signInBox.shiftToAuth();
     $('.password-text-box').focus();
