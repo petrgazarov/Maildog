@@ -11,9 +11,9 @@
   From: <%= Maildog.currentUser.escape('email') %>
 </p>
 <label class='compose-email-subject'>Subject:
-  <input type='text' name='email[subject]'>
+  <input type='text' name='email[subject]' value='<%= email.subject %>'>
 </label>
 <label class='compose-email-body'>Body:
-  <textarea name='email[body]'></textarea>
+  <textarea name='email[body]'><%= email.body %></textarea>
 </label>
 <button class='compose-email-send-button'>Send</button>
