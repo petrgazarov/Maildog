@@ -34,6 +34,12 @@ class Api::EmailsController < ApplicationController
     render :emails_with_addressees
   end
 
+  def destroy
+    email = Email.find(params[:id])
+    email.destroy
+    render json: email
+  end
+
   private
 
   def save_contact_if_new(contact)

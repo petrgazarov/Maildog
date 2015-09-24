@@ -45,10 +45,10 @@ Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend({
       var formData = this.$el.serializeJSON();
       formData.email.draft = true;
       email.set(formData.email);
-      // if (email.isBlank) {
-      //   email.destroy();
-      //   return
-      // }
+      if (email.isBlank()) {
+        email.destroy();
+        return;
+      }
       email.save({}, {
         success: function() {
           alert("saved")
