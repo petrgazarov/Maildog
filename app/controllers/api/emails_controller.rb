@@ -10,7 +10,8 @@ class Api::EmailsController < ApplicationController
 
   def update
     @email = Email.find(params[:id])
-    if params[:email][:draft]
+    @email.draft = params[:email][:draft]
+    if @email.draft
       update_email(@email)
     else
       persist_and_send_email(:update, @email)

@@ -15,7 +15,6 @@ Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend(
           saveEmail: false,
           success: function(){
             Backbone.history.navigate("#", { trigger: true })
-            this.$el.off("submit");
           }.bind(this)
         })
       }.bind(this));
