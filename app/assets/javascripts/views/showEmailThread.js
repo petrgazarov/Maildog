@@ -6,6 +6,7 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     this.listenTo(this.collection, "add", this._addSubviewToEmail);
     this.collection.fetch({ reset: true });
     Backbone.pubSub.on("deleteThread", this.deleteThread, this);
+
   },
 
   events: {
@@ -14,8 +15,9 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
   },
 
   render: function() {
-    this.collection.forEach(this._addSubviewToEmail.bind(this));
+    debugger
     this.$el.html(this.template());
+    this.collection.forEach(this._addSubviewToEmail.bind(this));
     this.attachSubviews();
     return this;
   },
@@ -29,14 +31,23 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     });
   },
 
-  addReplyForwardView: function() {
+  addReplyForwardView: function(options) {
+    var newEmail = options.model ||
+      new Maildog.Models.Email({
+        parent_email_id: this.collection.last().id,
+        original_email_id: this.collection.first().id,
+        subject: this.collection.first().get('subject')
+      });
+
+    var model = (options && options.model) || newEmail;
     var subview = new Maildog.Views.ReplyForwardEmailBox({
-      parentEmail: this.collection.last(),
-      originalEmail: this.collection.first(),
+      model: model,
       recipient: this.collection.replyTo(),
       collection: this.collection
     });
-    $('.reply-forward-email-box').addClass('invisible');
+    if (!options || !options.leaveBox) {
+      $('.reply-forward-email-box').addClass('invisible');
+    }
     this.addSubview(".reply-forward-email-section", subview);
     $('textarea').focus();
   },
@@ -47,9 +58,14 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
   },
 
   _addSubviewToEmail: function(email) {
-    var subview = new Maildog.Views.EmailShow({
-      model: email
-    });
-    this.addSubview(".email-thread-list", subview);
+    var subview;
+    if (email.get('draft')) {
+      this.addReplyForwardView({ model: email, leaveBox: true });
+    } else {
+      subview = new Maildog.Views.EmailShow({
+        model: email
+      });
+      this.addSubview(".email-thread-list", subview);
+    }
   }
 });
