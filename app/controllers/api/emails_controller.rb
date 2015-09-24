@@ -1,21 +1,19 @@
 class Api::EmailsController < ApplicationController
   def create
     @email = @email = current_user_contact.written_emails.new(email_params)
-    if @email.draft_email
+    if @email.draft
       save_email(@email)
     else
-      save_and_send_email(@email)
+      persist_and_send_email(:create, @email)
     end
   end
 
   def update
     @email = Email.find(params[:id])
-    if params[:email][:draft_email]
+    if params[:email][:draft]
       update_email(@email)
-      render json: @email
     else
-      update_and_send_email(@email)
-      render json: @email.errors.full_messages, status: :unprocessable_entity
+      persist_and_send_email(:update, @email)
     end
   end
 
@@ -26,13 +24,13 @@ class Api::EmailsController < ApplicationController
 
   def sent
     @emails = current_user_contact.written_emails.order(date: :desc, time: :desc)
-                                  .where(draft_email: false)
+                                  .where(draft: false)
     render :emails_with_addressees
   end
 
   def drafts
     @emails = current_user_contact.written_emails.order(date: :desc, time: :desc)
-                                  .where(draft_email: true);
+                                  .where(draft: true);
     render :emails_with_addressees
   end
 
@@ -59,23 +57,6 @@ class Api::EmailsController < ApplicationController
     end
   end
 
-  def save_and_send_email(email)
-    contact = Contact.create_or_get(params[:addressees][:email])
-    save_contact_if_new(contact)
-
-    email_addressee = email.email_addressees.new(
-      email_type: params[:addressees][:email_type],
-      addressee_id: contact.id
-    )
-    if email.save
-      email_addressee.save!
-      MaildogMailer.send_email(contact, email).deliver
-      render :show
-    else
-      render json: email.errors.full_messages, status: :unprocessable_entity
-    end
-  end
-
   def update_email(email)
     if email.update(email_params)
       render json: email
@@ -84,7 +65,20 @@ class Api::EmailsController < ApplicationController
     end
   end
 
-  def update_and_send_email(email)
+  def persist_and_send_email(action, email)
+    contact, email_addressee = create_or_get_contact_and_email_addressee
+
+    if (action == :update && email.update!(email_params)) ||
+         (action == :create && email.save!)
+      email_addressee.save!
+      MaildogMailer.send_email(contact, email).deliver
+      render :show
+    else
+      render json: email.errors.full_messages, status: :unprocessable_entity
+    end
+  end
+
+  def create_or_get_contact_and_email_addressee
     contact = Contact.create_or_get(params[:addressees][:email])
     save_contact_if_new(contact)
 
@@ -92,12 +86,6 @@ class Api::EmailsController < ApplicationController
       email_type: params[:addressees][:email_type],
       addressee_id: contact.id
     )
-    if email.update(email_params)
-      email_addressee.save!
-      MaildogMailer.send_email(contact, email).deliver
-      render :show
-    else
-      render json: email.errors.full_messages, status: :unprocessable_entity
-    end
+    [contact, email_addressee]
   end
 end
