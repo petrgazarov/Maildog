@@ -72,7 +72,7 @@ class Api::EmailsController < ApplicationController
   end
 
   def persist_and_send_email(action, email)
-    contact, email_addressee = create_or_get_contact_and_email_addressee
+    contact, email_addressee = create_or_get_contact_and_email_addressee(email)
 
     if (action == :update && email.update!(email_params)) ||
          (action == :create && email.save!)
@@ -84,7 +84,7 @@ class Api::EmailsController < ApplicationController
     end
   end
 
-  def create_or_get_contact_and_email_addressee
+  def create_or_get_contact_and_email_addressee(email)
     contact = Contact.create_or_get(params[:addressees][:email])
     save_contact_if_new(contact)
 
