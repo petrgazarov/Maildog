@@ -5,6 +5,7 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
 
   initialize: function(options) {
     this.folder = options.folder;
+    this.events = {};
   },
 
   render: function() {
@@ -26,5 +27,28 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
     $div.addClass($a.attr('class'))
     $div.append($a.children());
     $a.replaceWith($div);
+    this.events["click"] = "showDraft";
+    this.delegateEvents();
+  },
+
+  showDraft: function() {
+    var thread = new Maildog.Collections.EmailThreads([], { id: this.model.id });
+    thread.fetch({
+      reset: true,
+      success: function() {
+        if (thread.length === 1) {
+          var view = new Maildog.Views.ComposeEmailBox({
+            email: thread.at(0)
+          });
+          Maildog.emailFolders.addSubview('.compose-email-popup-container', view);
+          $('.compose-email-body').focus();
+        } else {
+          //...
+        }
+      },
+      error: function() {
+        alert("error")
+      }
+    });
   }
 });

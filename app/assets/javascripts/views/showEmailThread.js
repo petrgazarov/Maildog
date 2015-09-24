@@ -4,6 +4,7 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
   initialize: function() {
     this.listenTo(this.collection, "reset", this.render);
     this.listenTo(this.collection, "add", this._addSubviewToEmail);
+    this.collection.fetch({ reset: true });
     Backbone.pubSub.on("deleteThread", this.deleteThread, this);
   },
 

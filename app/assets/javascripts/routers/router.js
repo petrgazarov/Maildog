@@ -9,7 +9,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
     "inbox": "inbox",
     "sent": "sent",
     "drafts": "drafts",
-    "emails/:id": "emailListItemClick"
+    "emails/:id": "showEmailThread"
   },
 
   inbox: function() {
@@ -50,28 +50,13 @@ Maildog.Routers.Router = Backbone.Router.extend({
     this._swapView(view);
   },
 
-  emailListItemClick: function(id) {
+  showEmailThread: function(id) {
     this._removeFlashes();
 
     var thread = new Maildog.Collections.EmailThreads([], { id: id });
-    thread.fetch({
-      reset: true,
-      success: function() {
-        if (thread.length === 1 && thread.at(0).get('draft')) {
-          var view = new Maildog.Views.ComposeEmailBox({
-            email: thread.at(0)
-          });
-          Maildog.emailFolders.addSubview('.compose-email-popup-container', view);
-          $('.compose-email-to').focus();
-          return;
-        }
-        else {
-          this.trigger("showEmailMessageOptions", thread);
-          var view = new Maildog.Views.ShowEmailThread({ collection: thread });
-          this._swapView(view);
-        }
-      }.bind(this)
-    });
+    this.trigger("showEmailMessageOptions", thread);
+    var view = new Maildog.Views.ShowEmailThread({ collection: thread });
+    this._swapView(view);
   },
 
   addFlash: function(message) {
