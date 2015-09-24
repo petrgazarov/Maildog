@@ -9,6 +9,12 @@ Maildog.Collections.Emails = Backbone.Collection.extend({
     return "/api/emails/" + this.urlAction
   },
 
+  folderName: function() {
+    var name = this.urlAction[0].toUpperCase() + this.urlAction.slice(1);
+    if (name === "Sent") { name += " Mail" };
+    return name;
+  },
+
   getOrFetch: function(id) {
     var email = this.get(id);
     if (email) {

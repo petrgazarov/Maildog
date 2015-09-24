@@ -8,6 +8,7 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
   },
 
   render: function() {
+    this.$('.email-list-empty-folder-memo').text("");
     this.eachSubview(function(subview) { subview.remove() });
     this.$el.html(this.template());
     this.collection.forEach(this.addSubviewForEmail.bind(this));
@@ -23,6 +24,18 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
   },
 
   refreshCollection: function() {
-    this.collection.fetch({ reset: true });
+    this.collection.fetch({
+      reset: true,
+      success: function() {
+        this.insertNoConversationsMemo();
+      }.bind(this)
+    });
+  },
+
+  insertNoConversationsMemo: function() {
+    if (this.collection.length === 0) {
+      this.$('.email-list-empty-folder-memo')
+          .text("No conversations in " + this.collection.folderName());
+    }
   }
 });
