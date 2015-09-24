@@ -3,6 +3,7 @@ window.Maildog = {
   Collections: {},
   Views: {},
   Routers: {},
+  Mixins: {},
   initialize: function() {
     Maildog.currentUser = (
       Maildog.currentUser || new Maildog.Models.CurrentUser()

@@ -1,68 +1,31 @@
-Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend({
-  template: JST['composeEmailBox'],
-  tagName: 'form',
-  className: 'compose-email-popup',
+Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend(
+  _.extend({}, Maildog.Mixins.NewEmail, {
 
-  events: {
-    "submit": "sendEmail",
-    "click .cancel-compose-box-popup": "removeView"
-  },
+    template: JST['composeEmailBox'],
+    tagName: 'form',
+    className: 'compose-email-popup',
 
-  initialize: function(options) {
-    this.model = ((options && options.email) || new Maildog.Models.Email());
-    this.$el.on("input", $.proxy(this.saveEmail, this));
-  },
+    events: {
+      "click .cancel-compose-box-popup": "removeView"
+    },
 
-  render: function() {
-    this.$el.html(this.template({ email: this.model }));
-    return this;
-  },
+    initialize: function(options) {
+      this.$el.on("submit", function(e) {
+        this.sendEmail(e, {
+          saveEmail: false,
+          success: function(){
+            Backbone.history.navigate("#", { trigger: true })
+            this.$el.off("submit");
+          }.bind(this)
+        })
+      }.bind(this));
+      this.model = ((options && options.email) || new Maildog.Models.Email());
+      this.$el.on("input", $.proxy(this.saveEmail, this));
+    },
 
-  sendEmail: function(e) {
-    e.preventDefault();
-
-    var formData = this.$el.serializeJSON();
-    var email = this.model;
-    this.removeView({ saveEmail: false });
-
-    email.save(formData.email, {
-      success: function() {
-        Backbone.history.navigate("#", { trigger: true })
-        Maildog.router.addFlash("Email message sent");
-      }.bind(this),
-      error: function() {
-        alert("something went wrong!")
-      }
-    })
-  },
-
-  saveEmail: function() {
-    if (this.saving === true) { return; };
-
-    this.saving = true;
-    var email = this.model;
-    this.$('.saving-saved').text("");
-    window.setTimeout(function() {
-      this.$('.saving-saved').text("Saving");
-      var formData = this.$el.serializeJSON();
-      formData.email.draft = true;
-      email.set(formData.email);
-      email.save({}, {
-        success: function() {
-          window.setTimeout(function() { this.$('.saving-saved').text("Saved") }, 1000);
-        },
-        error: function() {
-          alert("error")
-        }
-      });
-      this.saving = false;
-    }.bind(this), 2000);
-  },
-
-  removeView: function(options) {
-    this.$el.off('input');
-    this.remove();
-    if (options && !options.saveEmail) { return }
-    this.saveEmail();
-  }
-});
+    render: function() {
+      this.$el.html(this.template({ email: this.model }));
+      return this;
+    }
+  })
+);
