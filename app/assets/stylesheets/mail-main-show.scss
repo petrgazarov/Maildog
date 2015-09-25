@@ -120,11 +120,15 @@
 .check-box-container:hover {
   box-shadow: inset 0 1px rgba(0,0,0,.1);
   border: 1px solid #b2b2b2;
+
+}
+
+.checked-check-box {
+  background: image-url('checkmark.png') no-repeat -5px -3px;
+  background-image: -webkit-image-set(image-url('checkmark.png'));
 }
 
 .checked {
-  background: image-url('checkmark.png') no-repeat -5px -3px;
-  background-image: -webkit-image-set(image-url('checkmark.png'));
   background-color: #fff;
 }
 
@@ -176,6 +180,7 @@
 
 .email-list-item-time-date {
   float: right;
+  margin: 0 20px 0 40px;
 }
 
 .email-show-item {
