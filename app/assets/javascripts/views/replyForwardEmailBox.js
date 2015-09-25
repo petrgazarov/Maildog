@@ -19,8 +19,8 @@ Maildog.Views.ReplyForwardEmailBox = Backbone.View.extend(
       this.sendEmail({
         saveEmail: false,
         success: function(model) {
-          debugger
           this.collection.add(model);
+          this.collection.trigger("add", model);
         }.bind(this)
       })
     },
