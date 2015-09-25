@@ -5,21 +5,21 @@ Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend(
     tagName: 'form',
     className: 'compose-email-popup',
 
-    events: {
-      "click .cancel-compose-box-popup": "removeView"
+    initialize: function(options) {
+      this.model = ((options && options.email) || new Maildog.Models.Email());
     },
 
-    initialize: function(options) {
-      this.$el.on("submit", function(e) {
-        this.sendEmail(e, {
-          saveEmail: false,
-          success: function(){
-            Backbone.history.navigate("#", { trigger: true })
-          }.bind(this)
-        })
-      }.bind(this));
-      this.model = ((options && options.email) || new Maildog.Models.Email());
-      this.$el.on("input", $.proxy(this.saveEmail, this));
+    events: {
+      "click .cancel-compose-box-popup": "removeView",
+      "submit": "submit",
+      "input": "saveEmail"
+    },
+
+    submit: function(e) {
+      e.preventDefault();
+      this.sendEmail({
+        saveEmail: false
+      })
     },
 
     render: function() {
