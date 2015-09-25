@@ -16,11 +16,16 @@ Maildog.Views.ReplyForwardEmailBox = Backbone.View.extend(
     submit: function(e) {
       e.preventDefault();
 
+      var draft = this.model.get('draft');
+
       this.sendEmail({
         saveEmail: false,
         success: function(model) {
-          this.collection.add(model);
-          this.collection.trigger("add", model);
+          if (draft) {
+            this.collection.trigger("add", model);
+          } else {
+            this.collection.add(model);
+          }
         }.bind(this)
       })
     },
