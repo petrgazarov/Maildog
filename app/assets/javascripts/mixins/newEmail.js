@@ -30,16 +30,12 @@ Maildog.Mixins.NewEmail = {
 
     var formData = this.$el.serializeJSON();
     this.removeView(sendOptions);
-    // if (this.model.get('draft')) {
-    //   var callback = function() { this.collection.trigger("add", model); }
-    // }
     this.model.set("draft", false);
 
     this.model.save(formData.email, {
       success: function(model) {
         sendOptions.success && sendOptions.success(model);
         Maildog.router.addFlash("Email message sent");
-        // callback && callback();
       }.bind(this),
       error: function() {
         Maildog.router.addFlash("something went wrong!");

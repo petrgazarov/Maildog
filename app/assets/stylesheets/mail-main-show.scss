@@ -101,6 +101,7 @@
 
 .email-list-item-check {
   float: left;
+  display: block;
 }
 
 .email-list-item-star {
@@ -129,4 +130,22 @@
 
 .email-show-item {
   border: 1px solid blue;
+}
+
+.star-off {
+  background-image: image-url('star-off.png');
+}
+
+.star-on {
+  background-image: image-url('star-on.png');
+}
+
+.star-on, .star-off {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: block;
+  width: 15px;
+  height: 15px;
+  float: left;
+  cursor: pointer;
 }
