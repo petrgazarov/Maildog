@@ -14,9 +14,9 @@ Maildog.Views.EmailOptions = Backbone.View.extend({
   },
 
   events: {
-    "click .delete-email-thread": "fireDeleteThread",
-    "click .email-show-back-button": "goBack",
-    "click .refresh-button": "refreshCollection"
+    "click #delete-email-thread": "fireDeleteThread",
+    "click #email-show-back-button": "goBack",
+    "click #refresh-button": "refreshCollection"
   },
 
   render: function(state, email) {

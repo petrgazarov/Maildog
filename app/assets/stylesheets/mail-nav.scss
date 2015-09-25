@@ -1,19 +1,14 @@
 .mail-header {
   height: 60px;
-  background: rgb(237,237,237);
   line-height: 58px;
+  background: rgba(243,243,243,.85);
 }
 
 .mail-nav {
   height: 48px;
-  line-height: 48px;
-}
-
-.mail-nav button {
-  background-image: -webkit-linear-gradient(top,#f5f5f5,#f1f1f1);
-  vertical-align: middle;
-  height: 30px;
-  line-height: normal;
+  border-bottom: 1px #e5e5e5 solid;
+  border-top: 1px #e5e5e5 solid;
+  margin-bottom: 10px;
 }
 
 .search-bar {
@@ -60,13 +55,22 @@
 
 .pages-menu {
   float: left;
+  position: relative;
+  top: 45%;
+  transform: translateY(-45%);
+  padding: 5px;
+  left: 60px;
+  cursor: pointer;
 }
 
 .email-options {
   float: left;
   position: absolute;
-  left: 202px;
+  left: 128px;
   text-align: center;
+  position: relative;
+  top: 45%;
+  transform: translateY(-45%);
 }
 
 .email-navigation {
