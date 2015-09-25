@@ -133,19 +133,25 @@
 }
 
 .star-off {
-  background-image: image-url('star-off.png');
+  background-image: image-url('star.png');
+}
+
+.star:hover {
+  background-image: image-url('star-hover.png');
 }
 
 .star-on {
-  background-image: image-url('star-on.png');
+  background-image: image-url('star-lit.png');
 }
 
-.star-on, .star-off {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  display: block;
-  width: 15px;
-  height: 15px;
+.star {
+  display: block;;
+  // width: 15px;
+  height: 19px;
+  width: 19px;
+  margin: -4px 0;
+  position: relative;
+  top: 3px;
   float: left;
   cursor: pointer;
 }
