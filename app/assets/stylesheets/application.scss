@@ -71,7 +71,14 @@ button {
 .gray-button {
   height: 27px;
   width: 70px;
-  border: 1px solid #c6c6c6;
+  border: 1px solid rgba(0,0,0,0.1);
+  color: #444;
   border-radius: 2px;
   background-image: -webkit-linear-gradient(top,#f5f5f5,#f1f1f1);
+}
+
+.gray-button:hover {
+  border: 1px solid #c6c6c6;
+  color: #333;
+  background-image: -webkit-linear-gradient(top,#f8f8f8,#f1f1f1);
 }
