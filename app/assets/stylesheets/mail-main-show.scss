@@ -63,12 +63,6 @@
   float: right;
 }
 
-.reply-forward-email-box {
-  width: 700px;
-  height: 100px;
-  background: rgb(233,233,233);
-}
-
 .header-title-text {
   display: block;
   float: left;
@@ -236,8 +230,24 @@
   margin: 7px 10px;
 }
 
+.reply-forward-email-box {
+  width: 700px;
+  height: 100px;
+  color: #999;
+  height: 64px;
+  padding: 8px 0 0 12px;
+  border: 1px solid #d9d9d9;
+  border-top: 1px solid #c0c0c0;
+  font-size: 75%;
+  margin: 15px 50px;
+}
+
 .email-thread-list {
   margin-right: 280px;
+}
+
+.email-show-item:last-child {
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .star {
