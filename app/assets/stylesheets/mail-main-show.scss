@@ -203,8 +203,37 @@
 
 .email-show-item {
   border-top: 1px #e5e5e5 solid;
-  font-size: 80%;
+  font-size: 75%;
   padding: 15px 50px;
+}
+
+.email-show-sender-name {
+  font-weight: bold;
+  float: left;
+  color: #222;
+}
+
+.email-show-sender-email {
+  float: left;
+  margin-left: 7px;
+  color: #555;
+}
+
+.email-show-date-time {
+  float: right;
+  display: block;
+}
+
+.email-show-body {
+  clear: both;
+  color: #222;
+  width: calc(100% - 140px);
+  word-wrap: break-word;
+}
+
+.email-show-item .star {
+  float: right;
+  margin: 7px 10px;
 }
 
 .email-thread-list {
@@ -213,7 +242,7 @@
 
 .star {
   background-image: image-url('star.png');
-  display: block;;
+  display: block;
   height: 19px;
   width: 19px;
   position: relative;
