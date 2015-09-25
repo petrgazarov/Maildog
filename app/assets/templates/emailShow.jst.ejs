@@ -1,6 +1,3 @@
-<p class='email-show-subject'>
-  <%= email.escape('subject') %>
-</p>
 <p class='email-show-sender-name'>
   <%= email.sender().escape('first_name') %>
   <%= email.sender().escape('last_name') %>
@@ -9,7 +6,7 @@
   <%= email.sender().escape('email') %>
 </p>
 <p class='email-show-date-time'>
-  
+
   <%= email.getTimeOrDate() %>
 </p>
 <p class='email-show-body'>

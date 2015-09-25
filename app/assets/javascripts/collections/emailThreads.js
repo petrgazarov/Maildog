@@ -30,5 +30,11 @@ Maildog.Collections.EmailThreads = Backbone.Collection.extend({
       }
     }
     return this.last().sender();
+  },
+
+  subject: function() {
+    if (this.length > 0) {
+      return this.first().escape('subject');
+    }
   }
 });
