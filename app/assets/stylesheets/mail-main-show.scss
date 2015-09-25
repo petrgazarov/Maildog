@@ -1,23 +1,41 @@
 
 .compose-email-popup {
-  border: 1px solid black;
+  border: 1px solid #ccc;
   width: 600px;
-  height: 300px;
+  height: 400px;
   position: fixed;
   bottom: 0;
   right: 25px;
   background: white;
+  z-index: 500;
+  box-shadow: rgba(0,0,0,0.2) 0 2px 6px;
+}
+
+.compose-email-popup-header {
+  background: #404040;
+  color: white;
+  cursor: pointer;
+  font-size: 75%;
+  height: 38px;
 }
 
 .compose-email-popup-header-text {
   display: block;
   float: left;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 12px;
 }
 
 .cancel-compose-box-popup {
   display: block;
   float: right;
   cursor: pointer;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
 }
 
 .compose-email-to {
