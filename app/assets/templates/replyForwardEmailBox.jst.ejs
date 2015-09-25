@@ -3,9 +3,6 @@
          value="<%= recipient.escape('email') %>">
   <input type='hidden' name='email[addressees][email_type]' value='to'>
 </label>
-<p class='compose-email-from'>
-  From: <%= Maildog.currentUser.escape('email') %>
-</p>
 <input type='hidden' name='email[subject]' value="<%= email.escape('subject') %>">
 <label class='compose-email-body'>Body:
   <textarea name='email[body]'><%= email.escape('body') %></textarea>
