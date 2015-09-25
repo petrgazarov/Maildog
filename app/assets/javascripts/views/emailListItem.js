@@ -5,11 +5,10 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
 
   initialize: function(options) {
     this.folder = options.folder;
-    this.events = {};
   },
 
   events: {
-    "mouseenter .star": "hoverStar"
+    "click .star": "starClick"
   },
 
   render: function() {
@@ -26,9 +25,19 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
     return this;
   },
 
-  hoverStar: function() {
-    debugger
-    this.$('.star').removeClass("star-off").addClass('star-on');
+  starClick: function(e) {
+    e.preventDefault();
+    $(e.currentTarget).toggleClass('star-on');
+    if (this.model.get('starred')) {
+      this.model.set('starred', false)
+    } else {
+      this.model.set('starred', true)
+    }
+    // this.model.save({}, {
+    //   error: function() {
+    //     alert('error')
+    //   }
+    // })
   },
 
   swapLinkForDiv: function() {

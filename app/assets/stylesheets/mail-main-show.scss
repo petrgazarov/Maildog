@@ -133,7 +133,18 @@
 }
 
 .star-off {
+}
+
+.star {
   background-image: image-url('star.png');
+  display: block;;
+  height: 19px;
+  width: 19px;
+  margin: -4px 0;
+  position: relative;
+  top: 3px;
+  float: left;
+  cursor: pointer;
 }
 
 .star:hover {
@@ -144,14 +155,6 @@
   background-image: image-url('star-lit.png');
 }
 
-.star {
-  display: block;;
-  // width: 15px;
-  height: 19px;
-  width: 19px;
-  margin: -4px 0;
-  position: relative;
-  top: 3px;
-  float: left;
-  cursor: pointer;
+.star-on:hover {
+  background-image: image-url('star-lit-hover.png');
 }
