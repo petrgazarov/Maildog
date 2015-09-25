@@ -8,7 +8,8 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
   },
 
   events: {
-    "click .star": "starClick"
+    "click .star": "starClick",
+    "click .check-box": "checkBoxClick"
   },
 
   render: function() {
@@ -38,6 +39,11 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
     //     alert('error')
     //   }
     // })
+  },
+
+  checkBoxClick: function(e) {
+    this.$('.check-box-container').toggleClass('checked');
+    this.$el.toggleClass("checked-list-item");
   },
 
   swapLinkForDiv: function() {
