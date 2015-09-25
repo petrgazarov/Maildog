@@ -1,9 +1,12 @@
 .flash-message {
-  background: yellow;
-  width: 300px;
-  height: 25px;
+  border: 1px solid #f0c36d;
+  background-color: #f9edbe;
+  padding: 6px 10px;
+  font-size: 80%;
+  font-weight: bold;
+  text-align: center;
   position: fixed;
   top: 50px;
-  left: 40%;
-  z-index: 10;
+  left: 43%;
+  z-index: 1000;
 }
