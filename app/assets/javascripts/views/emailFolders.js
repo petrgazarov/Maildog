@@ -1,5 +1,6 @@
 Maildog.Views.EmailFolders = Backbone.CompositeView.extend({
   template: JST['emailFolders'],
+  tagName: "li",
 
   events: {
     "click .compose-button": "popUpComposeEmailBox",
@@ -12,7 +13,7 @@ Maildog.Views.EmailFolders = Backbone.CompositeView.extend({
 
   popUpComposeEmailBox: function() {
     var view = new Maildog.Views.ComposeEmailBox();
-    this.addSubview('.compose-email-popup-container', view);
+    this.addSubview('.compose-email-popup-container', view, true);
     $('.compose-email-to').focus();
   }
 });
