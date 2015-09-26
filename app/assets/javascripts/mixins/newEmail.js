@@ -29,6 +29,7 @@ Maildog.Mixins.NewEmail = {
     this.sending = true;
 
     var formData = this.$el.serializeJSON();
+    if (!formData.email.addressees.email) { return }
     this.removeView(sendOptions);
     this.model.set("draft", false);
 
@@ -43,7 +44,7 @@ Maildog.Mixins.NewEmail = {
     })
   },
 
-  removeView: function(sendOptions) {
+  removeView: function(e, sendOptions) {
     this.remove();
     if (sendOptions && !sendOptions.saveEmail) { return }
     this.saveEmail();

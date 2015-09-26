@@ -87,3 +87,14 @@ button {
   display: block;
   float: right;
 }
+
+[class*="icon-"] {
+  background: no-repeat image-url('sprite.png') 0 -92px;
+  background-image: image-url('sprite.png');
+  background-size: initial;
+  display: inline-block;
+  background-position-x: 0px;
+  background-position-y: -92px;
+  width: 24px;
+  height: 24px;
+}
