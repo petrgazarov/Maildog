@@ -29,7 +29,7 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
       this.collection.fetch({
   			reset: true,
         data: {
-  				query: this.searchResults.query,
+  				query: this.collection.query,
   				page: 1
   			}
   		});

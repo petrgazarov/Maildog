@@ -16,9 +16,10 @@ Rails.application.routes.draw do
         get  :trash
         post :send
       end
-      
-      get "/search", to: "static_pages#search"
     end
+
+    get "/search", to: "emails#search"
+
     resource :session do
       post :fetch
     end

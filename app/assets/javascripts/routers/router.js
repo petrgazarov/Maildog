@@ -64,6 +64,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
     this.removeFlashes();
 
     var searchResults = new Maildog.Collections.SearchResults();
+    searchResults.query = query;
     var view = new Maildog.Views.EmailList({ collection: searchResults });
     this._swapView(view);
   },

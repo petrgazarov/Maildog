@@ -1,4 +1,4 @@
-# json.total_count @search_results.total_count
+json.total_count @search_results.total_count
 
 json.results do
   json.array! @search_results do |search_result|

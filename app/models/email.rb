@@ -1,6 +1,6 @@
 class Email < ActiveRecord::Base
   include PgSearch
-  multisearchable :against => [:subject, :body]
+  multisearchable against: [:subject, :body]
 
   validates :date, :time, presence: true
 
