@@ -58,6 +58,7 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
   },
 
   showDraft: function() {
+    Maildog.router.removeFlashes();
     var thread = new Maildog.Collections.EmailThreads([], { id: this.model.id });
     thread.fetch({
       reset: true,
