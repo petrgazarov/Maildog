@@ -54,7 +54,6 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
     $div.append($a.children());
     $a.replaceWith($div);
     this.events["click .email-list-item-link"] = "showDraft";
-    this.delegateEvents();
   },
 
   showDraft: function() {
@@ -77,5 +76,10 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
         alert("error")
       }
     });
+  },
+
+  remove: function() {
+    delete this.events["click .email-list-item-link"];
+    Backbone.View.prototype.remove.call(this);
   }
 });
