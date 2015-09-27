@@ -9,7 +9,8 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
 
   events: {
     "click .star": "starClick",
-    "click .check-box": "checkBoxClick"
+    "click .check-box": "checkBoxClick",
+    "click .email-list-item-div": "showDraft"
   },
 
   render: function() {
@@ -50,10 +51,9 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
   swapLinkForDiv: function() {
     var $a = this.$("a");
     $div = $("<div>");
-    $div.addClass($a.attr('class'))
+    $div.addClass('email-list-item-div');
     $div.append($a.children());
     $a.replaceWith($div);
-    this.events["click .email-list-item-link"] = "showDraft";
   },
 
   showDraft: function() {
@@ -76,10 +76,5 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
         alert("error")
       }
     });
-  },
-
-  remove: function() {
-    delete this.events["click .email-list-item-link"];
-    Backbone.View.prototype.remove.call(this);
   }
 });

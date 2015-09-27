@@ -94,7 +94,8 @@
   background: #ffc;
 }
 
-.email-list-item-link {
+.email-list-item-link,
+.email-list-item-div {
   cursor: pointer;
   position: relative;
   top: 50%;
@@ -106,7 +107,8 @@
   height: 100%;
 }
 
-.email-list-item-link p {
+.email-list-item-link p,
+.email-list-item-div p {
   top: 50%;
   transform: translateY(-50%);
   position: relative;
