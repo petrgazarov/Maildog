@@ -11,6 +11,7 @@ Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend(
 
     events: {
       "click #cancel-compose-box-popup": "removeView",
+      "click #delete-message": "discardMessage",
       "submit": "submit",
       "input": "saveEmail"
     },

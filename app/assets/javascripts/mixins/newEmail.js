@@ -44,9 +44,20 @@ Maildog.Mixins.NewEmail = {
     })
   },
 
+
+  discardMessage: function() {
+    if (!this.model.isNew()) {
+      this.model.destroy();
+    }
+    if (this.model.isNew() || this.model.get('draft')) {
+      Maildog.router.addFlash("Your message has been discarded");
+    }
+    this.removeView();
+  },
+
   removeView: function(e, sendOptions) {
     this.remove();
-    if (sendOptions && !sendOptions.saveEmail) { return }
+    if (!sendOptions || !sendOptions.saveEmail) { return }
     this.saveEmail();
   }
 };
