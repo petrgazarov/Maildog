@@ -4,6 +4,7 @@ Maildog.signUpForm = {
   },
 
   submitForm: function(e) {
+    e.preventDefault();
     var formData = $(e.currentTarget).serializeJSON();
     var user = new Maildog.Models.User
     user.save(formData.user, {
