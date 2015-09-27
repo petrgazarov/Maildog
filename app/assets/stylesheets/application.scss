@@ -30,13 +30,17 @@
    background: transparent;
  }
 
+body {
+  font-family: arial, sans-serif;
+  font-size: 18px;
+}
+
 ul {
   list-style: none;
 }
 
-body {
-  font-family: arial, sans-serif;
-  font-size: 18px;
+textarea {
+    resize: none;
 }
 
 button {
