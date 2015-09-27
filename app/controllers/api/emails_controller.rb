@@ -11,7 +11,10 @@ class Api::EmailsController < ApplicationController
   def update
     @email = Email.find(params[:id])
     @email.draft = params[:email][:draft]
-    if @email.draft
+    if @email.draft ||
+        @email.changed_star_or_check(
+          params[:email][:starred], params[:email][:checked]
+        )
       update_email(@email)
     else
       persist_and_send_email(:update, @email)
