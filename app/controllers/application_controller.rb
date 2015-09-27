@@ -10,7 +10,13 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_contact
-    logged_in? ? Contact.find_by(email: current_user.email) : nil
+    if logged_in?
+      Contact.where(
+        "email = ? AND owner_id = ?", current_user.email, current_user.id
+      ).first
+    else
+      nil
+    end
   end
 
   def logged_in?
