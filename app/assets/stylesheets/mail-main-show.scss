@@ -179,6 +179,7 @@
 
 .email-thread-list {
   margin-right: 280px;
+  min-width: 750px;
 }
 
 .email-show-item:last-child {
@@ -188,6 +189,24 @@
 .reply-forward-email-form {
   margin: 15px 280px 15px 50px;
   font-size: 80%;
+  border: 1px solid #cfcfcf;
+}
+
+.reply-forward-email-to {
+  border-bottom: 1px solid #cfcfcf;
+  display: block;
+  cursor: text;
+  height: 41px;
+  padding: 0 7px;
+  color: #777;
+  position: relative;
+}
+
+.reply-forward-email-to input {
+  display: block;
+  top: 50%;
+  transform: translateY(-50%);
+  position: relative;
 }
 
 .star {

@@ -40,6 +40,6 @@ Maildog.Views.EmailFolders = Backbone.CompositeView.extend({
     Maildog.router.removeFlashes();
     var view = new Maildog.Views.ComposeEmailBox();
     this.addSubview('.compose-email-popup-container', view, true);
-    $('.compose-email-to').focus();
+    $('.compose-email-popup-to').focus();
   }
 });
