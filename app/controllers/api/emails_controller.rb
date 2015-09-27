@@ -20,19 +20,19 @@ class Api::EmailsController < ApplicationController
 
   def inbox
     @emails = current_user_contact.received_emails.order(date: :desc, time: :desc)
-    render :emails_with_sender
+    render :emails
   end
 
   def sent
     @emails = current_user_contact.written_emails.order(date: :desc, time: :desc)
                                   .where(draft: false)
-    render :emails_with_addressees
+    render :emails
   end
 
   def drafts
     @emails = current_user_contact.written_emails.order(updated_at: :desc)
                                   .where(draft: true);
-    render :emails_with_addressees
+    render :emails
   end
 
   def search
