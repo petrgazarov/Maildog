@@ -2,13 +2,11 @@ Maildog.Views.Search = Backbone.View.extend({
 	template: JST['search'],
 
 	initialize: function () {
-		this.searchResults = new Maildog.Collections.SearchResults();
-		this.searchResults.pageNum = 1;
-		this.listenTo(this.searchResults, "sync", this.render);
+		this.collection.pageNum = 1;
+		this.listenTo(this.collection, "sync", this.render);
 	},
 
 	events: {
-		"change .query": "search",
 		"click .next-page": "nextPage",
 		"click .prev-page": "prevPage"
 	},

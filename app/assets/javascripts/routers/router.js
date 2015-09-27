@@ -9,7 +9,8 @@ Maildog.Routers.Router = Backbone.Router.extend({
     "inbox": "inbox",
     "sent": "sent",
     "drafts": "drafts",
-    "emails/:id": "showEmailThread"
+    "emails/:id": "showEmailThread",
+    "search/:query": "search"
   },
 
   inbox: function() {
@@ -59,8 +60,12 @@ Maildog.Routers.Router = Backbone.Router.extend({
     this._swapView(view);
   },
 
-  search: function() {
+  search: function(query) {
+    this.removeFlashes();
 
+    var searchResults = new Maildog.Collections.SearchResults();
+    var view = new Maildog.Views.EmailList({ collection: searchResults });
+    this._swapView(view);
   },
 
   addFlash: function(message) {
