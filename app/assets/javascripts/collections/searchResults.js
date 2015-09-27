@@ -13,7 +13,9 @@ Maildog.Collections.SearchResults = Backbone.Collection.extend({
 		var type = attrs._type;
 		delete attrs._type;
 
-		return new Maildog.Models[type](attrs);
+		var model = new Maildog.Models[type]();
+    model.set(model.parse(attrs));
+    return model;
 	},
 
   folderName: function() {

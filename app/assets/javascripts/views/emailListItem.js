@@ -15,6 +15,7 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
 
   render: function() {
     var correspondent = this.model.correspondentString(this.folder);
+
     var content = this.template({
       email: this.model,
       correspondent: correspondent
