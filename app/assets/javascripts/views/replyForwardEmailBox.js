@@ -10,7 +10,8 @@ Maildog.Views.ReplyForwardEmailBox = Backbone.View.extend(
 
     events: {
       "submit": "submit",
-      "input": "saveEmail"
+      "input": "saveEmail",
+      "click #delete-reply-forward": "discardMessage",
     },
 
     submit: function(e) {
