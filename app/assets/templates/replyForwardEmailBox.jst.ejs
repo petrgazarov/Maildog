@@ -4,8 +4,10 @@
   <input type='hidden' name='email[addressees][email_type]' value='to'>
 </label>
 <input type='hidden' name='email[subject]' value="<%= email.escape('subject') %>">
-<label class='compose-email-body'>Body:
+<label class='compose-email-body'>
   <textarea name='email[body]'><%= email.escape('body') %></textarea>
 </label>
-<p class='saving-saved'></p>
-<button type='submit' class='compose-email-send-button blue-button'>Send</button>
+<div class='reply-forward-footer'>
+  <p class='saving-saved'></p>
+  <button type='submit' class='compose-email-send-button blue-button'>Send</button>
+</div>
