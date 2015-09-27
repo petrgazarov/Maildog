@@ -25,12 +25,22 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
   },
 
   refreshCollection: function() {
-    this.collection.fetch({
-      reset: true,
-      success: function() {
-        this.insertNoConversationsMemo();
-      }.bind(this)
-    });
+    if (this.collection.folderName() === "Search") {
+      this.collection.fetch({
+  			reset: true,
+        data: {
+  				query: this.searchResults.query,
+  				page: 1
+  			}
+  		});
+    } else {
+      this.collection.fetch({
+        reset: true,
+        success: function() {
+          this.insertNoConversationsMemo();
+        }.bind(this)
+      });
+    }
   },
 
   insertNoConversationsMemo: function() {

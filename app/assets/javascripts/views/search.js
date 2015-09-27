@@ -6,11 +6,6 @@ Maildog.Views.Search = Backbone.View.extend({
 		this.listenTo(this.collection, "sync", this.render);
 	},
 
-	events: {
-		"click .next-page": "nextPage",
-		"click .prev-page": "prevPage"
-	},
-
 	render: function () {
 		var content = this.template({
 			results: this.searchResults
