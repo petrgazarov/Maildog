@@ -1,6 +1,12 @@
 class Email < ActiveRecord::Base
   include PgSearch
-  multisearchable against: [:subject, :body]
+  multisearchable against: [
+    :subject, :body, :sender_first_name, :sender_last_name
+  ]
+
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
+  end
 
   validates :date, :time, presence: true
 
@@ -38,5 +44,13 @@ class Email < ActiveRecord::Base
   def ensure_date_and_time
     self.date ||= Date.today
     self.time ||= Time.now.strftime("%I:%M:%S %z")
+  end
+
+  def sender_first_name
+    sender.first_name
+  end
+
+  def sender_last_name
+    sender.last_name
   end
 end
