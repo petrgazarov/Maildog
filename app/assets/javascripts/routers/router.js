@@ -13,6 +13,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   inbox: function() {
+    console.log("SDFGsdf");
     Backbone.pubSub.off();
     this._removeFlashes();
 
