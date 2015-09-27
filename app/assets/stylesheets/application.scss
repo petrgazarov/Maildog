@@ -73,6 +73,14 @@ button {
   margin: 5px;
 }
 
+.blue-button:hover {
+  background-color: #357ae8;
+  background-image: -webkit-linear-gradient(top,#4d90fe,#357ae8);
+  background-image: linear-gradient(top,#4d90fe,#357ae8);
+  border: 1px solid #2f5bb7;
+  border-bottom-color: #2f5bb7;
+}
+
 .gray-button {
   height: 27px;
   width: 70px;
@@ -91,6 +99,10 @@ button {
 .saving-saved {
   display: block;
   float: right;
+  color: #777;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 [class*="icon-"] {
