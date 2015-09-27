@@ -38,6 +38,7 @@ Maildog.Views.EmailOptions = Backbone.View.extend({
 
   refreshCollection: function(e) {
     e.preventDefault();
+    Maildog.router.removeFlashes();
     Backbone.pubSub.trigger("refreshCollection");
   }
 });

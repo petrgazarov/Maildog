@@ -14,7 +14,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
 
   inbox: function() {
     Backbone.pubSub.off();
-    this._removeFlashes();
+    this.removeFlashes();
 
     this.trigger("folderNavigation", "inbox");
     var view = new Maildog.Views.EmailList({
@@ -26,7 +26,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
 
   sent: function() {
     Backbone.pubSub.off();
-    this._removeFlashes();
+    this.removeFlashes();
 
     var sentEmails = new Maildog.Collections.Emails([], { urlAction: "sent" });
     this.trigger("folderNavigation", "sent");
@@ -39,7 +39,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
 
   drafts: function() {
     Backbone.pubSub.off();
-    this._removeFlashes();
+    this.removeFlashes();
 
     var draftsEmails = new Maildog.Collections.Emails([], { urlAction: "drafts" });
     this.trigger("folderNavigation", "drafts");
@@ -51,7 +51,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   showEmailThread: function(id) {
-    this._removeFlashes();
+    this.removeFlashes();
 
     var thread = new Maildog.Collections.EmailThreads([], { id: id });
     this.trigger("showEmailMessageOptions", thread);
@@ -63,7 +63,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
     Maildog.flashMessages.addMessage(message);
   },
 
-  _removeFlashes: function() {
+  removeFlashes: function() {
     Maildog.flashMessages.removeMessages();
   },
 
