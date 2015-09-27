@@ -103,6 +103,13 @@
   width: calc(100% - 60px);
   float: right;
   text-align: left;
+  height: 100%;
+}
+
+.email-list-item-link p {
+  top: 50%;
+  transform: translateY(-50%);
+  position: relative;
 }
 
 .email-list-item-star {
