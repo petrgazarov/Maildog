@@ -59,6 +59,10 @@ Maildog.Routers.Router = Backbone.Router.extend({
     this._swapView(view);
   },
 
+  search: function() {
+
+  },
+
   addFlash: function(message) {
     Maildog.flashMessages.addMessage(message);
   },
