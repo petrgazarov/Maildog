@@ -17,23 +17,48 @@ Maildog.Views.EmailFolders = Backbone.CompositeView.extend({
   },
 
   routeToInbox: function() {
-    Backbone.history.loadUrl("#inbox");
+    if (Backbone.history.getFragment() === "inbox") {
+      Backbone.history.loadUrl("#inbox");
+    }
+    else {
+      Backbone.history.navigate("inbox", { trigger: true });
+    }
   },
 
   routeToStarred: function() {
-    Backbone.history.loadUrl("#starred");
+    if (Backbone.history.getFragment() === "starred") {
+      Backbone.history.loadUrl("#starred");
+    }
+    else {
+      Backbone.history.navigate("starred", { trigger: true });
+    }
   },
 
   routeToSent: function() {
-    Backbone.history.loadUrl("#sent");
+    if (Backbone.history.getFragment() === "sent") {
+      Backbone.history.loadUrl("#sent");
+    }
+    else {
+      Backbone.history.navigate("sent", { trigger: true });
+    }
   },
 
   routeToDrafts: function() {
-    Backbone.history.loadUrl("#drafts");
+    if (Backbone.history.getFragment() === "drafts") {
+      Backbone.history.loadUrl("#drafts");
+    }
+    else {
+      Backbone.history.navigate("drafts", { trigger: true });
+    }
   },
 
   routeToTrash: function() {
-    Backbone.history.loadUrl("#trash");
+    if (Backbone.history.getFragment() === "trash") {
+      Backbone.history.loadUrl("#trash");
+    }
+    else {
+      Backbone.history.navigate("trash", { trigger: true });
+    }
   },
 
   popUpComposeEmailBox: function() {
