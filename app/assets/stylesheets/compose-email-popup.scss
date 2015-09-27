@@ -40,16 +40,55 @@
   display: block;
   float: right;
   cursor: pointer;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
   right: 5px;
   opacity: .6;
+  background: no-repeat image-url('sprite.png') 0 -92px;
+  background-image: image-url('sprite.png');
+  background-position-x: 0px;
+  background-position-y: -92px;
 }
 
 .icon-cancel-cross:hover {
   background-color: #737373;
   opacity: 1;
+}
+
+.icon-garbage-can {
+  background: no-repeat image-url('sprite.png') 0 -239px;
+  background-image: image-url('sprite.png');
+  background-position-x: 0px;
+  background-position-y: -239px;
+  width: 21px;
+  height: 21px;
+  margin: 5px 0 0 2px;
+  opacity: .55;
+  float: right;
+  padding: 3px 0 3px 0;
+}
+
+.garbage-can-holder {
+  float: right;
+  width: 28px;
+  height: 27px;
+  margin-right: 5px;
+  margin-top: 3px;
+  display: block;
+  border: 1px solid rgba(0,0,0,0);
+}
+
+.icon-garbage-can {
+  display: block;
+}
+
+.icon-garbage-can:hover {
+  opacity: 1;
+}
+
+.garbage-can-holder:hover {
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  -webkit-transition: all 0s;
+  background: -webkit-gradient(linear,left top,left bottom,from(#f8f8f8),to(#f1f1f1));
+  border: 1px solid rgba(0,0,0,0.2);
 }
 
 .compose-email-to {
