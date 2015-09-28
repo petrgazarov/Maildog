@@ -36,11 +36,12 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
     } else {
       this.model.set('starred', true)
     }
-    // this.model.save({}, {
-    //   error: function() {
-    //     alert('error')
-    //   }
-    // })
+
+    this.model.save({}, {
+      error: function() {
+        alert('error')
+      }
+    })
   },
 
   checkBoxClick: function(e) {

@@ -64,7 +64,8 @@ class Api::EmailsController < ApplicationController
 
   def email_params
     params.require(:email).permit(
-      :id, :subject, :body, :parent_email_id, :original_email_id, :draft, :starred
+      :id, :subject, :body, :parent_email_id, :original_email_id,
+      :draft, :starred, :checked
     )
   end
 

@@ -47,7 +47,7 @@ class Email < ActiveRecord::Base
   end
 
   def changed_star_or_check(new_starred, new_checked)
-    !self.starred == new_starred && self.checked == new_checked
+    !(self.starred == new_starred && self.checked == new_checked)
   end
 
   def sender_first_name

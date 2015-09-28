@@ -1,6 +1,11 @@
 Maildog.Models.Email = Backbone.Model.extend({
   urlRoot: "api/emails",
 
+  toJSON: function(){
+    var json = { email: _.clone(this.attributes) };
+    return json;
+  },
+
   parse: function(payload) {
     if (payload.sender) {
       this.sender().set(payload.sender, { parse: true });
