@@ -38,6 +38,14 @@ class Api::EmailsController < ApplicationController
     render :emails
   end
 
+  def starred
+    @emails = current_user_contact.all_emails
+                .select { |email| email.starred }
+                .sort_by { |email| email.updated_at }
+
+    render :emails
+  end
+
   def search
     @search_results = PgSearch
       .multisearch(params[:query])

@@ -21,4 +21,8 @@ class Contact < ActiveRecord::Base
     contact = Contact.find_by({ email: email_address })
     contact ? contact : Contact.new({ email: email_address })
   end
+
+  def all_emails
+    written_emails + received_emails
+  end
 end

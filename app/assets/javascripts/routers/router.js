@@ -9,6 +9,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
     "inbox": "inbox",
     "sent": "sent",
     "drafts": "drafts",
+    "starred": "starred",
     "emails/:id": "showEmailThread",
     "search/:query": "search"
   },
@@ -47,6 +48,19 @@ Maildog.Routers.Router = Backbone.Router.extend({
     var view = new Maildog.Views.EmailList({
       folder: "drafts",
       collection: draftsEmails
+    });
+    this._swapView(view);
+  },
+
+  starred: function() {
+    Backbone.pubSub.off();
+    this.removeFlashes();
+
+    var starredEmails = new Maildog.Collections.Emails([], { urlAction: "starred" });
+    this.trigger("folderNavigation", "starred");
+    var view = new Maildog.Views.EmailList({
+      folder: "starred",
+      collection: starredEmails
     });
     this._swapView(view);
   },
