@@ -8,6 +8,7 @@ Maildog.Views.CurrentUser = Backbone.CompositeView.extend({
 
   render: function() {
     this.$el.html(this.template({ currentUser: Maildog.currentUser }));
+    $.rails.refreshCSRFTokens();
     return this;
   }
 });

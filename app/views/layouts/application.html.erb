@@ -7,18 +7,6 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<ul>
-  <% flash[:errors].try(:each) do |error|  %>
-  <li><%= error %></li>
-  <% end %>
-</ul>
-<% if logged_in? %>
-  <form action='<%= session_url %>' method='post'>
-    <input type='hidden' name='_method' value='delete'>
-    <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
-    <button>Log out</button>
-  </form>
-<% end %>
 
 <%= yield %>
 
