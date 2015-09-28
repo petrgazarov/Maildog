@@ -69,5 +69,9 @@ Maildog.Models.Email = Backbone.Model.extend({
     else {
       return this.get('date');
     };
+  },
+
+  starOnIfStarred: function() {
+    if (this.get('starred')) { return "star-on" }
   }
 });

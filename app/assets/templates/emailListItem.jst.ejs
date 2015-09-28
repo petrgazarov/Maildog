@@ -1,7 +1,7 @@
 <div class='check-box-container'>
   <div class='check-box'></div>
 </div>
-<div class='star'></div>
+<div class='star <%= email.starOnIfStarred() %>'></div>
 <a href='#emails/<%= email.id %>' class='email-list-item-link group'>
   <p class='email-list-item-correspondent'>
     <%= correspondent %>
