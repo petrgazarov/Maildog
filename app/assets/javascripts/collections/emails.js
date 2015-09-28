@@ -31,5 +31,9 @@ Maildog.Collections.Emails = Backbone.Collection.extend({
     };
 
     return email;
+  },
+
+  noConversationsMemo: function() {
+    return "No conversations in " + this.folderName();
   }
 });

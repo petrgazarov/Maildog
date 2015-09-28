@@ -20,5 +20,9 @@ Maildog.Collections.SearchResults = Backbone.Collection.extend({
 
   folderName: function() {
     return "Search"
+  },
+
+	noConversationsMemo: function() {
+    return "No messages matched your search."
   }
 });

@@ -31,7 +31,10 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
         data: {
   				query: this.collection.query,
   				page: 1
-  			}
+  			},
+        success: function() {
+          this.insertNoConversationsMemo();
+        }.bind(this)
   		});
     } else {
       this.collection.fetch({
@@ -46,7 +49,7 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
   insertNoConversationsMemo: function() {
     if (this.collection.length === 0) {
       this.$('.email-list-empty-folder-memo')
-          .text("No conversations in " + this.collection.folderName());
+        .text(this.collection.noConversationsMemo());
     }
   }
 });
