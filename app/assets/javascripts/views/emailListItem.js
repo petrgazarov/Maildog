@@ -48,6 +48,17 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
     this.$('.check-box-container').toggleClass('checked');
     this.$el.toggleClass("checked-list-item");
     $(e.currentTarget).toggleClass("checked-check-box");
+    if (this.model.get('checked')) {
+      this.model.set('checked', false)
+    } else {
+      this.model.set('checked', true)
+    }
+
+    this.model.save({}, {
+      error: function() {
+        alert('error')
+      }
+    })
   },
 
   swapLinkForDiv: function() {
