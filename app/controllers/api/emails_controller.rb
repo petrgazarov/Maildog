@@ -70,13 +70,6 @@ class Api::EmailsController < ApplicationController
     end
   end
 
-  def email_params
-    params.require(:email).permit(
-      :id, :subject, :body, :parent_email_id, :original_email_id,
-      :draft, :starred, :checked
-    )
-  end
-
   def save_email(email)
     if email.save
       render json: email
@@ -107,13 +100,20 @@ class Api::EmailsController < ApplicationController
   end
 
   def create_or_get_contact_and_email_addressee(email)
-    contact = Contact.create_or_get(params[:addressees][:email])
+    contact = Contact.create_or_get(params[:email][:addressees][:email])
     save_contact_if_new(contact)
 
     email_addressee = email.email_addressees.new(
-      email_type: params[:addressees][:email_type],
+      email_type: params[:email][:addressees][:email_type],
       addressee_id: contact.id
     )
     [contact, email_addressee]
+  end
+
+  def email_params
+    params.require(:email).permit(
+      :id, :subject, :body, :parent_email_id, :original_email_id,
+      :draft, :starred, :checked, :addressees
+    )
   end
 end
