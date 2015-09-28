@@ -1,10 +1,10 @@
 <form action='/session' method='post'>
   <input type='hidden' name='_method' value='delete'>
   <input type='hidden' name='authenticity_token'>
-  <button>Log out</button>
+  <button class='log-out-button'>Log out</button>
 </form>
 
-<aside></aside>
 <p>
   <%= currentUser.escape("first_name") %>
 </p>
+<aside class='thumb'></aside>

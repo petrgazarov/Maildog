@@ -114,3 +114,12 @@ button {
   top: 50%;
   transform: translateY(-50%);
 }
+
+.thumb {
+  display: block;
+  background-image: image-url('avatar-blue.png');
+  background-size: cover;
+  width: 35px;
+  height: 35px;
+  overflow: hidden;
+}

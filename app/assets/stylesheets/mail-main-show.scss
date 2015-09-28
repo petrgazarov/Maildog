@@ -2,26 +2,37 @@
   display: block;
   float: left;
   font-size: 26px;
-  height: 40px;
-  width: 92px;
-  margin-right: 50px;
-  padding: 0 30px 0 30px;
-  line-height: normal;
-  vertical-align: middle;
+  margin: 0 26px;
+  padding: 0 30px;
+}
+
+.current-user-info {
+  float: right;
+  display: block;
+  width: 170px;
+  position: relative;
 }
 
 .current-user-info > p {
   display: block;
-  float: right;
+  float: left;
+  margin: 0 10px;
+  position: relative;
+  transform: translateY(7%);
 }
 
 .current-user-info > aside {
+  float: left;
+  border-radius: 50%;
+  position: relative;
+  transform: translateY(40%);
+}
+
+.log-out-button {
   display: block;
-  float: right;
-  background: url(petr-photo.jpg);
-  background-size: cover;
-  width: 60px;
-  height: 60px;
+  float: left;
+  position: relative;
+  transform: translateY(7%);
 }
 
 .mail-main-section {
