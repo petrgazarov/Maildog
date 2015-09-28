@@ -24,6 +24,9 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
     this.$el.html(content);
     if (this.folder === "drafts") { this.swapLinkForDiv(); }
     this.$el.attr('data-id', this.model.id);
+    if (this.model.get('checked')) {
+      this.$el.addClass("checked-list-item");
+    }
 
     return this;
   },

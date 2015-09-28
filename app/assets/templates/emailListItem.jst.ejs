@@ -1,5 +1,5 @@
-<div class='check-box-container'>
-  <div class='check-box'></div>
+<div class='check-box-container <%= email.checkedIfChecked() %>'>
+  <div class='check-box <%= email.checkedCheckBoxIfChecked() %>'></div>
 </div>
 <div class='star <%= email.starOnIfStarred() %>'></div>
 <a href='#emails/<%= email.id %>' class='email-list-item-link group'>

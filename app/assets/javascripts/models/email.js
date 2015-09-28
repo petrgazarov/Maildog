@@ -73,5 +73,13 @@ Maildog.Models.Email = Backbone.Model.extend({
 
   starOnIfStarred: function() {
     if (this.get('starred')) { return "star-on" }
+  },
+
+  checkedIfChecked: function() {
+    if (this.get('checked')) { return "checked" }
+  },
+
+  checkedCheckBoxIfChecked: function() {
+    if (this.get('checked')) { return "checked-check-box" }
   }
 });
