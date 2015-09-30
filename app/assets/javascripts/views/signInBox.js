@@ -3,7 +3,7 @@ Maildog.Views.SignInBox = Backbone.View.extend({
 
   events: {
     "click .back-arrow": function(e) {
-      this.back(e, Maildog.currentUser.get('username'));  
+      this.back(e, Maildog.currentUser.get('username'));
     }
   },
 
@@ -21,6 +21,9 @@ Maildog.Views.SignInBox = Backbone.View.extend({
   shiftToAuth: function() {
     this.$('.canvas-blue').transition({ height: '100px', width: '100px' }, 'fast');
     this.$('.back-arrow').removeClass('invisible');
+    this.$('.email-display').text(Maildog.currentUser.get('email'))
+                            .removeClass('invisible');
+    this.$('.sign-in-form-container').transition({ height: '259px'});
     this.$('.sign-in-text-box').val("");
     this.$('.sign-in-username-form').addClass('invisible');
     this.$('.sign-in-password-form').removeClass('invisible');
@@ -33,6 +36,8 @@ Maildog.Views.SignInBox = Backbone.View.extend({
     this.$('.canvas-blue').transition({ height: '0px', width: '0px' }, 'fast');
     this.$('.back-arrow').addClass('invisible');
     this.$('.sign-in-text-box').val(textBoxValue);
+    this.$('.email-display').addClass('invisible');
+    this.$('.sign-in-form-container').transition({ height: '240px'});
     this.$('.sign-in-username-form').removeClass('invisible');
     this.$('.sign-in-password-form').addClass('invisible');
     $('.sign-in-text-box').focus();
