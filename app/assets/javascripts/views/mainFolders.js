@@ -1,5 +1,5 @@
-Maildog.Views.EmailFolders = Backbone.CompositeView.extend({
-  template: JST['emailFolders'],
+Maildog.Views.MainFolders = Backbone.CompositeView.extend({
+  template: JST['mainFolders'],
   tagName: "li",
 
   events: {
