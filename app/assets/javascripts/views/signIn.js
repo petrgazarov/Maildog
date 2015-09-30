@@ -2,7 +2,12 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
   template: JST['signIn'],
 
   events: {
-    "click .sign-in-next-button": "fetchUser"
+    "click .back-arrow": "toggleLinks",
+    "click .sign-in-as-different": "backToUsername",
+    "click .sign-in-next-button": function(e) {
+       this.fetchUser(e);
+       this.toggleLinks(e);
+     }
   },
 
   initialize: function(){
@@ -32,6 +37,17 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
         }
       }.bind(this)
     })
+  },
+
+  toggleLinks: function(e) {
+    e.preventDefault();
+    this.$('.sign-in-as-different').toggleClass('invisible');
+    this.$('.create-account-link').toggleClass('invisible');
+  },
+
+  backToUsername: function(e) {
+    this.signInBox.back(e, "");
+    this.toggleLinks(e);
   },
 
   _shiftToAuth: function() {

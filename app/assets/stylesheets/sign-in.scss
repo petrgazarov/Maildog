@@ -144,13 +144,14 @@
   background: transparent;
 }
 
-.create-account-link {
+.create-account-link, .sign-in-as-different {
   color: #427fed;
   font-size: 14px;
   display: inline-block;
   margin-top: 25px;
+  cursor: pointer;
 }
 
-.create-account-link:hover {
+.create-account-link:hover, .sign-in-as-different:hover {
   text-decoration: underline;
 }
