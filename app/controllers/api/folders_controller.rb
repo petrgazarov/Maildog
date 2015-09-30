@@ -5,7 +5,12 @@ class Api::FoldersController < ApplicationController
   end
 
   def create
-
+    @folder = current_user_contact.folders.new(name: params[:folder][:name])
+    if @folder.save
+      render json: @folder
+    else
+      render json: @folder.errors.full_messages
+    end
   end
 
   def update

@@ -1,7 +1,7 @@
 class Folder < ActiveRecord::Base
-  validates :author, :name, presence: true
+  validates :owner, :name, presence: true
 
-  belongs_to :contact,
+  belongs_to :owner,
   class_name: "Contact",
   foreign_key: :owner_id
 end

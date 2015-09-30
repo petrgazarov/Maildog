@@ -16,13 +16,14 @@ Maildog.Views.CustomFolderListItem = Backbone.View.extend({
     this.$('input').removeClass('invisible').focus();
 
     window.setTimeout(function() {
-      $('html').click(function() {
-        this.saveOrUpdateFolder({ text: this.$('input').val });
+      $('html').click(function(e) {
+        this.saveOrUpdateFolder(e, { text: this.$('input').val() });
       }.bind(this))
     }.bind(this), 0);
   },
 
-  saveOrUpdateFolder: function(options) {
+  saveOrUpdateFolder: function(e, options) {
+    if ($(e.target).hasClass("new-folder-input")) { return; }
     $('html').off('click');
 
     this.model.save({ name: options.text }, {
