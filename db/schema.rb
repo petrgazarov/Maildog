@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150930145329) do
+ActiveRecord::Schema.define(version: 20150930145824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,16 @@ ActiveRecord::Schema.define(version: 20150930145329) do
   add_index "email_addressees", ["addressee_id"], name: "index_email_addressees_on_addressee_id", using: :btree
   add_index "email_addressees", ["email_id", "email_type"], name: "index_email_addressees_on_email_id_and_email_type", using: :btree
   add_index "email_addressees", ["email_id"], name: "index_email_addressees_on_email_id", using: :btree
+
+  create_table "email_folders", force: :cascade do |t|
+    t.integer  "email_id",   null: false
+    t.integer  "folder_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "email_folders", ["email_id"], name: "index_email_folders_on_email_id", using: :btree
+  add_index "email_folders", ["folder_id"], name: "index_email_folders_on_folder_id", using: :btree
 
   create_table "emails", force: :cascade do |t|
     t.string   "subject"
