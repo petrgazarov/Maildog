@@ -40,4 +40,10 @@ class ApplicationController < ActionController::Base
   def redirect_current_user
     redirect_to root_url if current_user
   end
+
+  def remove_checks_from_current_users_emails
+    ids = current_user_contact.all_emails.map(&:id)
+
+    Email.where(id: ids).update_all(checked: false)
+  end
 end
