@@ -12,12 +12,44 @@
 }
 
 .canvas {
-  width: 96px;
-  height: 96px;
-  background-image: image-url('avatar-gray.png');
-  background-size: cover;
   display: block;
-  margin: 0 auto 25px auto;
+
+  width: 100px;
+  height: 100px;
+  background-image: image-url('avatar-gray.png');
+  background-size: 100px 100px;
+  display: block;
+  position: relative;
+  margin: 0 auto;
+}
+
+.canvas-container {
+  height: 121px;
+  width: 274px;
+  position: relative;
+}
+
+.canvas-blue {
+  margin: auto;
+  position: relative;
+  display: block;
+
+  width: 0px;
+  height: 0px;
+
+  background-image: image-url('avatar-blue.png');
+  background-size: 100px 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  border-radius: 100%;
+}
+
+.show {
+  width: 100px;
+  height: 100px;
 }
 
 .sign-in-view h1 {
@@ -42,6 +74,10 @@
   background: #f7f7f7;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   border-radius: 2px;
+}
+
+.sign-in-form-container {
+  position: relative;
 }
 
 .sign-in-as-guest-form {

@@ -26,7 +26,6 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
       username: formData.username,
       success: function() {
         if (Maildog.currentUser.get('username')) {
-
           this._shiftToAuth()
         } else {
           this._tryAgain()

@@ -13,6 +13,7 @@ Maildog.Views.SignInBox = Backbone.View.extend({
   },
 
   shiftToAuth: function() {
+    $('.canvas-blue').transition({ height: '100px', width: '100px' }, 'fast');
     this.$('.sign-in-text-box').val("");
     this.$('.sign-in-username-form').addClass('invisible');
     this.$('.sign-in-password-form').removeClass('invisible');

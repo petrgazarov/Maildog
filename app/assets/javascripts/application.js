@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.serializejson
+//= require jquery.transit
 //= require underscore
 //= require backbone
 //= require_tree ./utils
