@@ -2,6 +2,10 @@ Maildog.Views.CustomFolderListItem = Backbone.View.extend({
   template: JST['customFolderListItem'],
   tagName: "li",
 
+  events: {
+    "click #delete-folder-cross": "deleteFolder"
+  },
+
   render: function() {
     var content = this.template({ folder: this.model });
     this.$el.html(content);
@@ -17,12 +21,12 @@ Maildog.Views.CustomFolderListItem = Backbone.View.extend({
 
     window.setTimeout(function() {
       $('html').click(function(e) {
-        this.saveOrUpdateFolder(e, { text: this.$('input').val() });
+        this.saveFolder(e, { text: this.$('input').val() });
       }.bind(this))
     }.bind(this), 0);
   },
 
-  saveOrUpdateFolder: function(e, options) {
+  saveFolder: function(e, options) {
     if ($(e.target).hasClass("new-folder-input")) { return; }
     $('html').off('click');
 
@@ -32,5 +36,11 @@ Maildog.Views.CustomFolderListItem = Backbone.View.extend({
       }.bind(this)
     });
     this.$('input').addClass('invisible');
+  },
+
+  deleteFolder: function(e) {
+    e.preventDefault();
+    this.model.destroy();
+    this.remove();
   }
 });

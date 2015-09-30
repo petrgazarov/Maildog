@@ -13,11 +13,9 @@ class Api::FoldersController < ApplicationController
     end
   end
 
-  def update
-
-  end
-
   def destroy
-
+    folder = Folder.find(params[:id])
+    folder.destroy
+    render json: {}
   end
 end
