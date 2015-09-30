@@ -11,7 +11,9 @@ Maildog.Views.CustomFolders = Backbone.CompositeView.extend({
   },
 
   newFolder: function() {
-    var subview = new Maildog.Views.FolderListItem();
+    var subview = new Maildog.Views.FolderListItem({
+      collection: 
+    });
     this.addSubview(".custom-folders-list", subview, true);
   }
 });
