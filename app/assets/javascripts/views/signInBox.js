@@ -1,6 +1,10 @@
 Maildog.Views.SignInBox = Backbone.View.extend({
   template: JST['signInBox'],
 
+  events: {
+    "click .back-arrow": "back"
+  },
+
   initialize: function() {
     this.listenTo(Maildog.currentUser, "change", this.render);
   },
@@ -13,10 +17,20 @@ Maildog.Views.SignInBox = Backbone.View.extend({
   },
 
   shiftToAuth: function() {
-    $('.canvas-blue').transition({ height: '100px', width: '100px' }, 'fast');
+    this.$('.canvas-blue').transition({ height: '100px', width: '100px' }, 'fast');
+    this.$('.back-arrow').removeClass('invisible');
     this.$('.sign-in-text-box').val("");
     this.$('.sign-in-username-form').addClass('invisible');
     this.$('.sign-in-password-form').removeClass('invisible');
+    $('.sign-in-text-box').focus();
+  },
+
+  back: function() {
+    this.$('.canvas-blue').transition({ height: '0px', width: '0px' }, 'fast');
+    this.$('.back-arrow').addClass('invisible');
+    this.$('.sign-in-text-box').val(Maildog.currentUser.get('username'));
+    this.$('.sign-in-username-form').removeClass('invisible');
+    this.$('.sign-in-password-form').addClass('invisible');
     $('.sign-in-text-box').focus();
   },
 
