@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     end
     resources :threads, only: [:show, :destroy]
     resources :emails, except: [:new, :edit]
-    resource :user
+    resource  :user
+    resources :folders, except: [:new, :edit]
   end
 end

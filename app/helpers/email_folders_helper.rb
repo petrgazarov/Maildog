@@ -1,0 +1,2 @@
+module EmailFoldersHelper
+end

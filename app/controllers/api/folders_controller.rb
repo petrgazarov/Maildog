@@ -10,4 +10,8 @@ class Api::FoldersController < ApplicationController
   def update
 
   end
+
+  def destroy
+
+  end
 end
