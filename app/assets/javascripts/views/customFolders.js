@@ -2,7 +2,11 @@ Maildog.Views.CustomFolders = Backbone.CompositeView.extend({
   template: JST['customFolders'],
 
   events: {
-    "click #create-new-folder-button": "newFolder"
+    "click #create-new-folder-button": function(e) {
+      e.preventDefault();
+      var folder = new Maildog.Models.Folder();
+      this.addSubviewForFolder(folder, true);
+    }
   },
 
   initialize: function() {
@@ -10,7 +14,7 @@ Maildog.Views.CustomFolders = Backbone.CompositeView.extend({
     this.collection.fetch({ reset: true });
     this.listenTo(this.collection, "reset", this.render);
     this.listenTo(
-      this.collection, "add", this.addSubviewForFolder.bind(this, true)
+      this.collection, "add", this.addSubviewForFolder.bind(this, false)
     );
   },
 
@@ -21,7 +25,7 @@ Maildog.Views.CustomFolders = Backbone.CompositeView.extend({
   },
 
   addSubviewForFolder: function(folder, prepend) {
-    var subview = new Maildog.Views.FolderListItem({
+    var subview = new Maildog.Views.CustomFolderListItem({
       collection: this.collection,
       model: folder
     });
