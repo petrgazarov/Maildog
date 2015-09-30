@@ -63,3 +63,26 @@
   border: 1px solid #a0a0a0;
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 }
+
+.custom-folders-list .icon-dark-cross {
+  float: right;
+  right: 5px;
+  height: 13px;
+  width: 13px;
+  padding: 2px;
+  opacity: .6;
+  background: no-repeat image-url('sprite.png') 0 -657px;
+  background-image: image-url('sprite.png');
+  background-position-x: 0px;
+  background-position-y: -657px;
+  transform: translateY(10%);
+  display: none;
+}
+
+.custom-folders-list > li:hover .icon-dark-cross {
+  display: block;
+}
+
+.icon-dark-cross:hover {
+  opacity: 1;
+}
