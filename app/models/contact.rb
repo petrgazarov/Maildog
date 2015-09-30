@@ -17,6 +17,10 @@ class Contact < ActiveRecord::Base
     class_name: "User",
     foreign_key: :owner_id
 
+  has_many :folders,
+    class_name: "Folder",
+    foreign_key: :owner_id
+
   def self.create_or_get(email_address)
     contact = Contact.find_by({ email: email_address })
     contact ? contact : Contact.new({ email: email_address })
