@@ -4,9 +4,8 @@ Maildog.Views.MailSidebar = Backbone.CompositeView.extend({
 
   render: function() {
     this.$el.html(this.template());
-    [Maildog.Views.MainFolders, Maildog.Views.CustomFolders].forEach(function(view) {
-      this.addSubview(this.$('.main-folders'), new view());
-    }.bind(this))
+    this.addSubview('.main-folders', new Maildog.Views.MainFolders());
+    this.addSubview('.custom-folders', new Maildog.Views.CustomFolders());
     return this;
   }
 });
