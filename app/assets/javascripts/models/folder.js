@@ -4,5 +4,5 @@ Maildog.Models.Folder = Backbone.Model.extend({
   toJSON: function(){
     var json = { folder: _.clone(this.attributes) };
     return json;
-  },
+  }
 });

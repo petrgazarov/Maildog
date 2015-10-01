@@ -11,7 +11,8 @@ Maildog.Routers.Router = Backbone.Router.extend({
     "drafts": "drafts",
     "starred": "starred",
     "emails/:id": "showEmailThread",
-    "search/:query": "search"
+    "search/:query": "search",
+    "folders/:id": "folder"
   },
 
   inbox: function() {
@@ -80,6 +81,23 @@ Maildog.Routers.Router = Backbone.Router.extend({
     var searchResults = new Maildog.Collections.SearchResults();
     searchResults.query = query;
     var view = new Maildog.Views.EmailList({ collection: searchResults });
+    this._swapView(view);
+  },
+
+  folder: function(id) {
+    Backbone.pubSub.off();
+    this.removeFlashes();
+
+    var folder = new Maildog.Models.Folder({ id: id });
+    this.trigger("folderNavigation", "folders/" + id);
+
+    var folderEmails = new Maildog.Collections.Emails([], {
+      url: "api/folders/" + id +"/emails"
+    });
+    var view = new Maildog.Views.EmailList({
+      folder: "folders",
+      collection: folderEmails
+    });
     this._swapView(view);
   },
 

@@ -57,7 +57,10 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
 
   hideFolderList: function(e) {
     if (
-         $(e.target).parents().filter('.email-options-folder-list').length > 0 ||
+         (
+           $(e.target).parents().filter('.email-options-folder-list').length > 0 &&
+           $(e.target).prop('tagName') !== "LI"
+         ) ||
          $(e.target).hasClass('email-options-folder-list')
         ) {
       return;

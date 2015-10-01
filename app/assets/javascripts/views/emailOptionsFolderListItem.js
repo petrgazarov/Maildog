@@ -3,7 +3,7 @@ Maildog.Views.EmailOptionsFolderListItem = Backbone.View.extend({
   tagName: "li",
 
   events: {
-    "click": "loadFolder"
+    "click": "moveToFolder"
   },
 
   render: function() {
@@ -12,7 +12,7 @@ Maildog.Views.EmailOptionsFolderListItem = Backbone.View.extend({
     return this;
   },
 
-  loadFolder: function() {
-    Backbone.history.navigate("folders/" + this.model.id, { trigger: true });
+  moveToFolder: function() {
+    // Backbone.history.navigate("folders/" + this.model.id, { trigger: true });
   }
 });

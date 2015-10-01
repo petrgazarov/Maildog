@@ -2,10 +2,11 @@ Maildog.Collections.Emails = Backbone.Collection.extend({
   model: Maildog.Models.Email,
 
   initialize: function(models, options) {
-    options && (this.urlAction = options.urlAction);
+    options && (this.urlAction = options.urlAction || "this folder");
+    options && (this.url = options.url || this.defineUrl());
   },
 
-  url: function() {
+  defineUrl: function() {
     return "/api/emails/" + this.urlAction
   },
 

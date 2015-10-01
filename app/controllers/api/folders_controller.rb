@@ -14,6 +14,11 @@ class Api::FoldersController < ApplicationController
   end
 
   def show
+    @folder = Folder.find(params[:id])
+    render :show
+  end
+
+  def emails
     @emails = Folder.find(params[:id]).emails
     render template: "api/emails/emails"
   end

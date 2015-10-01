@@ -3,7 +3,8 @@ Maildog.Views.CustomFolderListItem = Backbone.View.extend({
   tagName: "li",
 
   events: {
-    "click #delete-folder-cross": "deleteFolder"
+    "click #delete-folder-cross": "deleteFolder",
+    "click": "loadFolder"
   },
 
   render: function() {
@@ -16,5 +17,9 @@ Maildog.Views.CustomFolderListItem = Backbone.View.extend({
     e.preventDefault();
     this.model.destroy();
     this.remove();
+  },
+
+  loadFolder: function() {
+    Backbone.history.navigate("folders/" + this.model.id, { trigger: true });
   }
 });

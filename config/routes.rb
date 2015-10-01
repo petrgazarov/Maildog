@@ -26,6 +26,10 @@ Rails.application.routes.draw do
     resources :threads, only: [:show, :destroy]
     resources :emails, except: [:new, :edit]
     resource  :user
-    resources :folders, except: [:new, :edit]
+    resources :folders, except: [:new, :edit] do
+      member do
+        get :emails
+      end
+    end
   end
 end
