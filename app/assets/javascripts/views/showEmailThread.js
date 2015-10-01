@@ -6,7 +6,7 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     this.listenTo(this.collection, "add", this._addSubviewToEmail);
     this.collection.fetch({ reset: true });
     Backbone.pubSub.on("deleteThread", this.deleteThread, this);
-
+    Maildog.router.currentEmailThread = this.collection;
   },
 
   events: {
@@ -67,5 +67,13 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
       });
       this.addSubview(".email-thread-list", subview);
     }
-  }
+  },
+
+  remove: function () {
+    Backbone.View.prototype.remove.call(this);
+    this.eachSubview(function (subview) {
+      subview.remove();
+    });
+    Maildog.router.currentEmailThread = null;
+  },
 });

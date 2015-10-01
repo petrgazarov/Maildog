@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150930194552) do
+ActiveRecord::Schema.define(version: 20151001221310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,15 +43,15 @@ ActiveRecord::Schema.define(version: 20150930194552) do
   add_index "email_addressees", ["email_id", "email_type"], name: "index_email_addressees_on_email_id_and_email_type", using: :btree
   add_index "email_addressees", ["email_id"], name: "index_email_addressees_on_email_id", using: :btree
 
-  create_table "email_folders", force: :cascade do |t|
+  create_table "email_labels", force: :cascade do |t|
     t.integer  "email_id",   null: false
-    t.integer  "folder_id",  null: false
+    t.integer  "label_id",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "email_folders", ["email_id"], name: "index_email_folders_on_email_id", using: :btree
-  add_index "email_folders", ["folder_id"], name: "index_email_folders_on_folder_id", using: :btree
+  add_index "email_labels", ["email_id"], name: "index_email_labels_on_email_id", using: :btree
+  add_index "email_labels", ["label_id"], name: "index_email_labels_on_label_id", using: :btree
 
   create_table "emails", force: :cascade do |t|
     t.string   "subject"
@@ -75,14 +75,14 @@ ActiveRecord::Schema.define(version: 20150930194552) do
   add_index "emails", ["sender_id", "time"], name: "index_emails_on_sender_id_and_time", using: :btree
   add_index "emails", ["sender_id"], name: "index_emails_on_sender_id", using: :btree
 
-  create_table "folders", force: :cascade do |t|
+  create_table "labels", force: :cascade do |t|
     t.text     "name",       null: false
     t.integer  "owner_id",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "folders", ["owner_id"], name: "index_folders_on_owner_id", using: :btree
+  add_index "labels", ["owner_id"], name: "index_labels_on_owner_id", using: :btree
 
   create_table "pg_search_documents", force: :cascade do |t|
     t.text     "content"

@@ -24,15 +24,15 @@
 }
 
 .main-folders-list,
-.custom-folders-list {
+.label-list {
   margin-left: 30px;
   margin-top: 10px;
   cursor: pointer;
 }
 
 .main-folders-list > li,
-.custom-folders-list > li,
-.email-options-folder-list > li {
+.label-list > li,
+.email-options-label-list > li {
   padding-top: 3px;
   padding-bottom: 3px;
   font-size: 80%;
@@ -40,17 +40,17 @@
 }
 
 .main-folders-list > li:hover,
-.custom-folders-list > li:hover,
-.email-options-folder-list > li:hover {
+.label-list > li:hover,
+.email-options-label-list > li:hover {
   background: rgb(234,234,234);
 }
 
-#create-new-folder-button {
+#create-new-label-button {
   margin-top: 20px;
   margin-left: 30px;
 }
 
-.custom-folders input {
+.labels input {
   border: 1px solid black;
   background: #fff;
   background-clip: padding-box;
@@ -62,12 +62,12 @@
   margin-left: 30px;
 }
 
-.custom-folders input:hover {
+.labels input:hover {
   border: 1px solid #a0a0a0;
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 }
 
-.custom-folders-list .icon-dark-cross {
+.label-list .icon-dark-cross {
   float: right;
   right: 5px;
   height: 13px;
@@ -82,7 +82,7 @@
   display: none;
 }
 
-.custom-folders-list > li:hover .icon-dark-cross {
+.label-list > li:hover .icon-dark-cross {
   display: block;
 }
 

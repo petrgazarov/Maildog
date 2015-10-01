@@ -49,6 +49,7 @@ Maildog.Mixins.NewEmail = {
     if (!this.model.isNew()) {
       this.model.destroy();
     }
+
     if (this.model.isNew() || this.model.get('draft')) {
       Maildog.router.addFlash("Your message has been discarded");
     }

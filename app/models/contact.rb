@@ -17,8 +17,8 @@ class Contact < ActiveRecord::Base
     class_name: "User",
     foreign_key: :owner_id
 
-  has_many :folders,
-    class_name: "Folder",
+  has_many :labels,
+    class_name: "Label",
     foreign_key: :owner_id
 
   def self.create_or_get(email_address)

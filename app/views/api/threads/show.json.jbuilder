@@ -1,6 +1,8 @@
 json.array! @emails do |email|
-  json.extract! email, :id, :subject, :body, :time, :date, :draft
-  json.sender do
-    json.extract! email.sender, :first_name, :last_name, :email
-  end
+  json.partial! "api/emails/email", email: email
 end
+# json.email_labels do
+#   json.array! @emails do |email|
+#     json.extract! email, :email_labels
+#   end
+# end

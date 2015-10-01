@@ -9,6 +9,16 @@ Maildog.Collections.EmailThreads = Backbone.Collection.extend({
     return "api/threads/" + this.emailId
   },
 
+  parse: function(payload) {
+    if (payload.email_folders) {
+      this.email_folders = payoad.email_folders
+
+      delete payload.email_folders;
+    }
+
+    return payload;
+  },
+
   destroy: function(options) {
     $.ajax({
       url: this.url(),
@@ -16,7 +26,7 @@ Maildog.Collections.EmailThreads = Backbone.Collection.extend({
       dataType: "json",
       success: function() {
         Maildog.inboxEmails.remove(this.emailId);
-        options.success();
+        options && options.success();
         this.remove();
       }.bind(this)
     });

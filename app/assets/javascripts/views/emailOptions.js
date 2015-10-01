@@ -12,15 +12,15 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
       this.backButtonValue = state;
     });
 
-    this.folderCollection = new Maildog.Collections.Folders();
-    this.folderCollection.fetch();
+    this.labelCollection = new Maildog.Collections.Labels();
+    this.labelCollection.fetch();
   },
 
   events: {
     "click #delete-email-thread": "fireDeleteThread",
     "click #email-show-back-button": "goBack",
     "click #refresh-button": "refreshCollection",
-    "click .move-to-button-container": "showFolderList"
+    "click .label-as-button-container": "showLabelList"
   },
 
   render: function(state, email) {
@@ -40,47 +40,47 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
     Backbone.history.navigate(this.backButtonValue, { trigger: true });
   },
 
-  showFolderList: function() {
-    if (!this.$('.email-options-folder-list').hasClass('invisible')) { return; }
+  showLabelList: function() {
+    if (!this.$('.email-options-label-list').hasClass('invisible')) { return; }
 
     window.setTimeout(function() {
       $('html').click(function(e) {
-        this.hideFolderList(e);
+        this.hideLabelList(e);
       }.bind(this))
     }.bind(this), 0);
 
     this.$('.icon-move-to-button').css('opacity', 1);
     this.$('.down-arrow-symbol').css('opacity', 1);
-    this.$('.email-options-folder-list').removeClass('invisible');
-    this.folderCollection.forEach(this.addSubviewforFolder.bind(this));
+    this.$('.email-options-label-list').removeClass('invisible');
+    this.labelCollection.forEach(this.addSubviewforLabel.bind(this));
   },
 
-  hideFolderList: function(e) {
+  hideLabelList: function(e) {
     if (
          (
-           $(e.target).parents().filter('.email-options-folder-list').length > 0 &&
+           $(e.target).parents().filter('.email-options-label-list').length > 0 &&
            $(e.target).prop('tagName') !== "LI"
          ) ||
-         $(e.target).hasClass('email-options-folder-list')
+         $(e.target).hasClass('email-options-label-list')
         ) {
       return;
     }
 
-    this.$('.email-options-folder-list').addClass('invisible');
+    this.$('.email-options-label-list').addClass('invisible');
     this.$('.icon-move-to-button').css('opacity', .55);
     this.$('.down-arrow-symbol').css('opacity', .55);
 
-    this.subviews('.email-options-folder-list').forEach(function(subview) {
-      this.removeSubview('.email-options-folder-list', subview);
+    this.subviews('.email-options-label-list').forEach(function(subview) {
+      this.removeSubview('.email-options-label-list', subview);
     }.bind(this));
     $('html').off('click');
   },
 
-  addSubviewforFolder: function(folder) {
-    var subview = new Maildog.Views.EmailOptionsFolderListItem({
-      model: folder
+  addSubviewforLabel: function(label) {
+    var subview = new Maildog.Views.EmailOptionsLabelListItem({
+      model: label
     });
-    this.addSubview('.email-options-folder-list', subview);
+    this.addSubview('.email-options-label-list', subview);
   },
 
   refreshCollection: function(e) {

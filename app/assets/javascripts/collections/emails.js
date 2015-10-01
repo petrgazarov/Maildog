@@ -2,7 +2,7 @@ Maildog.Collections.Emails = Backbone.Collection.extend({
   model: Maildog.Models.Email,
 
   initialize: function(models, options) {
-    options && (this.urlAction = options.urlAction || "this folder");
+    options && (this.urlAction = options.urlAction || "this label");
     options && (this.url = options.url || this.defineUrl());
   },
 
@@ -35,6 +35,10 @@ Maildog.Collections.Emails = Backbone.Collection.extend({
   },
 
   noConversationsMemo: function() {
-    return "No conversations in " + this.folderName();
+    if (this.urlAction === "this label") {
+      return "No conversations with this label";
+    } else {
+      return "No conversations in " + this.folderName();
+    }
   }
 });

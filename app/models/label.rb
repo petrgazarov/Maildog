@@ -1,13 +1,13 @@
-class Folder < ActiveRecord::Base
+class Label < ActiveRecord::Base
   validates :owner, :name, presence: true
 
   belongs_to :owner,
     class_name: "Contact",
     foreign_key: :owner_id
 
-  has_many :email_folders
+  has_many :email_labels
 
   has_many :emails,
-    through: :email_folders,
-    source: :folder
+    through: :email_labels,
+    source: :label
 end
