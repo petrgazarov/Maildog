@@ -46,9 +46,8 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
   },
 
   addSubviewforFolder: function(folder) {
-    var subview = new Maildog.Views.CustomFolderListItem({
-      model: folder,
-      template: "nameOnly"
+    var subview = new Maildog.Views.EmailOptionsFolderListItem({
+      model: folder
     });
     this.addSubview('.email-options-folder-list', subview);
   },

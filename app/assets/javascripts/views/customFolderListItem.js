@@ -1,18 +1,9 @@
 Maildog.Views.CustomFolderListItem = Backbone.View.extend({
-  templateWithCross: JST['customFolderListItem'],
-  templateNameOnly: JST['emailOptionsFolderListItem'],
+  template: JST['customFolderListItem'],
   tagName: "li",
 
   events: {
     "click #delete-folder-cross": "deleteFolder"
-  },
-
-  initialize: function(options) {
-    if (options.template === "nameOnly") {
-      this.template = this.templateNameOnly;
-    } else {
-      this.template = this.templateWithCross;
-    }
   },
 
   render: function() {
