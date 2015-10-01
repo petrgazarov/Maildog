@@ -1,4 +1,4 @@
-Maildog.Views.EmailOptions = Backbone.View.extend({
+Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
   template_list: JST['emailOptionsList'],
   template_show: JST['emailOptionsShow'],
 
@@ -11,12 +11,16 @@ Maildog.Views.EmailOptions = Backbone.View.extend({
       this.render(state);
       this.backButtonValue = state;
     });
+
+    this.folderCollection = new Maildog.Collections.Folders();
+    this.folderCollection.fetch();
   },
 
   events: {
     "click #delete-email-thread": "fireDeleteThread",
     "click #email-show-back-button": "goBack",
-    "click #refresh-button": "refreshCollection"
+    "click #refresh-button": "refreshCollection",
+    "click .move-to-button-container": "showFolderList"
   },
 
   render: function(state, email) {
@@ -34,6 +38,16 @@ Maildog.Views.EmailOptions = Backbone.View.extend({
   goBack: function(e) {
     e.preventDefault();
     Backbone.history.navigate(this.backButtonValue, { trigger: true });
+  },
+
+  showFolderList: function() {
+    this.$('.email-options-folder-list').removeClass('invisible');
+    this.folderCollection.forEach(this.addSubviewforFolder.bind(this));
+  },
+
+  addSubviewforFolder: function(folder) {
+    var subview = new Maildog.Views.CustomFolderListItem({ model: folder });
+    this.addSubview('.email-options-folder-list', subview);
   },
 
   refreshCollection: function(e) {
