@@ -28,7 +28,7 @@ Maildog.Views.CustomFolders = Backbone.CompositeView.extend({
     window.setTimeout(function() {
       $('html').click(function(e) {
         this.newFolder(e, { text: this.$('input').val() });
-      }.bind(this))
+      }.bind(this));
     }.bind(this), 0);
   },
 

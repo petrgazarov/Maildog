@@ -39,6 +39,12 @@ class Email < ActiveRecord::Base
     class_name: "Email",
     foreign_key: :original_email_id
 
+  has_many :email_folders
+
+  has_many :folders,
+    through: :email_folders,
+    source: :folder
+
   after_initialize :ensure_date_and_time
 
   def ensure_date_and_time

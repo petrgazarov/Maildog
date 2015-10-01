@@ -13,6 +13,11 @@ class Api::FoldersController < ApplicationController
     end
   end
 
+  def show
+    @emails = Folder.find(params[:id]).emails
+    render template: "api/emails/emails"
+  end
+
   def destroy
     folder = Folder.find(params[:id])
     folder.destroy
