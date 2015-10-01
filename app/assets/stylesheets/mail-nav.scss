@@ -118,3 +118,24 @@
   margin-top: 11px;
   opacity: 0.55;
 }
+
+.email-options-folder-list {
+  position: absolute;
+  top: 29px;
+  text-align: left;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: opacity .218s;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.2);
+  padding: 5px;
+}
+
+.email-options-folder-list > p {
+  font-size: 13px;
+  padding-bottom: 5px;
+}
+
+.email-options-folder-list > li {
+  padding: 5px 50px 5px 20px;
+  display: block;
+}

@@ -31,14 +31,16 @@
 }
 
 .main-folders-list > li,
-.custom-folders-list > li {
+.custom-folders-list > li,
+.email-options-folder-list > li {
   padding-top: 3px;
   padding-bottom: 3px;
   font-size: 80%;
 }
 
 .main-folders-list > li:hover,
-.custom-folders-list > li:hover {
+.custom-folders-list > li:hover,
+.email-options-folder-list > li:hover {
   background: rgb(234,234,234);
 }
 
