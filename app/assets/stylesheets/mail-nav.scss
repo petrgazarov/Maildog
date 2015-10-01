@@ -84,3 +84,37 @@
   margin: 0 20px;
   color: gray;
 }
+
+.move-to-button-container {
+  float: right;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.icon-move-to-button {
+  width: 21px;
+  height: 21px;
+  background: no-repeat image-url('sprite2.png') 0 -426px;
+  background-image: image-url('sprite2.png');
+  background-position-x: 0px;
+  background-position-y: -426px;
+  opacity: .55;
+  float: left;
+  margin-left: 18px;
+  margin-top: 1px;
+}
+
+.move-to-button-container:hover .icon-move-to-button,
+.move-to-button-container:hover .down-arrow-symbol {
+  opacity: 1;
+}
+
+.down-arrow-symbol {
+  background: image-url('arrow_down.png') no-repeat;
+  background-image: image-url('arrow_down.png');
+  width: 6px;
+  height: 6px;
+  float: left;
+  margin-top: 11px;
+  opacity: 0.55;
+}
