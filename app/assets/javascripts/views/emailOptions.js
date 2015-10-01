@@ -41,8 +41,36 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
   },
 
   showFolderList: function() {
+    if (!this.$('.email-options-folder-list').hasClass('invisible')) { return; }
+
+    window.setTimeout(function() {
+      $('html').click(function(e) {
+        this.hideFolderList(e);
+      }.bind(this))
+    }.bind(this), 0);
+
+    this.$('.icon-move-to-button').css('opacity', 1);
+    this.$('.down-arrow-symbol').css('opacity', 1);
     this.$('.email-options-folder-list').removeClass('invisible');
     this.folderCollection.forEach(this.addSubviewforFolder.bind(this));
+  },
+
+  hideFolderList: function(e) {
+    if (
+         $(e.target).parents().filter('.email-options-folder-list').length > 0 ||
+         $(e.target).hasClass('email-options-folder-list')
+        ) {
+      return;
+    }
+
+    this.$('.email-options-folder-list').addClass('invisible');
+    this.$('.icon-move-to-button').css('opacity', .55);
+    this.$('.down-arrow-symbol').css('opacity', .55);
+
+    this.subviews('.email-options-folder-list').forEach(function(subview) {
+      this.removeSubview('.email-options-folder-list', subview);
+    }.bind(this));
+    $('html').off('click');
   },
 
   addSubviewforFolder: function(folder) {
