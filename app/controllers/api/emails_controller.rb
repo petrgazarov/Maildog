@@ -29,8 +29,8 @@ class Api::EmailsController < ApplicationController
   end
 
   def sent
-    @emails = current_user_contact.written_emails.order(date: :desc, time: :desc)
-                                  .where(draft: false)
+    @emails = current_user_contact.sent_emails
+
     render :emails
   end
 

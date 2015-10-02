@@ -37,4 +37,8 @@ class Contact < ActiveRecord::Base
          .where("email_addressees.addressee_id = #{id}")
          .where("emails.trash = 'false'")
   end
+
+  def sent_emails
+    Email.where(sender_id: id, trash: false)
+  end
 end
