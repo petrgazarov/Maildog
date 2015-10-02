@@ -13,9 +13,6 @@ window.Maildog = {
     Maildog.currentUser.fetch();
     Backbone.pubSub = _.extend({}, Backbone.Events);
 
-    Maildog.flashMessages = new Maildog.Views.FlashMessageList();
-    $('.flash-container').html(Maildog.flashMessages.render().$el);
-
     Maildog.router = new Maildog.Routers.Router({
       $rootEl: $('.main-container')
     });

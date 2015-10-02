@@ -25,6 +25,8 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
   },
 
   refreshCollection: function() {
+    Maildog.router.addFlash("Loading...")
+
     if (this.collection.folderName() === "Search") {
       this.collection.fetch({
   			reset: true,
