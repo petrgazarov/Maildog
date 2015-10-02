@@ -6,6 +6,10 @@ Maildog.Views.SearchBar = Backbone.CompositeView.extend({
     "click #search-button": "search"
   },
 
+  initialize: function() {
+    this.listenTo(Maildog.router, "clearSearchBox", this.clearSearchBox)
+  },
+
   render: function() {
     this.$el.html(this.template());
     return this;
@@ -17,5 +21,9 @@ Maildog.Views.SearchBar = Backbone.CompositeView.extend({
       "search/" + this.$('.query').val(),
       { trigger: true }
     );
+  },
+
+  clearSearchBox: function() {
+    this.$('.query').val("");
   }
 });

@@ -16,8 +16,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   inbox: function() {
-    Backbone.pubSub.off();
-    this.removeFlashes();
+    this._setUpSwap();
 
     this.trigger("folderNavigation", "inbox");
     var view = new Maildog.Views.EmailList({
@@ -28,8 +27,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   sent: function() {
-    Backbone.pubSub.off();
-    this.removeFlashes();
+    this._setUpSwap();
 
     var sentEmails = new Maildog.Collections.Emails([], { urlAction: "sent" });
     this.trigger("folderNavigation", "sent");
@@ -41,8 +39,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   drafts: function() {
-    Backbone.pubSub.off();
-    this.removeFlashes();
+    this._setUpSwap();
 
     var draftsEmails = new Maildog.Collections.Emails([], { urlAction: "drafts" });
     this.trigger("folderNavigation", "drafts");
@@ -54,8 +51,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   starred: function() {
-    Backbone.pubSub.off();
-    this.removeFlashes();
+    this._setUpSwap();
 
     var starredEmails = new Maildog.Collections.Emails([], { urlAction: "starred" });
     this.trigger("folderNavigation", "starred");
@@ -67,6 +63,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   showEmailThread: function(id) {
+    Backbone.pubSub.off();
     this.removeFlashes();
 
     var thread = new Maildog.Collections.EmailThreads([], { id: id });
@@ -76,6 +73,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   search: function(query) {
+    Backbone.pubSub.off();
     this.removeFlashes();
 
     var searchResults = new Maildog.Collections.SearchResults();
@@ -85,8 +83,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   },
 
   labels: function(id) {
-    Backbone.pubSub.off();
-    this.removeFlashes();
+    this._setUpSwap();
 
     var folder = new Maildog.Models.Label({ id: id });
     this.trigger("folderNavigation", "labels/" + id);
@@ -121,5 +118,11 @@ Maildog.Routers.Router = Backbone.Router.extend({
     this._currentView = newView;
     $(".show-container").html(newView.$el);
     newView.render();
+  },
+
+  _setUpSwap: function() {
+    this.removeFlashes();
+    Backbone.pubSub.off();
+    this.trigger("clearSearchBox");
   }
 });
