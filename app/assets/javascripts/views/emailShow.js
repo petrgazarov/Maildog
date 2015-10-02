@@ -28,5 +28,5 @@ Maildog.Views.EmailShow = Backbone.CompositeView.extend({
         alert('error')
       }
     })
-  },
+  }
 });
