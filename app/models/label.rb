@@ -5,7 +5,8 @@ class Label < ActiveRecord::Base
     class_name: "Contact",
     foreign_key: :owner_id
 
-  has_many :email_labels
+  has_many :email_labels,
+    dependent: :destroy
 
   has_many :emails,
     through: :email_labels,

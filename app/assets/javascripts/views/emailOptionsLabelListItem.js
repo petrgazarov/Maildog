@@ -18,12 +18,12 @@ Maildog.Views.EmailOptionsLabelListItem = Backbone.View.extend({
         label_id: this.model.id,
         email_id: email.id
       });
-      emailLabel.save({
+      emailLabel.save({}, {
         success: function() {
           Maildog.router.addFlash(
             "The conversation has been added to " + this.model.get('name')
           )
-        }
+        }.bind(this)
       });
     }.bind(this));
   }

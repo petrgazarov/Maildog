@@ -39,7 +39,8 @@ class Email < ActiveRecord::Base
     class_name: "Email",
     foreign_key: :original_email_id
 
-  has_many :email_labels
+  has_many :email_labels,
+    dependent: :destroy
 
   has_many :labels,
     through: :email_labels,
