@@ -19,7 +19,9 @@ Maildog.Views.LabelListItem = Backbone.View.extend({
     this.remove();
   },
 
-  loadLabel: function() {
+  loadLabel: function(e) {
+    if ($(e.target).attr('id') === "delete-label-cross") { return; }
+
     Backbone.history.navigate("labels/" + this.model.id, { trigger: true });
   }
 });

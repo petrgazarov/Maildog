@@ -1,5 +1,5 @@
 Maildog.Collections.Labels = Backbone.Collection.extend({
-  url: "/api/labels",
+  model: Maildog.Models.Label,
 
-  model: Maildog.Models.Label
+  url: "api/labels"
 });

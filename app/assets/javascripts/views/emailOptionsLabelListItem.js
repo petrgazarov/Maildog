@@ -13,8 +13,12 @@ Maildog.Views.EmailOptionsLabelListItem = Backbone.View.extend({
   },
 
   labelAs: function() {
-    Maildog.router.currentEmailThread.forEach(function() {
-      var emailLabel = new Maildog.Models.EmailLabel();
+    Maildog.router.currentEmailThread.models.forEach(function(email) {
+      var emailLabel = new Maildog.Models.EmailLabel({
+        label_id: this.model.id,
+        email_id: email.id
+      });
+      emailLabel.save();
     }.bind(this));
   }
 });

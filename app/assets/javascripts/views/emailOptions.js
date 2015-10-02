@@ -12,8 +12,8 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
       this.backButtonValue = state;
     });
 
-    this.labelCollection = new Maildog.Collections.Labels();
-    this.labelCollection.fetch();
+    this.collection = new Maildog.Collections.Labels();
+    this.collection.fetch();
   },
 
   events: {
@@ -49,18 +49,23 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
       }.bind(this))
     }.bind(this), 0);
 
-    this.$('.icon-move-to-button').css('opacity', 1);
+    this.$('.icon-label-as-button').css('opacity', 1);
     this.$('.down-arrow-symbol').css('opacity', 1);
     this.$('.email-options-label-list').removeClass('invisible');
-    this.labelCollection.forEach(this.addSubviewforLabel.bind(this));
+    this.collection.fetch({
+      success: function() {
+        this.collection.forEach(this.addSubviewforLabel.bind(this));
+      }.bind(this),
+      error: function() {
+        alert('error')
+      }
+    });
   },
 
   hideLabelList: function(e) {
     if (
-         (
-           $(e.target).parents().filter('.email-options-label-list').length > 0 &&
-           $(e.target).prop('tagName') !== "LI"
-         ) ||
+         ($(e.target).parents().filter('.email-options-label-list').length > 0 &&
+           $(e.target).prop('tagName') !== "LI") ||
          $(e.target).hasClass('email-options-label-list')
         ) {
       return;
@@ -70,9 +75,11 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
     this.$('.icon-move-to-button').css('opacity', .55);
     this.$('.down-arrow-symbol').css('opacity', .55);
 
-    this.subviews('.email-options-label-list').forEach(function(subview) {
-      this.removeSubview('.email-options-label-list', subview);
+    this.eachSubview(function(subview) {
+      subview.remove();
     }.bind(this));
+
+    delete this.subviews;
     $('html').off('click');
   },
 

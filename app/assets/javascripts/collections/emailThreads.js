@@ -10,10 +10,10 @@ Maildog.Collections.EmailThreads = Backbone.Collection.extend({
   },
 
   parse: function(payload) {
-    if (payload.email_folders) {
-      this.email_folders = payoad.email_folders
+    if (payload.email_labels) {
+      this.emailLabels = payoad.email_labels
 
-      delete payload.email_folders;
+      delete payload.email_labels;
     }
 
     return payload;

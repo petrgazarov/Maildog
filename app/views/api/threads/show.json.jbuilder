@@ -3,6 +3,6 @@ json.array! @emails do |email|
 end
 # json.email_labels do
 #   json.array! @emails do |email|
-#     json.extract! email, :email_labels
+#     json.extract! email.labels, :id
 #   end
 # end

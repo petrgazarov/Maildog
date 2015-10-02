@@ -44,7 +44,6 @@ Maildog.Mixins.NewEmail = {
     })
   },
 
-
   discardMessage: function() {
     if (!this.model.isNew()) {
       this.model.destroy();
