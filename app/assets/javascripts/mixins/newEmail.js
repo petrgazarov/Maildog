@@ -52,7 +52,9 @@ Maildog.Mixins.NewEmail = {
     if (this.model.isNew() || this.model.get('draft')) {
       Maildog.router.addFlash("Your message has been discarded");
     }
-    this.removeView();
+    window.setTimeout(function() {
+      this.removeView();
+    }.bind(this), 0);
   },
 
   removeView: function(e, sendOptions) {

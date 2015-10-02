@@ -11,7 +11,8 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
 
   events: {
     "click .reply-forward-email-box": "addReplyForwardView",
-    "submit": "returnBox"
+    "submit": "returnBox",
+    "click #delete-reply-forward": "returnBox"
   },
 
   render: function() {
