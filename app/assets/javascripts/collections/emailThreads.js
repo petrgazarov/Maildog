@@ -2,22 +2,28 @@ Maildog.Collections.EmailThreads = Backbone.Collection.extend({
   model: Maildog.Models.Email,
 
   initialize: function(models, options) {
-    this.emailId = options.id
+    options && (this.urlAction = options.urlAction);
   },
 
   url: function() {
-    return "api/threads/" + this.emailId
+    return "api/threads/" + this.urlAction
   },
 
   parse: function(payload) {
     if (payload.email_labels) {
-      this.emailLabels = payoad.email_labels
+      this.emailLabels = payload.email_labels;
 
       delete payload.email_labels;
     }
 
     return payload;
   },
+
+  tail: function() {
+    this._tail = (this._tail || new Maildog.Models.Email());
+
+    return this._tail;
+  }
 
   destroy: function(options) {
     $.ajax({

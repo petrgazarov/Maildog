@@ -21,7 +21,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
 
     this.trigger("folderNavigation", "inbox");
     var view = new Maildog.Views.EmailList({
-      collection: Maildog.inboxEmails,
+      collection: Maildog.inboxThreads,
       folder: "inbox"
     });
     this._swapView(view);
