@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 20151002202655) do
     t.integer  "parent_email_id"
     t.boolean  "draft",             default: false
     t.boolean  "trash",             default: false
-    t.integer  "thread_id"
+    t.integer  "email_thread_id"
   end
 
   add_index "emails", ["original_email_id"], name: "index_emails_on_original_email_id", using: :btree

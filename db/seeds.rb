@@ -63,10 +63,10 @@ tommy = petr_user.contacts.create(
   gender: "M"
 )
 
-thread1 = Thread.new(subject: "What is best practice?")
-thread2 = Thread.new(subject: "hi")
-thread3 = Thread.new(subject: "Atom editor")
-thread4 = Thread.new(subject: "Have a good weekend!")
+thread1 = EmailThread.new(subject: "What is best practice?", owner: petr)
+thread2 = EmailThread.new(subject: "hi", owner: petr)
+thread3 = EmailThread.new(subject: "Atom editor", owner: petr)
+thread4 = EmailThread.new(subject: "Have a good weekend!", owner: petr)
 
 practice_email = petr.received_emails.create(
   thread: thread1,

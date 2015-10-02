@@ -1,4 +1,4 @@
-json.extract! email, :id, :subject, :body, :time, :date,
+json.extract! email, :id, :body, :time, :date,
                      :starred, :checked, :draft
 json.sender do
   json.extract! email.sender, :first_name, :last_name, :email
