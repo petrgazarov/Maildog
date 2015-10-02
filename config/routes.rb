@@ -31,5 +31,6 @@ Rails.application.routes.draw do
         get :emails
       end
     end
+    resources :email_labels, only: [:create]
   end
 end

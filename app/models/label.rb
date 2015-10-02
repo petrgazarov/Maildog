@@ -9,5 +9,5 @@ class Label < ActiveRecord::Base
 
   has_many :emails,
     through: :email_labels,
-    source: :label
+    source: :email
 end

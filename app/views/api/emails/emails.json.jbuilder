@@ -1,3 +1,3 @@
 json.array! @emails do |email|
-  json.partial! 'email', email: email
+  json.partial! 'api/emails/email', email: email
 end
