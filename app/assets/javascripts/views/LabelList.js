@@ -29,12 +29,20 @@ Maildog.Views.LabelList = Backbone.CompositeView.extend({
       $('html').click(function(e) {
         this.newLabel(e, { text: this.$('input').val() });
       }.bind(this));
+
+      $('html').keydown(function(e) {
+        if (e.which !== 13) { return; }
+        this.newLabel(e, { text: this.$('input').val() });
+      }.bind(this));
+
     }.bind(this), 0);
   },
 
   newLabel: function(e, options) {
-    if ($(e.target).hasClass("new-label-input")) { return; }
+    if (e.which !== 13 && $(e.target).hasClass("new-label-input")) { return; }
     $('html').off('click');
+    $('html').off('keydown');
+
     if (options.text) {
       label = new Maildog.Models.Label({ name: options.text })
       label.save({}, {
