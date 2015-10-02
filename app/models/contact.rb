@@ -1,6 +1,8 @@
 class Contact < ActiveRecord::Base
   validates :email, :owner, presence: true
 
+  scope :emails, lambda{ ||}
+
   has_many :received_emails,
     through: :email_addressees,
     source: :email
@@ -28,5 +30,11 @@ class Contact < ActiveRecord::Base
 
   def all_emails
     written_emails + received_emails
+  end
+
+  def inbox_emails
+    Email.joins("JOIN email_addressees ON emails.id = email_addressees.id")
+         .where("email_addressees.addressee_id = #{id}")
+         .where("emails.trash = 'false'")
   end
 end

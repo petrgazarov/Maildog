@@ -23,7 +23,8 @@ class Api::EmailsController < ApplicationController
   end
 
   def inbox
-    @emails = current_user_contact.received_emails.order(date: :desc, time: :desc)
+    @emails = current_user_contact.inbox_emails
+
     render :emails
   end
 
