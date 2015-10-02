@@ -12,7 +12,8 @@ Maildog.Routers.Router = Backbone.Router.extend({
     "starred": "starred",
     "emails/:id": "showEmailThread",
     "search/:query": "search",
-    "labels/:id": "labels"
+    "labels/:id": "labels",
+    "trash": "trash"
   },
 
   inbox: function() {
@@ -94,6 +95,18 @@ Maildog.Routers.Router = Backbone.Router.extend({
     var view = new Maildog.Views.EmailList({
       label: "folders",
       collection: labelEmails
+    });
+    this._swapView(view);
+  },
+
+  trash: function() {
+    this._setUpSwap();
+
+    var trashEmails = new Maildog.Collections.Emails([], { urlAction: "trash" });
+    this.trigger("folderNavigation", "trash");
+    var view = new Maildog.Views.EmailList({
+      folder: "trash",
+      collection: trashEmails
     });
     this._swapView(view);
   },
