@@ -22,12 +22,12 @@ class Api::ThreadsController < ApplicationController
       emails = Email.where(
         "original_email_id = ? OR id = ?",
         email.original_email_id, email.original_email_id
-      ).destroy_all
+      ).update_all(trash: true)
     else
-      emails = Email.where(original_email_id: email.id).destroy_all
-      email.destroy
+      emails = Email.where(original_email_id: email.id).update_all(trash: true)
+      email.update(trash: true)
     end
 
-    render json: emails
+    render json: {}
   end
 end
