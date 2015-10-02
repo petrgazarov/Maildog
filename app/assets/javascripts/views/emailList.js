@@ -19,13 +19,13 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
     this.$('.email-list-empty-folder-memo').text("");
     this.eachSubview(function(subview) { subview.remove() });
     this.$el.html(this.template());
-    this.collection.forEach(this.addSubviewForEmail.bind(this));
+    this.collection.forEach(this.addSubviewForThread.bind(this));
     return this;
   },
 
-  addSubviewForEmail: function(email) {
+  addSubviewForThread: function(thread) {
     var subview = new Maildog.Views.EmailListItem({
-      model: email,
+      model: thread,
       folder: this.folder
     });
     this.addSubview(".email-list", subview);
@@ -45,9 +45,9 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
         }.bind(this)
   		});
     }
-    else if (this.collection.folderName() === "Folders") {
-      Backbone.history.loadUrl("#folders/");
-    }
+    // else if (this.collection.folderName() === "Folders") {
+    //   Backbone.history.loadUrl("#folders/");
+    // }
     else {
       this.collection.fetch({
         reset: true,

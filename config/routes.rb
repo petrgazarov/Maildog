@@ -7,7 +7,13 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create]
 
   namespace :api, defaults: { format: :json } do
-    resources :emails do
+    resources :emails
+    get "/search", to: "emails#search"
+
+    resource :session do
+      post :fetch
+    end
+    resources :email_threads, only: [:show, :destroy] do
       collection do
         get  :inbox
         get  :starred
@@ -17,13 +23,6 @@ Rails.application.routes.draw do
         post :send
       end
     end
-
-    get "/search", to: "emails#search"
-
-    resource :session do
-      post :fetch
-    end
-    resources :threads, only: [:show, :destroy]
     resources :emails, except: [:new, :edit]
     resource  :user
     resources :labels, except: [:new, :edit] do

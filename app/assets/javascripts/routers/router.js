@@ -30,11 +30,11 @@ Maildog.Routers.Router = Backbone.Router.extend({
   sent: function() {
     this._setUpSwap();
 
-    var sentEmails = new Maildog.Collections.Emails([], { urlAction: "sent" });
+    var sentThreads = new Maildog.Collections.Threads([], { urlAction: "sent" });
     this.trigger("folderNavigation", "sent");
     var view = new Maildog.Views.EmailList({
       folder: "sent",
-      collection: sentEmails
+      collection: sentThreads
     });
     this._swapView(view);
   },
@@ -42,11 +42,11 @@ Maildog.Routers.Router = Backbone.Router.extend({
   drafts: function() {
     this._setUpSwap();
 
-    var draftsEmails = new Maildog.Collections.Emails([], { urlAction: "drafts" });
+    var draftsThreads = new Maildog.Collections.Threads([], { urlAction: "drafts" });
     this.trigger("folderNavigation", "drafts");
     var view = new Maildog.Views.EmailList({
       folder: "drafts",
-      collection: draftsEmails
+      collection: draftsThreads
     });
     this._swapView(view);
   },
@@ -63,15 +63,15 @@ Maildog.Routers.Router = Backbone.Router.extend({
     this._swapView(view);
   },
 
-  showEmailThread: function(id) {
-    Backbone.pubSub.off();
-    this.removeFlashes();
-
-    var thread = new Maildog.Collections.EmailThreads([], { id: id });
-    this.trigger("showEmailMessageOptions", thread);
-    var view = new Maildog.Views.ShowEmailThread({ collection: thread });
-    this._swapView(view);
-  },
+  // showEmailThread: function(id) {
+  //   Backbone.pubSub.off();
+  //   this.removeFlashes();
+  //
+  //   var thread = new Maildog.Collections.EmailThreads([], { id: id });
+  //   this.trigger("showEmailMessageOptions", thread);
+  //   var view = new Maildog.Views.ShowEmailThread({ collection: thread });
+  //   this._swapView(view);
+  // },
 
   search: function(query) {
     Backbone.pubSub.off();
@@ -89,27 +89,27 @@ Maildog.Routers.Router = Backbone.Router.extend({
     var folder = new Maildog.Models.Label({ id: id });
     this.trigger("folderNavigation", "labels/" + id);
 
-    var labelEmails = new Maildog.Collections.Emails([], {
+    var labelThreads = new Maildog.Collections.Threads([], {
       url: "api/labels/" + id +"/emails"
     });
     var view = new Maildog.Views.EmailList({
-      label: "folders",
-      collection: labelEmails
+      // label: "folders",
+      collection: labelThreads
     });
     this._swapView(view);
   },
-
-  trash: function() {
-    this._setUpSwap();
-
-    var trashEmails = new Maildog.Collections.Emails([], { urlAction: "trash" });
-    this.trigger("folderNavigation", "trash");
-    var view = new Maildog.Views.EmailList({
-      folder: "trash",
-      collection: trashEmails
-    });
-    this._swapView(view);
-  },
+  // 
+  // trash: function() {
+  //   this._setUpSwap();
+  //
+  //   var trashEmails = new Maildog.Collections.Emails([], { urlAction: "trash" });
+  //   this.trigger("folderNavigation", "trash");
+  //   var view = new Maildog.Views.EmailList({
+  //     folder: "trash",
+  //     collection: trashEmails
+  //   });
+  //   this._swapView(view);
+  // },
 
   addFlash: function(message) {
     this.removeFlashes();

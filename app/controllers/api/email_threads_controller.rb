@@ -30,4 +30,11 @@ class Api::EmailThreadsController < ApplicationController
 
     render json: {}
   end
+
+  def inbox
+    @threads = EmailThread.includes(:emails)
+                          .where(owner_id: current_user_contact.id)
+
+    render :index
+  end
 end

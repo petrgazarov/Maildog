@@ -17,52 +17,52 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
     var correspondent = this.model.correspondentString(this.folder);
 
     var content = this.template({
-      email: this.model,
+      email: this.model.tail(),
       correspondent: correspondent
     });
 
     this.$el.html(content);
     if (this.folder === "drafts") { this.swapLinkForDiv(); }
-    this.$el.attr('data-id', this.model.id);
-    if (this.model.get('checked')) {
-      this.$el.addClass("checked-list-item");
-    }
+    // this.$el.attr('data-id', this.model.id);
+    // if (this.model.get('checked')) {
+    //   this.$el.addClass("checked-list-item");
+    // }
 
     return this;
   },
 
-  starClick: function(e) {
-    e.preventDefault();
-    $(e.currentTarget).toggleClass('star-on');
-    if (this.model.get('starred')) {
-      this.model.set('starred', false)
-    } else {
-      this.model.set('starred', true)
-    }
-
-    this.model.save({}, {
-      error: function() {
-        alert('error')
-      }
-    })
-  },
-
-  checkBoxClick: function(e) {
-    this.$('.check-box-container').toggleClass('checked');
-    this.$el.toggleClass("checked-list-item");
-    $(e.currentTarget).toggleClass("checked-check-box");
-    if (this.model.get('checked')) {
-      this.model.set('checked', false)
-    } else {
-      this.model.set('checked', true)
-    }
-
-    this.model.save({}, {
-      error: function() {
-        alert('error')
-      }
-    })
-  },
+  // starClick: function(e) {
+  //   e.preventDefault();
+  //   $(e.currentTarget).toggleClass('star-on');
+  //   if (this.model.get('starred')) {
+  //     this.model.set('starred', false)
+  //   } else {
+  //     this.model.set('starred', true)
+  //   }
+  //
+  //   this.model.save({}, {
+  //     error: function() {
+  //       alert('error')
+  //     }
+  //   })
+  // },
+  //
+  // checkBoxClick: function(e) {
+  //   this.$('.check-box-container').toggleClass('checked');
+  //   this.$el.toggleClass("checked-list-item");
+  //   $(e.currentTarget).toggleClass("checked-check-box");
+  //   if (this.model.get('checked')) {
+  //     this.model.set('checked', false)
+  //   } else {
+  //     this.model.set('checked', true)
+  //   }
+  //
+  //   this.model.save({}, {
+  //     error: function() {
+  //       alert('error')
+  //     }
+  //   })
+  // },
 
   swapLinkForDiv: function() {
     var $a = this.$("a");
@@ -72,25 +72,25 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
     $a.replaceWith($div);
   },
 
-  showDraft: function() {
-    Maildog.router.removeFlashes();
-    var thread = new Maildog.Collections.EmailThreads([], { id: this.model.id });
-    thread.fetch({
-      reset: true,
-      success: function() {
-        if (thread.length === 1) {
-          var view = new Maildog.Views.ComposeEmailBox({
-            email: thread.at(0)
-          });
-          Maildog.mainFolders.addSubview('.compose-email-popup-container', view);
-          $('.compose-email-body').focus();
-        } else {
-          Backbone.history.navigate("/emails/" + this.model.id, { trigger: true });
-        }
-      }.bind(this),
-      error: function() {
-        alert("error")
-      }
-    });
-  }
+  // showDraft: function() {
+  //   Maildog.router.removeFlashes();
+  //   var thread = new Maildog.Collections.EmailThreads([], { id: this.model.id });
+  //   thread.fetch({
+  //     reset: true,
+  //     success: function() {
+  //       if (thread.length === 1) {
+  //         var view = new Maildog.Views.ComposeEmailBox({
+  //           email: thread.at(0)
+  //         });
+  //         Maildog.mainFolders.addSubview('.compose-email-popup-container', view);
+  //         $('.compose-email-body').focus();
+  //       } else {
+  //         Backbone.history.navigate("/emails/" + this.model.id, { trigger: true });
+  //       }
+  //     }.bind(this),
+  //     error: function() {
+  //       alert("error")
+  //     }
+  //   });
+  // }
 });

@@ -22,12 +22,6 @@ class Api::EmailsController < ApplicationController
     end
   end
 
-  def inbox
-    @emails = current_user_contact.inbox_emails
-
-    render :emails
-  end
-
   def sent
     @emails = current_user_contact.sent_emails
 
