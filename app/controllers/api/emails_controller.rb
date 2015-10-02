@@ -35,8 +35,9 @@ class Api::EmailsController < ApplicationController
   end
 
   def drafts
-    @emails = current_user_contact.written_emails.order(updated_at: :desc)
-                                  .where(draft: true);
+    @emails = current_user_contact.draft_emails
+    # @emails = current_user_contact.written_emails.order(updated_at: :desc)
+    #                               .where(draft: true);
     render :emails
   end
 

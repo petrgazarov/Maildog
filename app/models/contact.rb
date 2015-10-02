@@ -33,12 +33,36 @@ class Contact < ActiveRecord::Base
   end
 
   def inbox_emails
-    Email.joins("JOIN email_addressees ON emails.id = email_addressees.id")
-         .where("email_addressees.addressee_id = #{id}")
-         .where("emails.trash = 'false'")
+    # Email.joins("JOIN email_addressees ON emails.id = email_addressees.id")
+    #      .where("email_addressees.addressee_id = #{id}")
+    #      .where("emails.trash = 'false'")
+
+    Email.find_by_sql(<<-SQL)
+      SELECT
+        emails.* AS email, COUNT() AS thread_count
+      FROM
+        emails
+      JOIN
+        email_addressees
+      ON
+        emails.id = email_addressees.email_id
+      WHERE
+        email_addressees.addressee_id = #{id} AND emails.trash = 'false'
+      GROUP BY
+        emails.original_email_id
+
+      ORDER BY
+        emails.date DESC, emails.time DESC
+      LIMIT
+        1
+    SQL
   end
 
   def sent_emails
     Email.where(sender_id: id, trash: false)
+  end
+
+  def draft_emails
+    Email.where(sender_id: id, trash: false, draft: true)
   end
 end

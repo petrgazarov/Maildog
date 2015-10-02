@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151002031541) do
+ActiveRecord::Schema.define(version: 20151002201639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,12 @@ ActiveRecord::Schema.define(version: 20151002031541) do
 
   add_index "email_labels", ["email_id"], name: "index_email_labels_on_email_id", using: :btree
   add_index "email_labels", ["label_id"], name: "index_email_labels_on_label_id", using: :btree
+
+  create_table "email_threads", force: :cascade do |t|
+    t.text     "subject"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "emails", force: :cascade do |t|
     t.string   "subject"
