@@ -1,4 +1,4 @@
-class Api::ThreadsController < ApplicationController
+class Api::EmailThreadsController < ApplicationController
   def show
     email = Email.find(params[:id])
     if email.original_email_id

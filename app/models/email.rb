@@ -46,6 +46,10 @@ class Email < ActiveRecord::Base
     through: :email_labels,
     source: :label
 
+  belongs_to :thread,
+    class_name: "EmailThread",
+    foreign_key: :email_thread_id
+
   after_initialize :ensure_date_and_time
 
   def ensure_date_and_time
