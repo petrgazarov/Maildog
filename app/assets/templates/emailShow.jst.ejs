@@ -5,6 +5,9 @@
 <p class='email-show-sender-email'>
   <%= email.sender().escape('email') %>
 </p>
+<div class='garbage-can-holder'>
+  <aside id='delete-message' class='icon-garbage-can'></aside>
+</div>
 <div class='star <%= email.starOnIfStarred() %>'></div>
 <p class='email-show-date-time'>
   <%= email.getTimeOrDate() %>
