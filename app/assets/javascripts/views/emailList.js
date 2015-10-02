@@ -5,7 +5,14 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
     this.folder = options.folder;
     this.refreshCollection();
     this.listenTo(this.collection, 'reset', this.render);
-    Backbone.pubSub.on("refreshCollection", this.refreshCollection, this);
+    Backbone.pubSub.on("refreshCollection", function() {
+      this.refreshCollection({ success: function() {
+        Maildog.router.addFlash("Loading...");
+        window.setTimeout(function() {
+          Maildog.router.removeFlashes();
+        }, 85);
+      }})
+    }.bind(this));
   },
 
   render: function() {
@@ -24,9 +31,7 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
     this.addSubview(".email-list", subview);
   },
 
-  refreshCollection: function() {
-    Maildog.router.addFlash("Loading...")
-
+  refreshCollection: function(options) {
     if (this.collection.folderName() === "Search") {
       this.collection.fetch({
   			reset: true,
@@ -36,15 +41,19 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
   			},
         success: function() {
           this.insertNoConversationsMemo();
+          options && options.success && options.success();
         }.bind(this)
   		});
-    } else if (this.collection.folderName() === "Folders") {
+    }
+    else if (this.collection.folderName() === "Folders") {
       Backbone.history.loadUrl("#folders/");
-    } else {
+    }
+    else {
       this.collection.fetch({
         reset: true,
         success: function() {
           this.insertNoConversationsMemo();
+          options && options.success && options.success();
         }.bind(this)
       });
     }
