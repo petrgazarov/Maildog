@@ -106,6 +106,9 @@ Maildog.Routers.Router = Backbone.Router.extend({
     $message.html(Maildog.fleshView.render().$el);
 
     $('.flash-container').html($message);
+    window.setTimeout(function() {
+      this.removeFlashes()
+    }.bind(this), 10000)
   },
 
   removeFlashes: function() {
