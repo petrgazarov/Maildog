@@ -1,7 +1,8 @@
 Maildog.Models.Thread = Backbone.Model.extend({
   parse: function(payload) {
     if (payload.tail) {
-      this.tail.set(payload.tail);
+      this.tail().set(payload.tail, { parse: true });
+      debugger
 
       delete payload.tail;
     }
