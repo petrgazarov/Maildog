@@ -93,11 +93,12 @@ class Api::EmailsController < ApplicationController
 
   def persist_and_send_email(action, email)
     contact, email_addressee = create_or_get_contact_and_email_addressee(email)
+    thread = EmailThread.find(email.email_thread_id)
 
     if (action == :update && email.update!(email_params)) ||
          (action == :create && email.save!)
       email_addressee.save!
-      MaildogMailer.send_email(contact, email).deliver
+      MaildogMailer.send_email(contact, email, thread).deliver
       render :show
     else
       render json: email.errors.full_messages, status: :unprocessable_entity
@@ -118,7 +119,7 @@ class Api::EmailsController < ApplicationController
   def email_params
     params.require(:email).permit(
       :id, :body, :parent_email_id, :original_email_id,
-      :draft, :starred, :checked, :addressees
+      :draft, :starred, :checked, :addressees, :email_thread_id
     )
   end
 end

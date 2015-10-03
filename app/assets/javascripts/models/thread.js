@@ -9,7 +9,7 @@ Maildog.Models.Thread = Backbone.Model.extend({
     }
 
     if (payload.emails) {
-      this.emails().set(payload.emails, { parse: true });
+      this.emails().reset(payload.emails, { parse: true });
 
       delete payload.emails;
     }
@@ -37,11 +37,5 @@ Maildog.Models.Thread = Backbone.Model.extend({
       }
     }
     return this.emails().last().sender();
-  },
-
-  // subject: function() {
-  //   if (this.length > 0) {
-  //     return this.first().escape('subject');
-  //   }
-  // }
+  }
 });

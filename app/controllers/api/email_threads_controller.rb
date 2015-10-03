@@ -2,6 +2,7 @@ class Api::EmailThreadsController < ApplicationController
   def show
     @email_thread = EmailThread.find(params[:id])
     @emails = Email.where(email_thread_id: params[:id])
+                   .order(date: :asc, time: :asc)
 
     render :show
 

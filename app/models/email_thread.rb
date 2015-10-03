@@ -1,5 +1,6 @@
 class EmailThread < ActiveRecord::Base
   has_many :emails,
+    dependent: :destroy,
     class_name: "Email",
     foreign_key: :email_thread_id
 

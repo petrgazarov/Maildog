@@ -3,7 +3,7 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
 
   initialize: function() {
     this.listenTo(this.model, "sync", this.render);
-    // this.listenTo(this.model, "add", this._addSubviewToEmail);
+    this.listenTo(this.collection, "add", this._addSubviewToEmail);
     this.model.fetch();
     Backbone.pubSub.on("deleteThread", this.deleteThread, this);
     Maildog.router.currentEmailThread = this.model;
@@ -16,9 +16,7 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
   },
 
   render: function() {
-    this.collection = this.model.emails && this.model.emails();
-    this.collection && this.collection.forEach(this._addSubviewForEmail.bind(this));
-
+    this.collection.forEach(this._addSubviewForEmail.bind(this));
     this.$el.html(this.template());
     this.$('#email-thread-subject').text(this.model.get('subject'));
     this.attachSubviews();
@@ -40,7 +38,7 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
       new Maildog.Models.Email({
         parent_email_id: this.collection.last().id,
         original_email_id: this.collection.first().id,
-        subject: this.collection.first().get('subject')
+        email_thread_id: this.model.id
       });
 
     var model = (options && options.model) || newEmail;
