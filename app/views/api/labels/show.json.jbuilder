@@ -1,1 +1,1 @@
-json.extract! @label, :name
+json.extract! @label, :name, :id

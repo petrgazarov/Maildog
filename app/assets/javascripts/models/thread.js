@@ -1,4 +1,6 @@
 Maildog.Models.Thread = Backbone.Model.extend({
+  urlRoot: "api/email_threads",
+
   parse: function(payload) {
     if (payload.tail) {
       this.tail().set(this.tail().parse(payload.tail));
@@ -7,7 +9,7 @@ Maildog.Models.Thread = Backbone.Model.extend({
     }
 
     if (payload.emails) {
-      this.emails = payload.emails;
+      this.emails().set(payload.emails, { parse: true });
 
       delete payload.emails;
     }

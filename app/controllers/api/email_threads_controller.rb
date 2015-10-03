@@ -1,19 +1,22 @@
 class Api::EmailThreadsController < ApplicationController
   def show
-    email = Email.find(params[:id])
-    if email.original_email_id
-      @emails = Email.includes(:email_labels).where(
-        'original_email_id = ? OR id = ?',
-        email.original_email_id, email.original_email_id
-      ).order(date: :asc, time: :asc).to_a
-    else
-      @emails = Email.includes(:email_labels).where(
-      'original_email_id = ? OR id = ?',
-      email.id, email.id
-      ).order(date: :asc, time: :asc).to_a
-    end
+    @email_thread = EmailThread.find(params[:id])
+    @emails = Email.where(email_thread_id: params[:id])
 
     render :show
+
+    # email = Email.find(params[:id])
+    # if email.original_email_id
+    #   @emails = Email.includes(:email_labels).where(
+    #     'original_email_id = ? OR id = ?',
+    #     email.original_email_id, email.original_email_id
+    #   ).order(date: :asc, time: :asc).to_a
+    # else
+    #   @emails = Email.includes(:email_labels).where(
+    #   'original_email_id = ? OR id = ?',
+    #   email.id, email.id
+    #   ).order(date: :asc, time: :asc).to_a
+    # end
   end
 
   def destroy

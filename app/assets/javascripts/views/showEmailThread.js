@@ -2,11 +2,11 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
   template: JST['showEmailThread'],
 
   initialize: function() {
-    this.listenTo(this.collection, "reset", this.render);
-    this.listenTo(this.collection, "add", this._addSubviewToEmail);
-    this.collection.fetch({ reset: true });
+    this.listenTo(this.model, "sync", this.render);
+    // this.listenTo(this.model, "add", this._addSubviewToEmail);
+    this.model.fetch();
     Backbone.pubSub.on("deleteThread", this.deleteThread, this);
-    Maildog.router.currentEmailThread = this.collection;
+    Maildog.router.currentEmailThread = this.model;
   },
 
   events: {
@@ -16,10 +16,13 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
   },
 
   render: function() {
+    this.collection = this.model.emails && this.model.emails();
+    this.collection && this.collection.forEach(this._addSubviewForEmail.bind(this));
+
     this.$el.html(this.template());
-    this.$('#email-thread-subject').text(this.collection.subject());
-    this.collection.forEach(this._addSubviewToEmail.bind(this));
+    this.$('#email-thread-subject').text(this.model.get('subject'));
     this.attachSubviews();
+
     return this;
   },
 
@@ -58,7 +61,7 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     $('.reply-forward-email-box').removeClass('invisible');
   },
 
-  _addSubviewToEmail: function(email) {
+  _addSubviewForEmail: function(email) {
     var subview;
     if (email.get('draft')) {
       this.addReplyForwardView({ model: email, leaveBox: true });

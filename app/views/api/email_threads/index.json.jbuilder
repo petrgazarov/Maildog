@@ -1,5 +1,5 @@
 json.array! @threads do |thread|
-  json.extract! thread, :subject
+  json.extract! thread, :subject, :id
 
   json.tail do
     email = thread.emails.sort_by { |email| [email.date, email.time] }.last

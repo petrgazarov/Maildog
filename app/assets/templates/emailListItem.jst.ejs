@@ -1,8 +1,8 @@
-<div class='check-box-container <%= email.checkedIfChecked() %>'>
-  <div class='check-box <%= email.checkedCheckBoxIfChecked() %>'></div>
+<div class='check-box-container <%= tail.checkedIfChecked() %>'>
+  <div class='check-box <%= tail.checkedCheckBoxIfChecked() %>'></div>
 </div>
-<div class='star <%= email.starOnIfStarred() %>'></div>
-<a href='#emails/<%= email.id %>' class='email-list-item-link group'>
+<div class='star <%= tail.starOnIfStarred() %>'></div>
+<a href='#threads/<%= thread.id %>' class='email-list-item-link group'>
   <p class='email-list-item-correspondent'>
     <%= correspondent %>
   </p>
@@ -10,9 +10,9 @@
     <%= thread.escape('subject') %>
   </p>
   <p class='email-list-item-preview'>
-    <%= email.preview() %>
+    <%= tail.preview() %>
   </p>
   <p class='email-list-item-time-date'>
-    <%= email.getTimeOrDate() %>
+    <%= tail.getTimeOrDate() %>
   </p>
 </a>

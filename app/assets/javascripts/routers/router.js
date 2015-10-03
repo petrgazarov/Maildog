@@ -10,7 +10,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
     "sent": "sent",
     "drafts": "drafts",
     "starred": "starred",
-    "emails/:id": "showEmailThread",
+    "threads/:id": "showEmailThread",
     "search/:query": "search",
     "labels/:id": "labels",
     "trash": "trash"
@@ -63,15 +63,15 @@ Maildog.Routers.Router = Backbone.Router.extend({
     this._swapView(view);
   },
 
-  // showEmailThread: function(id) {
-  //   Backbone.pubSub.off();
-  //   this.removeFlashes();
-  //
-  //   var thread = new Maildog.Collections.EmailThreads([], { id: id });
-  //   this.trigger("showEmailMessageOptions", thread);
-  //   var view = new Maildog.Views.ShowEmailThread({ collection: thread });
-  //   this._swapView(view);
-  // },
+  showEmailThread: function(id) {
+    Backbone.pubSub.off();
+    this.removeFlashes();
+
+    var thread = new Maildog.Models.Thread({ id: id });
+    this.trigger("showEmailMessageOptions", thread);
+    var view = new Maildog.Views.ShowEmailThread({ model: thread });
+    this._swapView(view);
+  },
 
   search: function(query) {
     Backbone.pubSub.off();
@@ -98,7 +98,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
     });
     this._swapView(view);
   },
-  // 
+  //
   // trash: function() {
   //   this._setUpSwap();
   //
