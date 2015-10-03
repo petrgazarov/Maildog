@@ -18,7 +18,7 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
 
     var content = this.template({
       thread: this.model,
-      email: this.model.tail(),
+      email: this.model.  tail(),
       correspondent: correspondent
     });
 
