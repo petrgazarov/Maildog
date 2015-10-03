@@ -46,7 +46,7 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     var model = (options && options.model) || newEmail;
     var subview = new Maildog.Views.ReplyForwardEmailBox({
       model: model,
-      recipient: this.collection.replyTo(),
+      recipient: this.model.replyTo(),
       collection: this.collection
     });
     if (!options || !options.leaveBox) {

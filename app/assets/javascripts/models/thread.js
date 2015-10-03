@@ -29,15 +29,15 @@ Maildog.Models.Thread = Backbone.Model.extend({
     return this._emails;
   },
 
-  // replyTo: function() {
-  //   for (var i = this.length - 1; i >= 0; i--) {
-  //     var sender = this.at(i).sender();
-  //     if (sender.get('email') != Maildog.currentUser.get('email')) {
-  //       return sender
-  //     }
-  //   }
-  //   return this.last().sender();
-  // },
+  replyTo: function() {
+    for (var i = this.emails().length - 1; i >= 0; i--) {
+      var sender = this.emails().at(i).sender();
+      if (sender.get('email') != Maildog.currentUser.get('email')) {
+        return sender
+      }
+    }
+    return this.emails().last().sender();
+  },
 
   // subject: function() {
   //   if (this.length > 0) {
