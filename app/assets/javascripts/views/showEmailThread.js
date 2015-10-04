@@ -25,10 +25,22 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
   },
 
   deleteThread: function() {
-    this.collection.destroy({
+    var email_ids = [];
+    this.collection.forEach(function(email) {
+      email_ids.push(email.id);
+    });
+
+    $.ajax({
+      url: "api/emails/trash",
+      type: "POST",
+      data: { "email_ids": email_ids },
+      dataType: "json",
       success: function() {
         Backbone.history.navigate("#", { trigger: true })
-        Maildog.router.addFlash("Email conversation deleted");
+        Maildog.router.addFlash("The conversation has been moved to the Trash.");
+      },
+      error: function() {
+        alert("error");
       }
     });
   },

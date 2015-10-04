@@ -1,5 +1,10 @@
-Maildog.Models.Thread = Backbone.Model.extend({
+Maildog.Models.EmailThread = Backbone.Model.extend({
   urlRoot: "api/email_threads",
+
+  toJSON: function(){
+    var json = { email_thread: _.clone(this.attributes) };
+    return json;
+  },
 
   parse: function(payload) {
     if (payload.tail) {

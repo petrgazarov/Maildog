@@ -23,12 +23,26 @@ class Api::EmailThreadsController < ApplicationController
     end
   end
 
+  def inbox
+    @threads = EmailThread
+      .includes(emails: [:sender, :addressees])
+      .where(owner_id: current_user_contact.id)
+      .joins(:emails)
+      .joins("INNER JOIN email_addressees ON emails.id = email_addressees.email_id")
+      .where("email_addressees.addressee_id = #{current_user_contact.id}")
+      .where("emails.draft = false")
+      .where("emails.trash = false")
+
+    render :index
+  end
+
   def sent
     @threads = EmailThread.includes(emails: [:sender, :addressees])
                           .where(owner_id: current_user_contact.id)
                           .joins(:emails)
                           .where("emails.sender_id = #{current_user_contact.id}")
                           .where("emails.draft = false")
+                          .where("emails.trash = false")
     render :index
   end
 
@@ -45,6 +59,7 @@ class Api::EmailThreadsController < ApplicationController
                           .where(owner_id: current_user_contact.id)
                           .joins(:emails)
                           .where("emails.starred = true")
+                          .where("emails.trash = false")
     render :starred
   end
 
@@ -53,18 +68,6 @@ class Api::EmailThreadsController < ApplicationController
                           .where(owner_id: current_user_contact.id)
                           .joins(:emails)
                           .where("emails.trash = true")
-    render :index
-  end
-
-  def inbox
-    @threads = EmailThread
-      .includes(emails: [:sender, :addressees])
-      .where(owner_id: current_user_contact.id)
-      .joins(:emails)
-      .joins("INNER JOIN email_addressees ON emails.id = email_addressees.email_id")
-      .where("email_addressees.addressee_id = #{current_user_contact.id}")
-      .where("emails.draft = false")
-
     render :index
   end
 

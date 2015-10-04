@@ -76,7 +76,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
     Backbone.pubSub.off();
     this.removeFlashes();
 
-    var thread = new Maildog.Models.Thread({ id: id });
+    var thread = new Maildog.Models.EmailThread({ id: id });
     this.trigger("showEmailMessageOptions", thread);
     var view = new Maildog.Views.ShowEmailThread({
       model: thread,
@@ -135,7 +135,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
     $('.flash-container').html($message);
     window.setTimeout(function() {
       this.removeFlashes()
-    }.bind(this), 10000)
+    }.bind(this), 15000)
   },
 
   removeFlashes: function() {

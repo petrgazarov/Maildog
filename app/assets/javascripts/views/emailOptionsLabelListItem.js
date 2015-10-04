@@ -15,7 +15,7 @@ Maildog.Views.EmailOptionsLabelListItem = Backbone.View.extend({
   labelAs: function() {
     var emailLabel = new Maildog.Models.ThreadLabel({
       label_id: this.model.id,
-      thread_id: Maildog.router.currentEmailThread.id
+      email_thread_id: Maildog.router.currentEmailThread.id
     });
 
     emailLabel.save({}, {

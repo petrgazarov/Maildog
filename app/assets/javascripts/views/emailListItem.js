@@ -73,25 +73,24 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
     $a.replaceWith($div);
   },
 
-  // showDraft: function() {
-  //   Maildog.router.removeFlashes();
-  //   var thread = new Maildog.Collections.EmailThreads([], { id: this.model.id });
-  //   thread.fetch({
-  //     reset: true,
-  //     success: function() {
-  //       if (thread.length === 1) {
-  //         var view = new Maildog.Views.ComposeEmailBox({
-  //           email: thread.at(0)
-  //         });
-  //         Maildog.mainFolders.addSubview('.compose-email-popup-container', view);
-  //         $('.compose-email-body').focus();
-  //       } else {
-  //         Backbone.history.navigate("/emails/" + this.model.id, { trigger: true });
-  //       }
-  //     }.bind(this),
-  //     error: function() {
-  //       alert("error")
-  //     }
-  //   });
-  // }
+  showDraft: function() {
+    Maildog.router.removeFlashes();
+    var thread = new Maildog.Models.Thread({ id: this.thread.id });
+    thread.fetch({
+      success: function() {
+        if (thread.emails().length === 1) {
+          var view = new Maildog.Views.ComposeEmailBox({
+            email: thread.emails().at(0)
+          });
+          Maildog.mainFolders.addSubview('.compose-email-popup-container', view);
+          $('.compose-email-body').focus();
+        } else {
+          Backbone.history.navigate("/threads/" + this.thread.id, { trigger: true });
+        }
+      }.bind(this),
+      error: function() {
+        alert("error")
+      }
+    });
+  }
 });

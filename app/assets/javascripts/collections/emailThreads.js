@@ -1,5 +1,5 @@
 Maildog.Collections.EmailThreads = Backbone.Collection.extend({
-  model: Maildog.Models.Thread,
+  model: Maildog.Models.EmailThread,
 
   initialize: function(models, options) {
     this.urlAction = (options.urlAction || "this label");
@@ -14,7 +14,7 @@ Maildog.Collections.EmailThreads = Backbone.Collection.extend({
   defineUrl: function() {
     return "/api/email_threads/" + this.urlAction
   },
-  
+
   parse: function(payload) {
     if (payload.email_labels) {
       this.emailLabels = payload.email_labels;

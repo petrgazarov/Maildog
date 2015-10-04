@@ -10,7 +10,7 @@ class Api::EmailsController < ApplicationController
 
   def update
     @email = Email.find(params[:id])
-    (@email.draft = params[:email][:draft]) if params[:email][:draft]
+    (@email.draft = params[:email][:draft]) if !params[:email][:draft].nil?
 
     if @email.draft ||
         @email.changed_star(params[:email][:starred])
@@ -35,6 +35,12 @@ class Api::EmailsController < ApplicationController
     render json: email
   end
 
+  def trash
+    Email.where(id: params[:email_ids]).update_all(trash: true)
+
+    render json: {}
+  end
+
   private
 
   def save_contact_if_new(contact)
@@ -45,7 +51,7 @@ class Api::EmailsController < ApplicationController
   end
 
   def save_email(email)
-    createAndSetThread(email) if !email.email_thread_id
+    createOrSetThread(email)
 
     if email.save
       render json: email
@@ -55,7 +61,9 @@ class Api::EmailsController < ApplicationController
   end
 
   def update_email(email)
+
     if email.update(email_params)
+      EmailThread.find(email.email_thread_id).update!(subject: email.subject)
       render json: email
     else
       render json: email.errors.full_messages, status: :unprocessable_entity
@@ -64,27 +72,30 @@ class Api::EmailsController < ApplicationController
 
   def persist_and_send_email(action, email)
     contact, email_addressee = create_or_get_contact_and_email_addressee(email)
-    if email.email_thread_id
-      thread = EmailThread.find(email.email_thread_id)
-    else
-      thread = createAndSetThread(email)
-    end
+    createOrSetThread(email)
 
     if (action == :update && email.update!(email_params)) ||
          (action == :create && email.save!)
+
+      EmailThread.find(email.email_thread_id).update!(subject: email.subject)
       email_addressee.save!
-      MaildogMailer.send_email(contact, email, thread).deliver
+      MaildogMailer.send_email(contact, email, current_user_contact).deliver
       render :show
     else
       render json: email.errors.full_messages, status: :unprocessable_entity
     end
   end
 
-  def createAndSetThread(email)
-    thread = EmailThread.create!(
+  def createOrSetThread(email)
+    if email.email_thread_id
+      thread = EmailThread.find(email.email_thread_id).update!(subject: email.subject)
+    else
+      thread = EmailThread.create!(
                 owner_id: current_user_contact.id, subject: email.subject
-    )
-    email.email_thread_id = thread.id
+      )
+      email.email_thread_id = thread.id
+    end
+
     thread
   end
 

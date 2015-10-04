@@ -11,6 +11,6 @@ class Api::ThreadLabelsController < ApplicationController
   private
 
   def thread_label_params
-    params.require(:thread_label).permit(:label_id, :thread_id)
+    params.require(:thread_label).permit(:label_id, :email_thread_id)
   end
 end
