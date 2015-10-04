@@ -69,6 +69,7 @@
   left: 128px;
   text-align: center;
   position: relative;
+  z-index: 10;
   top: 45%;
   transform: translateY(-45%);
 }
@@ -138,13 +139,4 @@
 .email-options-label-list > li {
   padding: 5px 50px 5px 20px;
   display: block;
-}
-
-.email-show-item .thumb {
-  position: absolute;
-  left: 12px;
-  top: 10px;
-  background-image: image-url('avatar-gray.png');
-  width: 25px;
-  height: 25px;
 }

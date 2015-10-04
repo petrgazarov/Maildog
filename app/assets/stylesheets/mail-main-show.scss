@@ -155,6 +155,16 @@
   font-size: 75%;
   padding: 15px 50px;
   position: relative;
+  z-index: 1;
+}
+
+.email-show-item .thumb {
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  background-image: image-url('avatar-gray.png');
+  width: 25px;
+  height: 25px;
 }
 
 .email-show-sender-name {
