@@ -1,6 +1,6 @@
 class Api::EmailsController < ApplicationController
   def create
-    @email = @email = current_user_contact.written_emails.new(email_params)
+    @email = current_user_contact.written_emails.new(email_params)
     if @email.draft
       save_email(@email)
     else
@@ -20,19 +20,6 @@ class Api::EmailsController < ApplicationController
     else
       persist_and_send_email(:update, @email)
     end
-  end
-
-  def sent
-    @emails = current_user_contact.sent_emails
-
-    render :emails
-  end
-
-  def drafts
-    @emails = current_user_contact.draft_emails
-    # @emails = current_user_contact.written_emails.order(updated_at: :desc)
-    #                               .where(draft: true);
-    render :emails
   end
 
   def starred
@@ -76,6 +63,8 @@ class Api::EmailsController < ApplicationController
   end
 
   def save_email(email)
+    createAndSetThread(email) if !email.email_thread_id
+
     if email.save
       render json: email
     else
@@ -93,7 +82,11 @@ class Api::EmailsController < ApplicationController
 
   def persist_and_send_email(action, email)
     contact, email_addressee = create_or_get_contact_and_email_addressee(email)
-    thread = EmailThread.find(email.email_thread_id)
+    if email.email_thread_id
+      thread = Thread.find(email.email_thread_id)
+    else
+      thread = createAndSetThread(email)
+    end
 
     if (action == :update && email.update!(email_params)) ||
          (action == :create && email.save!)
@@ -103,6 +96,14 @@ class Api::EmailsController < ApplicationController
     else
       render json: email.errors.full_messages, status: :unprocessable_entity
     end
+  end
+
+  def createAndSetThread(email)
+    thread = EmailThread.create!(
+                owner_id: current_user_contact.id, subject: email.subject
+    )
+    email.email_thread_id = thread.id
+    thread
   end
 
   def create_or_get_contact_and_email_addressee(email)
@@ -118,7 +119,7 @@ class Api::EmailsController < ApplicationController
 
   def email_params
     params.require(:email).permit(
-      :id, :body, :parent_email_id, :original_email_id,
+      :id, :body, :parent_email_id, :original_email_id, :subject,
       :draft, :starred, :checked, :addressees, :email_thread_id
     )
   end

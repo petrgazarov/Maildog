@@ -8,8 +8,6 @@ window.Maildog = {
     Maildog.currentUser = (
       Maildog.currentUser || new Maildog.Models.CurrentUser()
     );
-    Maildog.inboxThreads = new Maildog.Collections.EmailThreads(
-      [], { urlAction: "inbox" });
     Maildog.currentUser.fetch();
     Backbone.pubSub = _.extend({}, Backbone.Events);
 

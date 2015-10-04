@@ -18,10 +18,13 @@ Maildog.Routers.Router = Backbone.Router.extend({
 
   inbox: function() {
     this._setUpSwap();
-
     this.trigger("folderNavigation", "inbox");
+
+    var inboxThreads = new Maildog.Collections.EmailThreads(
+      [], { urlAction: "inbox" }
+    );
     var view = new Maildog.Views.EmailList({
-      collection: Maildog.inboxThreads,
+      collection: inboxThreads,
       folder: "inbox"
     });
     this._swapView(view);
@@ -30,7 +33,9 @@ Maildog.Routers.Router = Backbone.Router.extend({
   sent: function() {
     this._setUpSwap();
 
-    var sentThreads = new Maildog.Collections.Threads([], { urlAction: "sent" });
+    var sentThreads = new Maildog.Collections.EmailThreads(
+      [], { urlAction: "sent" }
+    );
     this.trigger("folderNavigation", "sent");
     var view = new Maildog.Views.EmailList({
       folder: "sent",
@@ -42,7 +47,9 @@ Maildog.Routers.Router = Backbone.Router.extend({
   drafts: function() {
     this._setUpSwap();
 
-    var draftsThreads = new Maildog.Collections.Threads([], { urlAction: "drafts" });
+    var draftsThreads = new Maildog.Collections.EmailThreads(
+      [], { urlAction: "drafts" }
+    );
     this.trigger("folderNavigation", "drafts");
     var view = new Maildog.Views.EmailList({
       folder: "drafts",
@@ -92,7 +99,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
     var folder = new Maildog.Models.Label({ id: id });
     this.trigger("folderNavigation", "labels/" + id);
 
-    var labelThreads = new Maildog.Collections.Threads([], {
+    var labelThreads = new Maildog.Collections.EmailThreads([], {
       url: "api/labels/" + id +"/emails"
     });
     var view = new Maildog.Views.EmailList({

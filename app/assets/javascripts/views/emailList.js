@@ -19,6 +19,7 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
     this.$('.email-list-empty-folder-memo').text("");
     this.eachSubview(function(subview) { subview.remove() });
     this.$el.html(this.template());
+    this.collection.sort();
     this.collection.forEach(this.addSubviewForThread.bind(this));
     return this;
   },

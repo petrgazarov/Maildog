@@ -70,6 +70,7 @@ thread4 = EmailThread.new(subject: "Have a good weekend!", owner: petr)
 
 practice_email = petr.received_emails.create(
   thread: thread1,
+  subject: "What is best practice?",
   body: "A best practice is a technique or methodology that, \n"\
         "through experience and research, has proven to reliably \n"\
         "lead to a desired result. A commitment to using the best practices \n"\
@@ -85,6 +86,7 @@ practice_email = petr.received_emails.create(
 
 hillary_email = petr.received_emails.create(
   thread: thread2,
+  subject: "hi",
   body: "Friend -- \n"\
         "When I take the stage in Las Vegas at the first Democratic \n"\
         "debate of this election, it will mean so much to know that a \n"\
@@ -102,6 +104,7 @@ hillary_email = petr.received_emails.create(
 
 atom_message_1 = petr.received_emails.create(
   thread: thread3,
+  subject: "Atom editor",
   body: "You should check this out! --\n"\
         "GitHub recently released the awesome Atom text editor, \n"\
         "and although many of the keyboard shortcuts will be familiar \n"\
@@ -113,6 +116,7 @@ atom_message_1 = petr.received_emails.create(
 
 atom_message_2 = nikita.received_emails.create(
   thread: thread3,
+  subject: "Atom editor",
   body: "Yeah, it's great. I've used it on a number of projects\n"\
         "Petr",
   sender: petr,
@@ -124,6 +128,7 @@ atom_message_2 = nikita.received_emails.create(
 
 atom_message_3 = petr.received_emails.create(
   thread: thread3,
+  subject: "Atom editor",
   body: "Send me the link to your chess game\n"\
         "Nikita",
   sender: nikita,
@@ -135,6 +140,7 @@ atom_message_3 = petr.received_emails.create(
 
 atom_message_4 = nikita.received_emails.create(
   thread: thread3,
+  subject: "Atom editor",
   body: "https://github.com/petrgazarov/Chess",
   sender: petr,
   date: 'Thu, 13 Sep 2015',
@@ -145,6 +151,7 @@ atom_message_4 = nikita.received_emails.create(
 
 barack_email_1 = barack.received_emails.create(
   thread: thread4,
+  subject: "Have a good weekend!",
   body: "Hi Barack,\n"\
         "Have a good weekend, man!\n"\
         "Cheers, Petr",
@@ -155,6 +162,7 @@ barack_email_1 = barack.received_emails.create(
 
 barack_email_2 = petr.received_emails.create(
   thread: thread4,
+  subject: "Have a good weekend!",
   body: "Thanks! What are you doing this weekend?\n"\
         "Wanna come along to see the commander-in-chief at the White House?\n"\
         "Barack",
@@ -167,6 +175,7 @@ barack_email_2 = petr.received_emails.create(
 
 barack_email_3 = barack.received_emails.create(
   thread: thread4,
+  subject: "Have a good weekend!",
   body: "Ahh, I wish I could. I got to finish my final project at App Academy.\n"\
         "Thanks for your kind offer!\n"\
         "Petr",
@@ -179,6 +188,7 @@ barack_email_3 = barack.received_emails.create(
 
 barack_email_4 = petr.received_emails.create(
   thread: thread4,
+  subject: "Have a good weekend!",
   body: "Alright then. I'm going to try to set up a meeting with Tiger Woods.\n"\
         "Farewell!\n"\
         "Barack",
@@ -191,6 +201,7 @@ barack_email_4 = petr.received_emails.create(
 
 barack_email_5 = barack.received_emails.create(
   thread: thread4,
+  subject: "Have a good weekend!",
   body: "Barack, are you mad at me?! Barack!!!",
   sender: petr,
   date: 'Thu, 21 Sep 2015',

@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20151002202655) do
     t.integer  "parent_email_id"
     t.boolean  "draft",             default: false
     t.boolean  "trash",             default: false
+    t.text     "subject"
     t.integer  "email_thread_id"
   end
 

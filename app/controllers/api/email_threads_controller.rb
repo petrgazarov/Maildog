@@ -1,23 +1,10 @@
 class Api::EmailThreadsController < ApplicationController
   def show
     @email_thread = EmailThread.find(params[:id])
-    @emails = Email.where(email_thread_id: params[:id])
+    @emails = Email.includes(:sender, :addressees).where(email_thread_id: params[:id])
                    .order(date: :asc, time: :asc)
 
     render :show
-
-    # email = Email.find(params[:id])
-    # if email.original_email_id
-    #   @emails = Email.includes(:email_labels).where(
-    #     'original_email_id = ? OR id = ?',
-    #     email.original_email_id, email.original_email_id
-    #   ).order(date: :asc, time: :asc).to_a
-    # else
-    #   @emails = Email.includes(:email_labels).where(
-    #   'original_email_id = ? OR id = ?',
-    #   email.id, email.id
-    #   ).order(date: :asc, time: :asc).to_a
-    # end
   end
 
   def destroy
@@ -35,9 +22,30 @@ class Api::EmailThreadsController < ApplicationController
     render json: {}
   end
 
-  def inbox
-    @threads = EmailThread.includes(:emails)
+  def sent
+    @threads = EmailThread.joins(:emails)
                           .where(owner_id: current_user_contact.id)
+                          .where("emails.sender_id = #{current_user_contact.id}")
+                          .where("emails.draft = false")
+    render :index
+  end
+
+  def drafts
+    @threads = EmailThread.joins(:emails)
+                          .where(owner_id: current_user_contact.id)
+                          .where("emails.draft = true")
+
+    render :drafts
+  end
+
+  def inbox
+    @threads = EmailThread
+      .includes(emails: [:sender, :addressees])
+      .where(owner_id: current_user_contact.id)
+      .joins(:emails)
+      .joins("INNER JOIN email_addressees ON emails.id = email_addressees.email_id")
+      .where("email_addressees.addressee_id = #{current_user_contact.id}")
+      .where("emails.draft = false")
 
     render :index
   end

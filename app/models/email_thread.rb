@@ -7,4 +7,5 @@ class EmailThread < ActiveRecord::Base
   belongs_to :owner,
     class_name: "Contact",
     foreign_key: :owner_id
+
 end

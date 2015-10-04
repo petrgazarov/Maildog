@@ -3,6 +3,10 @@ Maildog.Collections.EmailThreads = Backbone.Collection.extend({
 
   initialize: function(models, options) {
     options && (this.urlAction = options.urlAction);
+    this.comparator = options.comparator ||
+      function(thread) {
+        return [thread.tail().get('date'), thread.tail().get('time')]
+      }
   },
 
   url: function() {
