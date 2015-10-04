@@ -6,6 +6,7 @@ Maildog.Views.ReplyForwardEmailBox = Backbone.View.extend(
 
     initialize: function(options) {
       this.recipient = options.recipient;
+      this.submitCallback = options.submitCallback;
     },
 
     events: {
@@ -16,7 +17,6 @@ Maildog.Views.ReplyForwardEmailBox = Backbone.View.extend(
 
     submit: function(e) {
       e.preventDefault();
-
       var draft = this.model.get('draft');
 
       this.sendEmail({

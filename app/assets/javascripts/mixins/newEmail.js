@@ -3,16 +3,16 @@ Maildog.Mixins.NewEmail = {
     if (this.saving === true) { return; };
 
     this.saving = true;
-    var email = this.model;
     this.$('.saving-saved').text("");
     window.setTimeout(function() {
       if (this.sending) { return; }
+
       this.$('.saving-saved').text("Saving");
       var formData = this.$el.serializeJSON();
       formData.email.draft = true;
-      email.set(formData.email);
-      email.save({}, {
-        success: function() {
+
+      this.model.save(formData.email, {
+        success: function(model) {
           window.setTimeout(function() {
             this.$('.saving-saved').text("Saved");
             this.saving = false;
