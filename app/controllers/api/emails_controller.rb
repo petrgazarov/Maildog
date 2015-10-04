@@ -12,9 +12,12 @@ class Api::EmailsController < ApplicationController
     @email = Email.find(params[:id])
     (@email.draft = params[:email][:draft]) if !params[:email][:draft].nil?
 
-    if @email.draft ||
-        @email.changed_star(params[:email][:starred])
-      update_email(@email)
+    if @email.draft
+      update_email(@email, true)
+    elsif @email.changed_star_or_trash(
+      params[:email][:starred], params[:email][:trash]
+      )
+      update_email(@email, false)
     else
       persist_and_send_email(:update, @email)
     end
@@ -60,10 +63,11 @@ class Api::EmailsController < ApplicationController
     end
   end
 
-  def update_email(email)
-
+  def update_email(email, update_thread)
     if email.update(email_params)
-      EmailThread.find(email.email_thread_id).update!(subject: email.subject)
+      if update_thread
+        EmailThread.find(email.email_thread_id).update!(subject: email.subject)
+      end
       render json: email
     else
       render json: email.errors.full_messages, status: :unprocessable_entity
@@ -113,7 +117,7 @@ class Api::EmailsController < ApplicationController
   def email_params
     params.require(:email).permit(
       :body, :parent_email_id, :original_email_id, :subject,
-      :draft, :starred, :addressees, :email_thread_id
+      :draft, :starred, :addressees, :email_thread_id, :trash
     )
   end
 end

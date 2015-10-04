@@ -4,7 +4,8 @@ Maildog.Views.EmailShow = Backbone.CompositeView.extend({
   className: "email-show-item group",
 
   events: {
-    "click .star": "starClick"
+    "click .star": "starClick",
+    "click #delete-message": "deleteMessage"
   },
 
   render: function() {
@@ -24,6 +25,17 @@ Maildog.Views.EmailShow = Backbone.CompositeView.extend({
     }
 
     this.model.save({}, {
+      error: function() {
+        alert('error')
+      }
+    })
+  },
+
+  deleteMessage: function() {
+    this.model.save({ "trash": true }, {
+      success: function() {
+        Maildog.router.addFlash("The message has been moved to the trash.")
+      },
       error: function() {
         alert('error')
       }

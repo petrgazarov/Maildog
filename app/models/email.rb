@@ -50,8 +50,8 @@ class Email < ActiveRecord::Base
     self.time ||= Time.now.strftime("%I:%M:%S %z")
   end
 
-  def changed_star(new_starred)
-    !(self.starred == new_starred)
+  def changed_star_or_trash(new_starred, new_trash)
+    !(self.starred == new_starred && self.trash == new_trash)
   end
 
   def sender_first_name

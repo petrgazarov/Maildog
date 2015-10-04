@@ -12,10 +12,10 @@
   From: <%= Maildog.currentUser.escape('email') %>
 </p>
 <label class='compose-email-subject'>Subject:
-  <input type='text' name='email[subject]' value="<%= email.get('subject') %>">
+  <input type='text' name='email[subject]' value="<%= email.escape('subject') %>">
 </label>
 <label class='compose-email-body'>Body:
-  <textarea name='email[body]'><%= email.get('body') %></textarea>
+  <textarea name='email[body]'><%= email.escape('body') %></textarea>
 </label>
 <div class='garbage-can-holder'>
   <aside id='delete-message' class='icon-garbage-can'></aside>
