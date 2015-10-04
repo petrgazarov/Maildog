@@ -139,4 +139,9 @@
 .email-options-label-list > li {
   padding: 5px 50px 5px 20px;
   display: block;
+  white-space: nowrap;
+}
+
+.email-options-label-list > li:hover {
+  background: #ffccd4;
 }

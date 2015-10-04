@@ -72,7 +72,7 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
     }
 
     this.$('.email-options-label-list').addClass('invisible');
-    this.$('.icon-move-to-button').css('opacity', .55);
+    this.$('.icon-label-as-button').css('opacity', .55);
     this.$('.down-arrow-symbol').css('opacity', .55);
 
     this.eachSubview(function(subview) {
