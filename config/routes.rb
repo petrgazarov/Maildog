@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resource :session do
       post :fetch
     end
-    resources :email_threads, only: [:show, :destroy] do
+    resources :email_threads, only: [:show, :destroy, :update] do
       collection do
         get  :inbox
         get  :starred

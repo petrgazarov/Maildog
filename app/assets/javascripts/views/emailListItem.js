@@ -5,6 +5,8 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
 
   initialize: function(options) {
     this.folder = options.folder;
+    this.thread = options.thread;
+    this.email = this.thread.tail();
   },
 
   events: {
@@ -14,55 +16,54 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
   },
 
   render: function() {
-    var correspondent = this.model.tail().correspondentString(this.folder);
+    var correspondent = this.thread.tail().correspondentString(this.folder);
     var content = this.template({
-      thread: this.model,
-      tail: this.model.tail(),
+      thread: this.thread,
+      tail: this.email,
       correspondent: correspondent
     });
 
     this.$el.html(content);
     if (this.folder === "drafts") { this.swapLinkForDiv(); }
-    // this.$el.attr('data-id', this.model.id);
-    // if (this.model.get('checked')) {
-    //   this.$el.addClass("checked-list-item");
-    // }
+    if (this.thread.get('checked')) {
+      this.$el.addClass("checked-list-item");
+    }
 
     return this;
   },
 
-  // starClick: function(e) {
-  //   e.preventDefault();
-  //   $(e.currentTarget).toggleClass('star-on');
-  //   if (this.model.get('starred')) {
-  //     this.model.set('starred', false)
-  //   } else {
-  //     this.model.set('starred', true)
-  //   }
-  //
-  //   this.model.save({}, {
-  //     error: function() {
-  //       alert('error')
-  //     }
-  //   })
-  // },
-  //
-  // checkBoxClick: function(e) {
-  //   this.$('.check-box-container').toggleClass('checked');
-  //   this.$el.toggleClass("checked-list-item");
-  //   $(e.currentTarget).toggleClass("checked-check-box");
-  //   if (this.model.get('checked')) {
-  //     this.model.set('checked', false)
-  //   } else {
-  //     this.model.set('checked', true)
-  //   }
-  //
-  //   this.model.save({}, {
-  //     error: function() {
-  //       alert('error')
-  //     }
-  //   })
-  // },
+  starClick: function(e) {
+    e.preventDefault();
+    $(e.currentTarget).toggleClass('star-on');
+    if (this.email.get('starred')) {
+      this.email.set('starred', false)
+    } else {
+      this.email.set('starred', true)
+    }
+
+    this.email.save({}, {
+      error: function() {
+        alert('error')
+      }
+    })
+  },
+
+  checkBoxClick: function(e) {
+    this.$('.check-box-container').toggleClass('checked');
+    this.$el.toggleClass("checked-list-item");
+    $(e.currentTarget).toggleClass("checked-check-box");
+    if (this.thread.get('checked')) {
+      this.thread.set('checked', false)
+    } else {
+      this.thread.set('checked', true)
+    }
+
+    this.thread.save({}, {
+      error: function() {
+        alert('error')
+      }
+    })
+  },
 
   swapLinkForDiv: function() {
     var $a = this.$("a");

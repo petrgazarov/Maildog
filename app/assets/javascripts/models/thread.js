@@ -14,7 +14,17 @@ Maildog.Models.Thread = Backbone.Model.extend({
       delete payload.emails;
     }
 
+    if (payload.count) {
+      this.count = payload.count;
+
+      delete payload.count;
+    }
+
     return payload
+  },
+
+  displayCount: function() {
+    if (this.count > 1) { return "(" + this.count + ")" }
   },
 
   tail: function() {

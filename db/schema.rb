@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151002202655) do
+ActiveRecord::Schema.define(version: 20151004031910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,16 +55,16 @@ ActiveRecord::Schema.define(version: 20151002202655) do
 
   create_table "email_threads", force: :cascade do |t|
     t.text     "subject"
-    t.integer  "owner_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "owner_id",                   null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "checked",    default: false
   end
 
   create_table "emails", force: :cascade do |t|
     t.text     "body"
     t.integer  "sender_id"
     t.boolean  "starred",           default: false
-    t.boolean  "checked",           default: false
     t.date     "date",                              null: false
     t.time     "time",                              null: false
     t.integer  "original_email_id"
@@ -78,7 +78,6 @@ ActiveRecord::Schema.define(version: 20151002202655) do
   end
 
   add_index "emails", ["original_email_id"], name: "index_emails_on_original_email_id", using: :btree
-  add_index "emails", ["sender_id", "checked"], name: "index_emails_on_sender_id_and_checked", using: :btree
   add_index "emails", ["sender_id", "date"], name: "index_emails_on_sender_id_and_date", using: :btree
   add_index "emails", ["sender_id", "starred"], name: "index_emails_on_sender_id_and_starred", using: :btree
   add_index "emails", ["sender_id", "time"], name: "index_emails_on_sender_id_and_time", using: :btree

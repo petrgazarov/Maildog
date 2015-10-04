@@ -26,7 +26,7 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
 
   addSubviewForThread: function(thread) {
     var subview = new Maildog.Views.EmailListItem({
-      model: thread,
+      thread: thread,
       folder: this.folder
     });
     this.addSubview(".email-list", subview);

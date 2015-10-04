@@ -38,7 +38,8 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
       new Maildog.Models.Email({
         parent_email_id: this.collection.last().id,
         original_email_id: this.collection.first().id,
-        email_thread_id: this.model.id
+        email_thread_id: this.model.id,
+        subject: this.model.get('subject')
       });
 
     var model = (options && options.model) || newEmail;

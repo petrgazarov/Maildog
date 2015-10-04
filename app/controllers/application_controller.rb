@@ -42,8 +42,6 @@ class ApplicationController < ActionController::Base
   end
 
   def remove_checks_from_current_users_emails
-    ids = current_user_contact.all_emails.map(&:id)
-
-    Email.where(id: ids).update_all(checked: false)
+    EmailThread.where(owner_id: current_user_contact.id).update_all(checked: false)
   end
 end

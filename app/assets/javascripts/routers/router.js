@@ -61,7 +61,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   starred: function() {
     this._setUpSwap();
 
-    var starredEmails = new Maildog.Collections.Emails([], { urlAction: "starred" });
+    var starredEmails = new Maildog.Collections.EmailThreads([], { urlAction: "starred" });
     this.trigger("folderNavigation", "starred");
     var view = new Maildog.Views.EmailList({
       folder: "starred",

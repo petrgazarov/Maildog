@@ -8,34 +8,44 @@ class Api::EmailThreadsController < ApplicationController
   end
 
   def destroy
-    email = Email.find(params[:id])
-    if email.original_email_id
-      emails = Email.where(
-        "original_email_id = ? OR id = ?",
-        email.original_email_id, email.original_email_id
-      ).update_all(trash: true)
-    else
-      emails = Email.where(original_email_id: email.id).update_all(trash: true)
-      email.update(trash: true)
-    end
+    thread = EmailThread.find(params[:id]).destroy
 
     render json: {}
   end
 
+  def update
+    thread = EmailThread.find(params[:id])
+
+    if thread.update(thread_params)
+      render json: thread
+    else
+      render json: thread.errors.full_messages
+    end
+  end
+
   def sent
-    @threads = EmailThread.joins(:emails)
+    @threads = EmailThread.includes(emails: [:sender, :addressees])
                           .where(owner_id: current_user_contact.id)
+                          .joins(:emails)
                           .where("emails.sender_id = #{current_user_contact.id}")
                           .where("emails.draft = false")
     render :index
   end
 
   def drafts
-    @threads = EmailThread.joins(:emails)
+    @threads = EmailThread.includes(emails: [:sender, :addressees])
                           .where(owner_id: current_user_contact.id)
+                          .joins(:emails)
                           .where("emails.draft = true")
+    render :index
+  end
 
-    render :drafts
+  def starred
+    @threads = EmailThread.includes(emails: [:sender, :addressees])
+                          .where(owner_id: current_user_contact.id)
+                          .joins(:emails)
+                          .where("emails.starred = true")
+    render :starred
   end
 
   def inbox
@@ -48,5 +58,11 @@ class Api::EmailThreadsController < ApplicationController
       .where("emails.draft = false")
 
     render :index
+  end
+
+  private
+
+  def thread_params
+    params.require(:email_thread).permit(:checked, :subject)
   end
 end

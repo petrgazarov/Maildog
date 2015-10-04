@@ -13,21 +13,11 @@ class Api::EmailsController < ApplicationController
     (@email.draft = params[:email][:draft]) if params[:email][:draft]
 
     if @email.draft ||
-        @email.changed_star_or_check(
-          params[:email][:starred], params[:email][:checked]
-        )
+        @email.changed_star(params[:email][:starred])
       update_email(@email)
     else
       persist_and_send_email(:update, @email)
     end
-  end
-
-  def starred
-    @emails = current_user_contact.all_emails
-                .select { |email| email.starred }
-                .sort_by { |email| email.date }.reverse
-
-    render :emails
   end
 
   def trash
@@ -83,7 +73,7 @@ class Api::EmailsController < ApplicationController
   def persist_and_send_email(action, email)
     contact, email_addressee = create_or_get_contact_and_email_addressee(email)
     if email.email_thread_id
-      thread = Thread.find(email.email_thread_id)
+      thread = EmailThread.find(email.email_thread_id)
     else
       thread = createAndSetThread(email)
     end
@@ -119,8 +109,8 @@ class Api::EmailsController < ApplicationController
 
   def email_params
     params.require(:email).permit(
-      :id, :body, :parent_email_id, :original_email_id, :subject,
-      :draft, :starred, :checked, :addressees, :email_thread_id
+      :body, :parent_email_id, :original_email_id, :subject,
+      :draft, :starred, :addressees, :email_thread_id
     )
   end
 end
