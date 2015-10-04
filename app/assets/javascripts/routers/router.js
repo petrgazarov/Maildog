@@ -94,22 +94,22 @@ Maildog.Routers.Router = Backbone.Router.extend({
     var view = new Maildog.Views.EmailList({ collection: searchResults });
     this._swapView(view);
   },
-  //
-  // labels: function(id) {
-  //   this._setUpSwap();
-  //
-  //   var folder = new Maildog.Models.Label({ id: id });
-  //   this.trigger("folderNavigation", "labels/" + id);
-  //
-  //   var labelThreads = new Maildog.Collections.EmailThreads([], {
-  //     url: "api/labels/" + id +"/emails"
-  //   });
-  //   var view = new Maildog.Views.EmailList({
-  //     label: "folders",
-  //     collection: labelThreads
-  //   });
-  //   this._swapView(view);
-  // },
+
+  labels: function(id) {
+    this._setUpSwap();
+
+    var label = new Maildog.Models.Label({ id: id });
+    this.trigger("folderNavigation", "labels/" + id);
+
+    var labelThreads = new Maildog.Collections.EmailThreads([], {
+      url: "api/labels/" + id +"/threads"
+    });
+    var view = new Maildog.Views.EmailList({
+      folder: "labels",
+      collection: labelThreads
+    });
+    this._swapView(view);
+  },
 
   trash: function() {
     this._setUpSwap();

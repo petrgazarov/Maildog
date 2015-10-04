@@ -22,10 +22,10 @@ class Api::LabelsController < ApplicationController
     @threads = EmailThread
                 .includes(emails: [:sender, :addressees])
                 .joins(:thread_labels)
-                .joins("INNER JOIN labels ON thread_labels.labels_id = labels.id")
+                .joins("INNER JOIN labels ON thread_labels.label_id = labels.id")
                 .where("labels.id = #{params[:id]}")
 
-    render template: "api/threads/index"
+    render template: "api/email_threads/index"
   end
 
   def destroy

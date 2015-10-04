@@ -2,17 +2,19 @@ Maildog.Collections.EmailThreads = Backbone.Collection.extend({
   model: Maildog.Models.Thread,
 
   initialize: function(models, options) {
-    options && (this.urlAction = options.urlAction);
+    this.urlAction = (options.urlAction || "this label");
+    this.url = (options.url || this.defineUrl());
+
     this.comparator = options.comparator ||
       function(thread) {
         return [thread.tail().get('date'), thread.tail().get('time')]
       }
   },
 
-  url: function() {
-    return "api/email_threads/" + this.urlAction
+  defineUrl: function() {
+    return "/api/email_threads/" + this.urlAction
   },
-
+  
   parse: function(payload) {
     if (payload.email_labels) {
       this.emailLabels = payload.email_labels;
