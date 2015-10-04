@@ -13,18 +13,17 @@ Maildog.Views.EmailOptionsLabelListItem = Backbone.View.extend({
   },
 
   labelAs: function() {
-    Maildog.router.currentEmailThread.models.forEach(function(email) {
-      var emailLabel = new Maildog.Models.EmailLabel({
-        label_id: this.model.id,
-        email_id: email.id
-      });
-      emailLabel.save({}, {
-        success: function() {
-          Maildog.router.addFlash(
-            "The conversation has been added to " + this.model.get('name')
-          )
-        }.bind(this)
-      });
-    }.bind(this));
+    var emailLabel = new Maildog.Models.ThreadLabel({
+      label_id: this.model.id,
+      thread_id: Maildog.router.currentEmailThread.id
+    });
+
+    emailLabel.save({}, {
+      success: function() {
+        Maildog.router.addFlash(
+          "The conversation has been added to " + this.model.get('name')
+        )
+      }.bind(this)
+    });
   }
 });

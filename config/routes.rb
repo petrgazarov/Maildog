@@ -27,9 +27,9 @@ Rails.application.routes.draw do
     resource  :user
     resources :labels, except: [:new, :edit] do
       member do
-        get :emails
+        get :threads
       end
     end
-    resources :email_labels, only: [:create]
+    resources :thread_labels, only: [:create]
   end
 end

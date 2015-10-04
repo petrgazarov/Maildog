@@ -48,6 +48,14 @@ class Api::EmailThreadsController < ApplicationController
     render :starred
   end
 
+  def trash
+    @threads = EmailThread.includes(emails: [:sender, :addressees])
+                          .where(owner_id: current_user_contact.id)
+                          .joins(:emails)
+                          .where("emails.trash = true")
+    render :index
+  end
+
   def inbox
     @threads = EmailThread
       .includes(emails: [:sender, :addressees])

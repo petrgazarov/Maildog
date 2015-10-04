@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151004031910) do
+ActiveRecord::Schema.define(version: 20151004042906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,16 +42,6 @@ ActiveRecord::Schema.define(version: 20151004031910) do
   add_index "email_addressees", ["addressee_id"], name: "index_email_addressees_on_addressee_id", using: :btree
   add_index "email_addressees", ["email_id", "email_type"], name: "index_email_addressees_on_email_id_and_email_type", using: :btree
   add_index "email_addressees", ["email_id"], name: "index_email_addressees_on_email_id", using: :btree
-
-  create_table "email_labels", force: :cascade do |t|
-    t.integer  "email_id",   null: false
-    t.integer  "label_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "email_labels", ["email_id"], name: "index_email_labels_on_email_id", using: :btree
-  add_index "email_labels", ["label_id"], name: "index_email_labels_on_label_id", using: :btree
 
   create_table "email_threads", force: :cascade do |t|
     t.text     "subject"
@@ -99,6 +89,16 @@ ActiveRecord::Schema.define(version: 20151004031910) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
+
+  create_table "thread_labels", force: :cascade do |t|
+    t.integer  "thread_id",  null: false
+    t.integer  "label_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "thread_labels", ["label_id"], name: "index_thread_labels_on_label_id", using: :btree
+  add_index "thread_labels", ["thread_id"], name: "index_thread_labels_on_thread_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username",        null: false

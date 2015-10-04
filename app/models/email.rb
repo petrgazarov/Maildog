@@ -39,13 +39,6 @@ class Email < ActiveRecord::Base
     class_name: "Email",
     foreign_key: :original_email_id
 
-  has_many :email_labels,
-    dependent: :destroy
-
-  has_many :labels,
-    through: :email_labels,
-    source: :label
-
   belongs_to :thread,
     class_name: "EmailThread",
     foreign_key: :email_thread_id

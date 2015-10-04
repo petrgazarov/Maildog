@@ -20,14 +20,6 @@ class Api::EmailsController < ApplicationController
     end
   end
 
-  def trash
-    @emails = current_user_contact.all_emails
-                .select { |email| email.trash }
-                .sort_by { |email| email.date }.reverse
-
-    render :emails
-  end
-
   def search
     @search_results = PgSearch
       .multisearch(params[:query])

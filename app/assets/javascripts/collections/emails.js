@@ -26,13 +26,5 @@ Maildog.Collections.Emails = Backbone.Collection.extend({
     };
 
     return email;
-  },
-
-  noConversationsMemo: function() {
-    if (this.urlAction === "this label") {
-      return "No conversations with this label";
-    } else {
-      return "No conversations in " + this.folderName();
-    }
   }
 });

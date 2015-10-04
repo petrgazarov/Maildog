@@ -28,4 +28,12 @@ Maildog.Collections.EmailThreads = Backbone.Collection.extend({
     if (name === "Sent") { name += " Mail" };
     return name;
   },
+
+  noConversationsMemo: function() {
+    if (this.urlAction === "this label") {
+      return "No conversations with this label";
+    } else {
+      return "No conversations in " + this.folderName();
+    }
+  }
 });
