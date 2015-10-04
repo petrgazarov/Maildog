@@ -9,11 +9,16 @@ Maildog.Collections.SearchResults = Backbone.Collection.extend({
 		return resp.results;
 	},
 
+	comparator: function(thread) {
+		return [thread.tail().get('date'), thread.tail().get('time')]
+	},
+
 	model: function (attrs) {
 		var type = attrs._type;
 		delete attrs._type;
 
 		var model = new Maildog.Models[type]();
+		debugger
     model.set(model.parse(attrs));
     return model;
 	},

@@ -38,37 +38,46 @@ class Api::EmailThreadsController < ApplicationController
 
   def sent
     @threads = EmailThread.includes(emails: [:sender, :addressees])
-                          .where(owner_id: current_user_contact.id)
-                          .joins(:emails)
-                          .where("emails.sender_id = #{current_user_contact.id}")
-                          .where("emails.draft = false")
-                          .where("emails.trash = false")
+                .where(owner_id: current_user_contact.id)
+                .joins(:emails)
+                .where("emails.sender_id = #{current_user_contact.id}")
+                .where("emails.draft = false")
+                .where("emails.trash = false")
     render :index
   end
 
   def drafts
     @threads = EmailThread.includes(emails: [:sender, :addressees])
-                          .where(owner_id: current_user_contact.id)
-                          .joins(:emails)
-                          .where("emails.draft = true")
+                .where(owner_id: current_user_contact.id)
+                .joins(:emails)
+                .where("emails.draft = true")
     render :index
   end
 
   def starred
     @threads = EmailThread.includes(emails: [:sender, :addressees])
-                          .where(owner_id: current_user_contact.id)
-                          .joins(:emails)
-                          .where("emails.starred = true")
-                          .where("emails.trash = false")
+                .where(owner_id: current_user_contact.id)
+                .joins(:emails)
+                .where("emails.starred = true")
+                .where("emails.trash = false")
     render :starred
   end
 
   def trash
     @threads = EmailThread.includes(emails: [:sender, :addressees])
-                          .where(owner_id: current_user_contact.id)
-                          .joins(:emails)
-                          .where("emails.trash = true")
+                .where(owner_id: current_user_contact.id)
+                .joins(:emails)
+                .where("emails.trash = true")
     render :index
+  end
+
+  def search
+    @search_results = PgSearch
+      .multisearch(params[:query])
+      .includes(:searchable)
+      .page(params[:page])
+
+    render :search
   end
 
   private

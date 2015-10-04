@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       end
     end
 
-    get "/search", to: "emails#search"
+    get "/search", to: "email_threads#search"
     resource  :user
     resources :thread_labels, only: [:create]
 

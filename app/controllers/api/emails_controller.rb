@@ -23,15 +23,6 @@ class Api::EmailsController < ApplicationController
     end
   end
 
-  def search
-    @search_results = PgSearch
-      .multisearch(params[:query])
-      .includes(:searchable)
-      .page(params[:page])
-
-    render :search
-  end
-
   def destroy
     email = Email.find(params[:id])
     email.destroy

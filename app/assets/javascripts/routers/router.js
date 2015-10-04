@@ -20,11 +20,8 @@ Maildog.Routers.Router = Backbone.Router.extend({
     this._setUpSwap();
     this.trigger("folderNavigation", "inbox");
 
-    var inboxThreads = new Maildog.Collections.EmailThreads(
-      [], { urlAction: "inbox" }
-    );
     var view = new Maildog.Views.EmailList({
-      collection: inboxThreads,
+      collection: Maildog.inbox,
       folder: "inbox"
     });
     this._swapView(view);
@@ -33,13 +30,10 @@ Maildog.Routers.Router = Backbone.Router.extend({
   sent: function() {
     this._setUpSwap();
 
-    var sentThreads = new Maildog.Collections.EmailThreads(
-      [], { urlAction: "sent" }
-    );
     this.trigger("folderNavigation", "sent");
     var view = new Maildog.Views.EmailList({
       folder: "sent",
-      collection: sentThreads
+      collection: Maildog.sent
     });
     this._swapView(view);
   },
@@ -47,13 +41,10 @@ Maildog.Routers.Router = Backbone.Router.extend({
   drafts: function() {
     this._setUpSwap();
 
-    var draftsThreads = new Maildog.Collections.EmailThreads(
-      [], { urlAction: "drafts" }
-    );
     this.trigger("folderNavigation", "drafts");
     var view = new Maildog.Views.EmailList({
       folder: "drafts",
-      collection: draftsThreads
+      collection: Maildog.drafts
     });
     this._swapView(view);
   },
@@ -61,13 +52,10 @@ Maildog.Routers.Router = Backbone.Router.extend({
   starred: function() {
     this._setUpSwap();
 
-    var starredEmails = new Maildog.Collections.EmailThreads(
-      [], { urlAction: "starred" }
-    );
     this.trigger("folderNavigation", "starred");
     var view = new Maildog.Views.EmailList({
       folder: "starred",
-      collection: starredEmails
+      collection: Maildog.starred
     });
     this._swapView(view);
   },
@@ -114,13 +102,10 @@ Maildog.Routers.Router = Backbone.Router.extend({
   trash: function() {
     this._setUpSwap();
 
-    var trashEmails = new Maildog.Collections.EmailThreads(
-      [], { urlAction: "trash" }
-    );
     this.trigger("folderNavigation", "trash");
     var view = new Maildog.Views.EmailList({
       folder: "trash",
-      collection: trashEmails
+      collection: Maildog.trash
     });
     this._swapView(view);
   },
