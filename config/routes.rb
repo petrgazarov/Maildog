@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
     get "/search", to: "email_threads#search"
     resource  :user
-    resources :thread_labels, only: [:create]
+    resources :thread_labels, only: [:create, :destroy]
 
     resource :session do
       post :fetch
@@ -30,6 +30,8 @@ Rails.application.routes.draw do
         get  :drafts
         get  :trash
       end
+
+      resources :labels, only: [:index]
     end
 
     resources :labels, except: [:new, :edit] do

@@ -1,3 +1,3 @@
 json.array! @labels do |label|
-  json.extract! label, :name, :id
+  json.partial! "api/labels/label", label: label
 end

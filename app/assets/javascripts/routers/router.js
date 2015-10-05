@@ -65,7 +65,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
     this.removeFlashes();
 
     var thread = new Maildog.Models.EmailThread({ id: id });
-    this.trigger("showEmailMessageOptions", thread);
+    this.trigger("showEmailMessageOptions");
     var view = new Maildog.Views.ShowEmailThread({
       model: thread,
       collection: thread.emails()

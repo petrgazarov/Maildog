@@ -20,7 +20,6 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     this.collection.forEach(this._addSubviewForEmail.bind(this));
     this.$('#email-thread-subject').text(this.model.get('subject'));
     this.attachSubviews();
-
     return this;
   },
 

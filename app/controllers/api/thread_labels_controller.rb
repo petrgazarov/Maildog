@@ -8,6 +8,16 @@ class Api::ThreadLabelsController < ApplicationController
     end
   end
 
+  def destroy
+    thread_label = ThreadLabel.find_by(
+      label_id: params[:thread_label][:label_id],
+      email_thread_id: params[:thread_label][:email_thread_id]
+    )
+    thread_label.destroy
+
+    render json: {}
+  end
+
   private
 
   def thread_label_params

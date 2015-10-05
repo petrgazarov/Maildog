@@ -1,7 +1,8 @@
 class Api::EmailThreadsController < ApplicationController
   def show
-    @email_thread = EmailThread.find(params[:id])
-    @emails = Email.includes(:sender, :addressees).where(email_thread_id: params[:id])
+    @email_thread = EmailThread.includes(:labels).find(params[:id])
+    @emails = Email.includes(:sender, :addressees)
+                   .where(email_thread_id: params[:id])
                    .order(date: :asc, time: :asc)
 
     render :show
@@ -78,6 +79,15 @@ class Api::EmailThreadsController < ApplicationController
       .page(params[:page])
 
     render :search
+  end
+
+  def labels
+    thread = EmailThread.find(params[:id])
+
+    @labels = Label.joins(:threads)
+                   .where("email_threads.id = #{thread.id}")
+
+    render template: "api/labels/index"
   end
 
   private

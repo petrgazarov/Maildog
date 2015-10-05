@@ -19,6 +19,12 @@ Maildog.Models.EmailThread = Backbone.Model.extend({
       delete payload.emails;
     }
 
+    if (payload.labels) {
+      this.labels().reset(payload.labels, { parse: true });
+
+      delete payload.labels;
+    }
+
     if (payload.count) {
       this.count = payload.count;
 
@@ -26,6 +32,16 @@ Maildog.Models.EmailThread = Backbone.Model.extend({
     }
 
     return payload
+  },
+
+  labels: function() {
+    this._labels = (this._labels || new Maildog.Collections.Labels([], {
+      url: function() {
+        return "api/email_threads/" + this.id + "/labels"
+      }.bind(this)
+    }));
+
+    return this._labels;
   },
 
   displayCount: function() {

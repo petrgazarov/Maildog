@@ -1,1 +1,1 @@
-json.extract! @label, :name, :id
+json.partial! "label", label: @label

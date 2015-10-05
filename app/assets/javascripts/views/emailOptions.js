@@ -6,12 +6,11 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
     this.listenTo(
       Maildog.router, "showEmailMessageOptions", this.render.bind(this, "show")
     );
-    this.listenTo(Maildog.router, "folderNavigation", function(state, email) {
-      this.model = email;
+    this.listenTo(Maildog.router, "folderNavigation", function(state) {
       this.render(state);
       this.backButtonValue = state;
     });
-
+    
     this.collection = new Maildog.Collections.Labels();
     this.collection.fetch();
   },
@@ -23,9 +22,8 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
     "click .label-as-button-container": "showLabelList"
   },
 
-  render: function(state, email) {
+  render: function(state) {
     var template = (state === "show" ? this.template_show : this.template_list);
-
     this.$el.html(template());
     return this;
   },
@@ -41,8 +39,9 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
   },
 
   showLabelList: function() {
-    if (!this.$('.email-options-label-list').hasClass('invisible')) { return; }
+    Maildog.router.currentEmailThread.labels().fetch({ reset: true });
 
+    if (!this.$('.email-options-label-list').hasClass('invisible')) { return; }
     window.setTimeout(function() {
       $('html').click(function(e) {
         this.hideLabelList(e);
@@ -63,10 +62,8 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
   },
 
   hideLabelList: function(e) {
-    if (
-         ($(e.target).parents().filter('.email-options-label-list').length > 0 &&
-           $(e.target).prop('tagName') !== "LI") ||
-         $(e.target).hasClass('email-options-label-list')
+    if ($(e.target).parents().filter('.email-options-label-list').length > 0 ||
+        $(e.target).hasClass('email-options-label-list')
         ) {
       return;
     }

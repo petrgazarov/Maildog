@@ -1,6 +1,14 @@
 class Api::LabelsController < ApplicationController
   def index
-    @labels = current_user_contact.labels
+    if params[:email_thread_id]
+      thread = EmailThread.find(params[:email_thread_id])
+
+      @labels = Label.joins(:threads)
+                     .where("email_threads.id = #{thread.id}")
+    else
+      @labels = current_user_contact.labels
+    end
+
     render :index
   end
 
@@ -29,8 +37,15 @@ class Api::LabelsController < ApplicationController
   end
 
   def destroy
-    label = Label.find(params[:id])
-    label.destroy
-    render json: {}
+    if params[:email_thread_id]
+      EmailThread.where({
+        email_thread_id: params[:email_thread_id],
+        label_id: params[:id]
+        }).destroy
+    else
+      label = Label.find(params[:id])
+      label.destroy
+      render json: {}
+    end
   end
 end
