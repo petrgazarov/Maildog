@@ -25,7 +25,7 @@
          for='Create a password'>
 
   <label>Confirm your password</label>
-  <input type='password' name='user[password]' class='sign-up-confirm-password'
+  <input type='password' name='confirmPassword' class='sign-up-confirm-password'
          for='Confirm your password'>
 
   <label>Birthday</label>
@@ -48,12 +48,13 @@
 
   <label>Gender</label>
   <select name="user[gender]" for='Gender'>
+    <option value="" disabled selected style='display:none;'>I am</option>
     <option value='M'>Male</option>
     <option value='F'>Female</option>
     <option value='O'>Other</option>
   </select>
 
-  <input type='checkbox' name='awesome' for='I agree to be awesome!'
+  <input type='checkbox' for='I agree to be awesome!'
          class='sign-up-checkbox'>
   <label class='sign-up-awesome-label'>I agree to be awesome!</label>
 

@@ -66,6 +66,13 @@
 .create-account-form .sign-up-checkbox {
   display: block;
   float: left;
+  height: 16px;
+  margin-top: 11px;
+  margin-bottom: 0;
+}
+
+.create-account-form input.error-input {
+  border: 1px solid #dd4b39;
 }
 
 .create-account-form select {
@@ -81,5 +88,4 @@
 .create-account-form button {
   font-size: 18px;
   margin-top: 15px;
-  margin-left: -15px;
 }
