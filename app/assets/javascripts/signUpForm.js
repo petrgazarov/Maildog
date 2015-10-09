@@ -24,9 +24,14 @@ Maildog.signUpForm = {
         window.location = window.location.origin;
         $('#create-account-form').off();
       },
-      error: function() {
-        alert('error');
-      }
+      error: function(model, response) {
+        var errors = $.parseJSON(response.responseText);
+        errors.forEach(function(error) {
+          if (error === "Username has already been taken") {
+            this.displayErrorMessage("This username is already taken", "input", [3]);
+          }
+        }.bind(this));
+      }.bind(this)
     })
   },
 
@@ -78,6 +83,11 @@ Maildog.signUpForm = {
     }
     if (!formData.user['password']) {
       this.displayErrorMessage("Password cannot be blank", "input", [4]);
+      valid = false;
+    }
+    if (formData.user['password'].length > 0 &&
+        formData.user['password'].length < 6) {
+      this.displayErrorMessage("Password must be minimum 6 characters", "input", [4]);
       valid = false;
     }
 

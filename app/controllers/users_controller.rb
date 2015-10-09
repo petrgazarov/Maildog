@@ -8,7 +8,6 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if !@user.save
-      flash.now[:errors] = @user.errors.full_messages
       render :new
     else
       log_in!(@user)
