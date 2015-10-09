@@ -90,6 +90,12 @@ Maildog.signUpForm = {
       this.displayErrorMessage("Password must be minimum 6 characters", "input", [4]);
       valid = false;
     }
+    if (formData['birthday-day'] && (
+      isNaN(formData['birthday-day'] || formData['birthday-day'] < 1 ||
+      formData['birthday-day'] > 31) {
+      this.displayErrorMessage("Password cannot be blank", "input", [4]);
+      valid = false;
+    }
 
     return valid;
   },
