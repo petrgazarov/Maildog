@@ -26,6 +26,7 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
   fetchUser: function(e) {
     e.preventDefault();
     var formData = this.$('.sign-in-username-form').serializeJSON().user;
+    Maildog.currentUser.set("username", "");
 
     Maildog.currentUser.fetchUser({
       username: formData.username,
