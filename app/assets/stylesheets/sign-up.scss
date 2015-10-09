@@ -20,17 +20,33 @@
   background: #f1f1f1;
   width: 700px;
   padding: 25px;
-  margin: 50px auto;
+  text-align: left;
+  margin: auto;
 }
 
 .create-account-form input {
   background: white;
   padding: 0 8px;
+  text-align: start;
   display: block;
   border: 1px solid #d9d9d9;
   border-top: 1px solid #c0c0c0;
 }
 
-.create-account-form button {
-  // font-size:
+.header .dog-logo {
+  width: 60px;
+  height: 60px;
+  margin: 0 60px;
+  float: left;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.create-new-account-header-text {
+  font-size: 38px;
+  margin: 27px auto;
+  font-family: 'Open Sans', arial;
+  font-weight: 300;
+  color: #555;
 }

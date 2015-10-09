@@ -33,6 +33,7 @@
 body {
   font-family: arial, sans-serif;
   font-size: 18px;
+  text-align: center;
 }
 
 ul {
@@ -126,4 +127,13 @@ button {
 
 .pink-background {
   background: #ffccd4;
+}
+
+.dog-logo {
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: image-url('happy-dog.png');
+  background-size: cover;
+  margin: auto;
 }
