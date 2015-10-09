@@ -18,19 +18,31 @@
 
 .create-account-form {
   background: #f1f1f1;
-  width: 700px;
+  width: 500px;
   padding: 25px;
   text-align: left;
   margin: auto;
 }
 
-.create-account-form input {
+.create-account-form input,
+.create-account-form select {
   background: white;
   padding: 0 8px;
   text-align: start;
   display: block;
   border: 1px solid #d9d9d9;
   border-top: 1px solid #c0c0c0;
+  height: 29px;
+  display: inline;
+}
+
+.create-account-form label {
+  color: #222;
+  font-weight: bold;
+  font: arial, helvetica, sans-serif;
+  font-size: 14px;
+  display: block;
+  margin: 10px 0 4px 0;
 }
 
 .header .dog-logo {
@@ -49,4 +61,25 @@
   font-family: 'Open Sans', arial;
   font-weight: 300;
   color: #555;
+}
+
+.create-account-form .sign-up-checkbox {
+  display: block;
+  float: left;
+}
+
+.create-account-form select {
+  font: 20px;
+  clear: both;
+  display: block;
+}
+
+.sign-up-checkbox {
+  margin: 5px;
+}
+
+.create-account-form button {
+  font-size: 18px;
+  margin-top: 15px;
+  margin-left: -15px;
 }

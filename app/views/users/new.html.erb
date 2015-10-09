@@ -8,24 +8,28 @@
 <h1 class='create-new-account-header-text'>Create your Maildog acount!</h1>
 
 <form class='create-account-form group' id='create-account-form'>
-  <label>Name
-  <input type='text' name='user[first_name]' value='<%= @user.first_name %>'
-                     placeholder="First">
+  <label>Name</label>
+  <input type='text' for='Name' name='user[first_name]' value='<%= @user.first_name %>'
+                     placeholder="First" class='sign-up-first-name'>
+
+  <input type='text' for='Name' name='user[last_name]' value='<%= @user.last_name %>'
+                     placeholder="Last" class='sign-up-last-name'>
   </label>
-  <label>
-  <input type='text' name='user[last_name]' value='<%= @user.last_name %>'
-                     placeholder="Last">
-  <label>Choose your username
-  <input type='text' name='user[username]' value='<%= @user.username %>'>
-  <label>Create a password
-  <input type='password' name='user[password]'>
-  </label>
-  <label>Confirm your password
-  <input type='password' name='user[password]'>
-  </label>
-  </label>
-  <label>Birthday
-  <select name='birthday-month'>
+
+  <label>Choose your username</label>
+  <input type='text' name='user[username]' value='<%= @user.username %>'
+         for='Choose your username'>
+
+  <label>Create a password</label>
+  <input type='password' name='user[password]' class='sign-up-password'
+         for='Create a password'>
+
+  <label>Confirm your password</label>
+  <input type='password' name='user[password]' class='sign-up-confirm-password'
+         for='Confirm your password'>
+
+  <label>Birthday</label>
+  <select name='birthday-month' for='Birthday'>
     <option>January</option>
     <option>February</option>
     <option>March</option>
@@ -39,18 +43,19 @@
     <option>November</option>
     <option>December</option>
   </select>
-  <input name='birthday-day' type='text' placeholder="Day">
-  <input name='birthday-year' type='text' placeholder="Year">
-  </label>
-  <label>Gender
-    <select name="user[gender]">
-      <option value='M'>Male</option>
-      <option value='F'>Female</option>
-      <option value='O'>Other</option>
-    </select>
-  </label>
-  <label>
-    <input type='checkbox' name='awesome'>I agree to be awesome!
-  </label>
+  <input name='birthday-day' type='text' placeholder="Day" for='Birthday'>
+  <input name='birthday-year' type='text' placeholder="Year" for='Birthday'>
+
+  <label>Gender</label>
+  <select name="user[gender]" for='Gender'>
+    <option value='M'>Male</option>
+    <option value='F'>Female</option>
+    <option value='O'>Other</option>
+  </select>
+
+  <input type='checkbox' name='awesome' for='I agree to be awesome!'
+         class='sign-up-checkbox'>
+  <label class='sign-up-awesome-label'>I agree to be awesome!</label>
+
   <button class='blue-button'>Create account</button>
 </form>

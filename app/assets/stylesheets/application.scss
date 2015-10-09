@@ -16,7 +16,7 @@
 
  html, body, figure, section, aside, ul,
  li, a, p, h1, h2, h3, h4, h5, main, div, form,
- label, footer, article, nav, header, input, button, textarea {
+ label, footer, article, nav, header, input, button, textarea, select {
    border: 0;
    padding: 0;
    margin: 0;
@@ -95,6 +95,10 @@ button {
   border: 1px solid #c6c6c6;
   color: #333;
   background-image: -webkit-linear-gradient(top,#f8f8f8,#f1f1f1);
+}
+
+.gray-button:focus {
+  border: 1px solid #4d90fe;
 }
 
 .saving-saved {
