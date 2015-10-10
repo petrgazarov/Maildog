@@ -1,10 +1,11 @@
 Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
   template: JST['showEmailThread'],
 
-  initialize: function() {
+  initialize: function(options) {
     this.listenTo(this.model, "sync", this.render);
     this.listenTo(this.collection, "add", this._addSubviewForEmail);
     this.model.fetch();
+    this.trash = options.trash;
     Backbone.pubSub.on("deleteThread", this.deleteThread, this);
     Maildog.router.currentEmailThread = this.model;
   },
@@ -76,10 +77,13 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     var subview;
     if (email.get('draft')) {
       this.addReplyForwardView({ model: email, leaveBox: true });
-    } else {
+    }
+    else if (this.trash && email.get('trash') ||
+            !this.trash && !email.get('trash')) {
       subview = new Maildog.Views.EmailShow({
         model: email
       });
+
       this.addSubview(".email-thread-list", subview);
     }
   },

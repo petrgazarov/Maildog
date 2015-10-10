@@ -8,5 +8,6 @@ json.array! @threads do |thread|
     json.partial! "api/emails/email", email: email
   end
 
-  json.count thread.emails.count
+  json.trashCount thread.trash_count
+  json.nonTrashCount thread.non_trash_count
 end

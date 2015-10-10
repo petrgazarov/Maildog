@@ -25,10 +25,16 @@ Maildog.Models.EmailThread = Backbone.Model.extend({
       delete payload.labels;
     }
 
-    if (payload.count) {
-      this.count = payload.count;
+    if (payload.trashCount) {
+      this.trashCount = payload.trashCount;
 
-      delete payload.count;
+      delete payload.trashCount;
+    }
+
+    if (payload.nonTrashCount) {
+      this.nonTrashCount = payload.nonTrashCount;
+
+      delete payload.nonTrashCount;
     }
 
     return payload
@@ -44,8 +50,17 @@ Maildog.Models.EmailThread = Backbone.Model.extend({
     return this._labels;
   },
 
-  displayCount: function() {
-    if (this.count > 1) { return "(" + this.count + ")" }
+  displayCount: function(folder) {
+    var count;
+
+    if (folder === "trash") {
+      count = this.trashCount;
+    }
+    else {
+      count = this.nonTrashCount;
+    }
+
+    if (count > 1) { return "(" + count + ")" }
   },
 
   tail: function() {

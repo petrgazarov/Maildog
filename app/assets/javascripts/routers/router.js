@@ -11,6 +11,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
     "drafts": "drafts",
     "starred": "starred",
     "threads/:id": "showEmailThread",
+    "threads/:id/trash": "showEmailThread",
     "search/:query": "search",
     "labels/:id": "labels",
     "trash": "trash"
@@ -63,12 +64,16 @@ Maildog.Routers.Router = Backbone.Router.extend({
   showEmailThread: function(id) {
     Backbone.pubSub.off();
     this.removeFlashes();
+    var trash = (
+      Backbone.history.getFragment().indexOf('trash') === -1 ? false : true
+    );
 
     var thread = new Maildog.Models.EmailThread({ id: id });
     this.trigger("showEmailMessageOptions");
     var view = new Maildog.Views.ShowEmailThread({
       model: thread,
-      collection: thread.emails()
+      collection: thread.emails(),
+      trash: trash
     });
     this._swapView(view);
   },

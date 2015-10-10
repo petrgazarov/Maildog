@@ -46,9 +46,6 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
         }.bind(this)
   		});
     }
-    // else if (this.collection.folderName() === "Folders") {
-    //   Backbone.history.loadUrl("#folders/");
-    // }
     else {
       this.collection.fetch({
         reset: true,

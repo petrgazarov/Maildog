@@ -17,10 +17,13 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
 
   render: function() {
     var correspondent = this.thread.tail().correspondentString(this.folder);
+    var trash = (this.folder === "trash" ? "/trash" : null);
     var content = this.template({
       thread: this.thread,
       tail: this.email,
-      correspondent: correspondent
+      correspondent: correspondent,
+      trash: trash,
+      emailCount: this.thread.displayCount(this.folder)
     });
 
     this.$el.html(content);

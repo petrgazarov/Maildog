@@ -35,7 +35,8 @@ Maildog.Views.EmailShow = Backbone.CompositeView.extend({
     this.model.save({ "trash": true }, {
       success: function() {
         Maildog.router.addFlash("The message has been moved to the trash.")
-      },
+        this.remove();
+      }.bind(this),
       error: function() {
         alert('error')
       }

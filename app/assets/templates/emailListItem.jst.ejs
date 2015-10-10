@@ -2,10 +2,10 @@
   <div class='check-box <%= tail.checkedCheckBoxIfChecked() %>'></div>
 </div>
 <div class='star <%= tail.starOnIfStarred() %>'></div>
-<a href='#threads/<%= thread.id %>' class='email-list-item-link group'>
+<a href='#threads/<%= thread.id %><%= trash %>' class='email-list-item-link group'>
   <p class='email-list-item-correspondent'>
     <%= correspondent %>
-    <%= thread.displayCount() %>
+    <%= emailCount %>
   </p>
   <p class='email-list-item-subject'>
     <%= thread.escape('subject') %>

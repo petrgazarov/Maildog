@@ -14,4 +14,12 @@ class EmailThread < ActiveRecord::Base
   has_many :labels,
     through: :thread_labels,
     source: :label
+
+  def trash_count
+    emails.where(trash: true).count
+  end
+
+  def non_trash_count
+    emails.where(trash: false).count
+  end
 end
