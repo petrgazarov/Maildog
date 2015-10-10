@@ -46,7 +46,7 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
     e.preventDefault();
     this.removeErrorMessages();
 
-    $('button').prop("disabled", true);
+    this.$('button').prop("disabled", true);
     var formData = $(e.target).serializeJSON();
 
     $.ajax({
@@ -59,9 +59,12 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
       },
       error: function(model, response) {
         $('.sign-in-text-box').addClass('error-input');
-        this.addErrorMessage("The email and password you entered don't match.");
+        this.addErrorMessage('.sign-in-password-form',
+          "The email and password you entered don't match.");
 
-        $('button').prop("disabled", false);
+        this.$('.sign-in-password-form > input.sign-in-text-box')
+                                              .val("").focusout();
+        this.$('button').prop("disabled", false);
       }.bind(this)
     })
   },
@@ -73,15 +76,16 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
   },
 
   removeErrorMessages: function() {
-    $('.form-error-message').remove();
-    $('.error-input').removeClass('error-input');
+    this.$('.form-error-message').remove();
+    this.$('.error-input').removeClass('error-input');
   },
 
-  addErrorMessage: function(message) {
+  addErrorMessage: function(selector, message) {
     $errorMessage = $(
       "<div>" + message + "</div>"
     ).addClass('form-error-message');
-    $('.sign-in-form-container input:nth-of-type(1)').after($errorMessage);
+
+    this.$(selector + ' > input:nth-of-type(1)').after($errorMessage);
   },
 
   backToUsername: function(e) {
