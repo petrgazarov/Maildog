@@ -115,17 +115,19 @@ Maildog.Routers.Router = Backbone.Router.extend({
     this._swapView(view);
   },
 
-  addFlash: function(message) {
+  addFlash: function(message, interval) {
     this.removeFlashes();
+    window.clearTimeout(this.flashIntervalId);
+    interval = interval || 30000;
 
     Maildog.fleshView = new Maildog.Views.FlashMessage({ message: message });
     var $message = $('<div>').addClass('flash-message');
     $message.html(Maildog.fleshView.render().$el);
 
     $('.flash-container').html($message);
-    window.setTimeout(function() {
+    this.flashIntervalId = window.setTimeout(function() {
       this.removeFlashes()
-    }.bind(this), 30000)
+    }.bind(this), interval)
   },
 
   removeFlashes: function() {

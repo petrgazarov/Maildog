@@ -32,6 +32,8 @@ class Api::LabelsController < ApplicationController
                 .joins(:thread_labels)
                 .joins("INNER JOIN labels ON thread_labels.label_id = labels.id")
                 .where("labels.id = #{params[:id]}")
+                .joins(:emails)
+                .where("emails.trash = false")
 
     render template: "api/email_threads/index"
   end

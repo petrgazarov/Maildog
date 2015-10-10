@@ -44,7 +44,7 @@ Maildog.Mixins.NewEmail = {
     })
   },
 
-  discardMessage: function() {
+  discardMessage: function(e, options) {
     if (!this.model.isNew()) {
       this.model.destroy();
     }
@@ -53,12 +53,17 @@ Maildog.Mixins.NewEmail = {
       Maildog.router.addFlash("Your message has been discarded");
     }
     window.setTimeout(function() {
-      this.removeView();
+      this.removeView(e, options);
     }.bind(this), 0);
   },
 
   removeView: function(e, sendOptions) {
-    this.remove();
+    if (sendOptions.composeEmailBox) {
+      Maildog.mainFolders.removeSubview('.compose-email-popup-container', this);
+    }
+    else {
+      this.remove();
+    }
     if (!sendOptions || !sendOptions.saveEmail) { return }
     this.saveEmail();
   }

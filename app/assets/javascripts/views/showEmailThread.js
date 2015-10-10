@@ -46,7 +46,6 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
   },
 
   moveToTrashThread: function() {
-    debugger
     var email_ids = [];
     this.collection.forEach(function(email) {
       email_ids.push(email.id);
