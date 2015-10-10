@@ -4,6 +4,8 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
   events: {
     "click .back-arrow": "toggleLinks",
     "click .sign-in-as-different": "backToUsername",
+    "submit .sign-in-password-form": "submit",
+    "focusin .sign-in-text-box": "removeErrorMessages",
     "click .sign-in-next-button": function(e) {
        this.fetchUser(e);
        this.toggleLinks(e);
@@ -40,10 +42,46 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
     })
   },
 
+  submit: function(e) {
+    e.preventDefault();
+    this.removeErrorMessages();
+
+    $('button').prop("disabled", true);
+    var formData = $(e.target).serializeJSON();
+
+    $.ajax({
+      url: "/api/session",
+      method: "post",
+      data: formData,
+      dataType: "json",
+      success: function() {
+        window.location = window.location.origin;
+      },
+      error: function(model, response) {
+        $('.sign-in-text-box').addClass('error-input');
+        this.addErrorMessage("The email and password you entered don't match.");
+
+        $('button').prop("disabled", false);
+      }.bind(this)
+    })
+  },
+
   toggleLinks: function(e) {
     e.preventDefault();
     this.$('.sign-in-as-different').toggleClass('invisible');
     this.$('.create-account-link').toggleClass('invisible');
+  },
+
+  removeErrorMessages: function() {
+    $('.form-error-message').remove();
+    $('.error-input').removeClass('error-input');
+  },
+
+  addErrorMessage: function(message) {
+    $errorMessage = $(
+      "<div>" + message + "</div>"
+    ).addClass('form-error-message');
+    $('.sign-in-form-container input:nth-of-type(1)').after($errorMessage);
   },
 
   backToUsername: function(e) {

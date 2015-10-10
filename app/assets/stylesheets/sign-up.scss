@@ -71,7 +71,8 @@
   margin-bottom: 0;
 }
 
-.create-account-form input.error-input {
+.create-account-form input.error-input,
+.sign-in-form-container input.error-input {
   border: 1px solid #dd4b39;
 }
 

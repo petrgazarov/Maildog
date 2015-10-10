@@ -6,18 +6,6 @@ class SessionsController < ApplicationController
     @user = User.new
   end
 
-  def create
-    @user = User.find_by_credentials(params[:user][:username], params[:user][:password])
-    if @user
-      log_in!(@user)
-      redirect_to root_url
-    else
-      @user = User.new
-      flash.now[:errors] = ['bad username/password combo']
-      render :new
-    end
-  end
-
   def create_guest
     @user = User.find_by_credentials("petr", "password")
     log_in!(@user)

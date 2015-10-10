@@ -11,6 +11,7 @@ Maildog.signUpForm = {
     var formData = $(e.currentTarget).serializeJSON();
 
     if (this.validateInput(formData)) {
+      $('.blue-button').prop("disabled",true);
       this.saveUser(formData);
     }
 
@@ -30,7 +31,11 @@ Maildog.signUpForm = {
           if (error === "Username has already been taken") {
             this.displayErrorMessage("This username is already taken", "input", [3]);
           }
+          else {
+            this.displayErrorMessage(error, "label");
+          }
         }.bind(this));
+        $('.blue-button').prop("disabled", false);
       }.bind(this)
     })
   },

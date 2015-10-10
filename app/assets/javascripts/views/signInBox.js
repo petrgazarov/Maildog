@@ -23,7 +23,6 @@ Maildog.Views.SignInBox = Backbone.View.extend({
     this.$('.back-arrow').removeClass('invisible');
     this.$('.email-display').text(Maildog.currentUser.get('email'))
                             .removeClass('invisible');
-    this.$('.sign-in-form-container').transition({ height: '259px'});
     this.$('.sign-in-text-box').val("");
     this.$('.sign-in-username-form').addClass('invisible');
     this.$('.sign-in-password-form').removeClass('invisible');
@@ -37,7 +36,6 @@ Maildog.Views.SignInBox = Backbone.View.extend({
     this.$('.back-arrow').addClass('invisible');
     this.$('.sign-in-text-box').val(textBoxValue);
     this.$('.email-display').addClass('invisible');
-    this.$('.sign-in-form-container').transition({ height: '240px'});
     this.$('.sign-in-username-form').removeClass('invisible');
     this.$('.sign-in-password-form').addClass('invisible');
     $('.sign-in-text-box').focus();

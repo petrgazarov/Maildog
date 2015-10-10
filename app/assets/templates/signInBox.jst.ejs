@@ -13,13 +13,16 @@
     <button class='sign-in-next-button'>Next</button>
   </form>
 
-  <form action='/session' method='post'
-        class='sign-in-password-form invisible'>
-    <input type='hidden' name='authenticity_token'>
+  <form class='sign-in-password-form invisible'>
     <input type='password' name='user[password]' class='sign-in-text-box'
            placeholder='Password'>
     <input type='hidden' name='user[username]'
            value="<%= currentUser.escape('username') %>">
     <button class='sign-in-submit-button'>Sign in</button>
+  </form>
+
+  <form class='sign-in-as-guest-form' action='/session/create_guest' method='post'>
+    <input type='hidden' name='authenticity_token'>
+    <button class='sign-in-as-guest-button'>Sign in as Petr</button>
   </form>
 </div>
