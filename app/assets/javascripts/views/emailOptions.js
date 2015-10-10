@@ -16,7 +16,7 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
   },
 
   events: {
-    "click #delete-email-thread": "fireDeleteThread",
+    "click #delete-email-thread": "fireDeleteEvent",
     "click #email-show-back-button": "goBack",
     "click #refresh-button": "refreshCollection",
     "click .label-as-button-container": "showLabelList"
@@ -28,9 +28,15 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
     return this;
   },
 
-  fireDeleteThread: function(e) {
+  fireDeleteEvent: function(e) {
     e.preventDefault();
-    Backbone.pubSub.trigger("deleteThread");
+
+    if (this.backButtonValue === "trash") {
+      Backbone.pubSub.trigger("deleteThread");
+    }
+    else {
+      Backbone.pubSub.trigger("moveToTrashThread");
+    }
   },
 
   goBack: function(e) {

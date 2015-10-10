@@ -7,6 +7,7 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     this.model.fetch();
     this.trash = options.trash;
     Backbone.pubSub.on("deleteThread", this.deleteThread, this);
+    Backbone.pubSub.on("moveToTrashThread", this.moveToTrashThread, this);
     Maildog.router.currentEmailThread = this.model;
   },
 
@@ -25,6 +26,27 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
   },
 
   deleteThread: function() {
+    var threadsToDelete = [];
+
+    this.collection.forEach(function(email) {
+      if (email.get('trash')) {
+        threadsToDelete.push(email);
+      }
+    });
+    for (var i = 0; i < threadsToDelete.length; i++) {
+      threadsToDelete[0].destroy({
+        error: function() {
+          alert('error');
+        }
+      });
+    }
+
+    Backbone.history.navigate("#trash", { trigger: true })
+    Maildog.router.addFlash("The conversation has been deleted.");
+  },
+
+  moveToTrashThread: function() {
+    debugger
     var email_ids = [];
     this.collection.forEach(function(email) {
       email_ids.push(email.id);
