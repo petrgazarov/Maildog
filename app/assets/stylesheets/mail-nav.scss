@@ -54,8 +54,9 @@
   top: 45%;
   transform: translateY(-45%);
   padding: 5px;
-  left: 60px;
-  cursor: pointer;
+  left: 55px;
+  font-size: 22px;
+  cursor: default;
 }
 
 .email-options {
@@ -186,4 +187,11 @@
 
 .email-options-label-list > li:hover {
   background: #ffccd4;
+}
+
+.main-page-logo .dog-logo {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  margin: 0;
 }
