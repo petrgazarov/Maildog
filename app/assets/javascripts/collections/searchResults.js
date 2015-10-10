@@ -18,7 +18,6 @@ Maildog.Collections.SearchResults = Backbone.Collection.extend({
 		delete attrs._type;
 
 		var model = new Maildog.Models[type]();
-		debugger
     model.set(model.parse(attrs));
     return model;
 	},
