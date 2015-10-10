@@ -6,35 +6,6 @@
   padding: 0 30px;
 }
 
-.current-user-info {
-  float: right;
-  display: block;
-  width: 170px;
-  position: relative;
-}
-
-.current-user-info > p {
-  display: block;
-  float: left;
-  margin: 0 10px;
-  position: relative;
-  transform: translateY(7%);
-}
-
-.current-user-info > aside {
-  float: left;
-  border-radius: 50%;
-  position: relative;
-  transform: translateY(40%);
-}
-
-.log-out-button {
-  display: block;
-  float: left;
-  position: relative;
-  transform: translateY(7%);
-}
-
 .mail-main-section {
   float: left;
 }
@@ -44,6 +15,7 @@
   width: calc(100% - 235px);
   margin-right: 30px;
   min-height: 100px;
+  text-align: left;
 }
 
 .check-box {

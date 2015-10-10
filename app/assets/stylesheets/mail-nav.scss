@@ -79,6 +79,11 @@
   transform: translateY(67%);
   margin: 0 20px;
   color: gray;
+  cursor: default;
+}
+
+.made-with-love > a:hover {
+  color: #dd4b39;
 }
 
 .label-as-button-container {
@@ -98,6 +103,47 @@
   float: left;
   margin-left: 18px;
   margin-top: 1px;
+}
+
+.log-out-form {
+  display: inline-block;
+  float: left;
+  margin-right: 10px;
+}
+
+.log-out-button {
+  height: 15px;
+  line-height: 15px;
+  vertical-align: middle;
+}
+
+.log-out-button:hover {
+  color: #dd4b39;
+}
+
+.current-user-info {
+  float: right;
+  display: block;
+  width: 170px;
+  position: relative;
+}
+
+.current-user-info > p {
+  display: inline-block;
+  margin: 0 5px;
+  height: 15px;
+  line-height: 15px;
+  vertical-align: middle;
+  cursor: default;
+}
+
+.current-user-info > aside {
+  display: inline-block;
+  border-radius: 50%;
+  height: 35px;
+  line-height: 35px;
+  vertical-align: middle;
+  margin-right: 15px;
 }
 
 .label-as-button-container:hover .icon-label-as-button,
