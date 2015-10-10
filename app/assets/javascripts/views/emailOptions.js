@@ -10,7 +10,7 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
       this.render(state);
       this.backButtonValue = state;
     });
-    
+
     this.collection = new Maildog.Collections.Labels();
     this.collection.fetch();
   },
@@ -62,8 +62,10 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
   },
 
   hideLabelList: function(e) {
-    if ($(e.target).parents().filter('.email-options-label-list').length > 0 ||
-        $(e.target).hasClass('email-options-label-list')
+    if (
+        ($(e.target).parents().filter('.email-options-label-list').length > 0 &&
+          $(e.target).prop('tagName') !== "LI") ||
+         $(e.target).hasClass('email-options-label-list')
         ) {
       return;
     }
