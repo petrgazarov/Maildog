@@ -15,13 +15,23 @@
   font-size: 11px;
   font-weight: bold;
   white-space: nowrap;
+
   height: 27px;
+  width: 97px;
+
   line-height: 27px;
   padding: 1px 8px;
-  width: 97px;
   margin-left: 30px;
   display: block;
   text-align: center;
+  border: 1px solid transparent;
+}
+
+.compose-button:hover {
+  background-color: #c53727;
+  background-image: -webkit-linear-gradient(top,#dd4b39,#c53727);
+  background-image: linear-gradient(top,#dd4b39,#c53727);
+  border: 1px solid #b0281a;
 }
 
 .main-folders-list,

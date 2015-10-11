@@ -54,7 +54,7 @@
   top: 45%;
   transform: translateY(-45%);
   padding: 5px;
-  left: 55px;
+  left: 42px;
   font-size: 22px;
   cursor: default;
 }
@@ -62,7 +62,7 @@
 .email-options {
   float: left;
   position: absolute;
-  left: 128px;
+  left: 119px;
   text-align: center;
   position: relative;
   z-index: 10;
@@ -192,6 +192,20 @@
 .main-page-logo .dog-logo {
   width: 50px;
   height: 50px;
-  display: inline-block;
-  margin: 0;
+}
+
+.main-page-logo {
+  margin: 5px 94px 5px 62px;
+  display: block;
+  float: left;
+}
+
+#delete-forever-email-thread {
+  font-size: 13px;
+  width: 90px;
+}
+
+#recover-email-thread {
+  width: 80px;
+  font-size: 16px;
 }

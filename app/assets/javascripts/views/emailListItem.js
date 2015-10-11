@@ -25,8 +25,11 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
       trash: trash,
       emailCount: this.thread.displayCount(this.folder)
     });
-
     this.$el.html(content);
+
+    if (this.email.get('trash')) {
+      this.$('.star').remove();
+    }
     if (this.folder === "drafts") { this.swapLinkForDiv(); }
     if (this.thread.get('checked')) {
       this.$el.addClass("checked-list-item");

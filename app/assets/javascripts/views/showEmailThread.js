@@ -26,15 +26,18 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
   },
 
   deleteThread: function() {
-    var threadsToDelete = [];
+    var emailsToDelete = [];
 
     this.collection.forEach(function(email) {
       if (email.get('trash')) {
-        threadsToDelete.push(email);
+        emailsToDelete.push(email);
       }
     });
-    for (var i = 0; i < threadsToDelete.length; i++) {
-      threadsToDelete[0].destroy({
+    for (var i = 0; i < emailsToDelete.length; i++) {
+      emailsToDelete[i].destroy({
+        success: function(model) {
+          Maildog.trash.remove(model)
+        },
         error: function() {
           alert('error');
         }

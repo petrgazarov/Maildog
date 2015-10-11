@@ -1,13 +1,14 @@
 Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
-  template_list: JST['emailOptionsList'],
-  template_show: JST['emailOptionsShow'],
+  templateList: JST['emailOptionsList'],
+  templateShow: JST['emailOptionsShow'],
+  templateShowTrash: JST['emailOptionsShowTrash'],
 
   initialize: function() {
     this.listenTo(
       Maildog.router, "showEmailMessageOptions", this.render.bind(this, "show")
     );
     this.listenTo(Maildog.router, "folderNavigation", function(state) {
-      this.render(state);
+      this.render(state, false);
       this.backButtonValue = state;
     });
 
@@ -16,27 +17,33 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
   },
 
   events: {
-    "click #delete-email-thread": "fireDeleteEvent",
+    "click #delete-email-thread": "fireMoveToTrash",
+    "click #delete-forever-email-thread": "fireDeleteForever",
     "click #email-show-back-button": "goBack",
     "click #refresh-button": "refreshCollection",
     "click .label-as-button-container": "showLabelList"
   },
 
-  render: function(state) {
-    var template = (state === "show" ? this.template_show : this.template_list);
+  render: function(state, trash) {
+    var template;
+
+    if (trash) {
+      template = this.templateShowTrash
+    } else {
+      template = (state === "show" ? this.templateShow : this.templateList);
+    }
     this.$el.html(template());
     return this;
   },
 
-  fireDeleteEvent: function(e) {
+  fireMoveToTrash: function(e) {
     e.preventDefault();
+    Backbone.pubSub.trigger("moveToTrashThread");
+  },
 
-    if (this.backButtonValue === "trash") {
-      Backbone.pubSub.trigger("deleteThread");
-    }
-    else {
-      Backbone.pubSub.trigger("moveToTrashThread");
-    }
+  fireDeleteForever: function(e) {
+    e.preventDefault();
+    Backbone.pubSub.trigger("deleteThread");
   },
 
   goBack: function(e) {

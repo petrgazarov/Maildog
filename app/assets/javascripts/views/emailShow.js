@@ -11,7 +11,10 @@ Maildog.Views.EmailShow = Backbone.CompositeView.extend({
   render: function() {
     var content = this.template({ email: this.model });
     this.$el.html(content);
-    if (this.model.get('trash')) { this.$('.garbage-can-holder').remove() }
+    if (this.model.get('trash')) {
+      this.$('.garbage-can-holder').remove();
+      this.$('.star').remove();
+    }
 
     return this;
   },
