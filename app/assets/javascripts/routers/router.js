@@ -21,44 +21,44 @@ Maildog.Routers.Router = Backbone.Router.extend({
     this._setUpSwap();
     this.trigger("folderNavigation", "inbox");
 
-    var view = new Maildog.Views.EmailList({
+    Maildog.currentThreadList = new Maildog.Views.EmailList({
       collection: Maildog.inbox,
       folder: "inbox"
     });
-    this._swapView(view);
+    this._swapView(Maildog.currentThreadList);
   },
 
   sent: function() {
     this._setUpSwap();
 
     this.trigger("folderNavigation", "sent");
-    var view = new Maildog.Views.EmailList({
+    Maildog.currentThreadList = new Maildog.Views.EmailList({
       folder: "sent",
       collection: Maildog.sent
     });
-    this._swapView(view);
+    this._swapView(Maildog.currentThreadList);
   },
 
   drafts: function() {
     this._setUpSwap();
 
     this.trigger("folderNavigation", "drafts");
-    var view = new Maildog.Views.EmailList({
+    Maildog.currentThreadList = new Maildog.Views.EmailList({
       folder: "drafts",
       collection: Maildog.drafts
     });
-    this._swapView(view);
+    this._swapView(Maildog.currentThreadList);
   },
 
   starred: function() {
     this._setUpSwap();
 
     this.trigger("folderNavigation", "starred");
-    var view = new Maildog.Views.EmailList({
+    Maildog.currentThreadList = new Maildog.Views.EmailList({
       folder: "starred",
       collection: Maildog.starred
     });
-    this._swapView(view);
+    this._swapView(Maildog.currentThreadList);
   },
 
   showEmailThread: function(id) {
@@ -84,8 +84,8 @@ Maildog.Routers.Router = Backbone.Router.extend({
 
     var searchResults = new Maildog.Collections.SearchResults();
     searchResults.query = query;
-    var view = new Maildog.Views.EmailList({ collection: searchResults });
-    this._swapView(view);
+    Maildog.currentThreadList = new Maildog.Views.EmailList({ collection: searchResults });
+    this._swapView(Maildog.currentThreadList);
   },
 
   labels: function(id) {
@@ -97,22 +97,22 @@ Maildog.Routers.Router = Backbone.Router.extend({
     var labelThreads = new Maildog.Collections.EmailThreads([], {
       url: "api/labels/" + id +"/threads"
     });
-    var view = new Maildog.Views.EmailList({
+    Maildog.currentThreadList = new Maildog.Views.EmailList({
       folder: "labels",
       collection: labelThreads
     });
-    this._swapView(view);
+    this._swapView(Maildog.currentThreadList);
   },
 
   trash: function() {
     this._setUpSwap();
 
     this.trigger("folderNavigation", "trash");
-    var view = new Maildog.Views.EmailList({
+    Maildog.currentThreadList = new Maildog.Views.EmailList({
       folder: "trash",
       collection: Maildog.trash
     });
-    this._swapView(view);
+    this._swapView(Maildog.currentThreadList);
   },
 
   addFlash: function(message, interval) {

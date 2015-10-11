@@ -58,8 +58,10 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     var email_ids = [];
     if (urlCap === 'trash') {
       var flashMessage = "The conversation has been moved to the Trash.";
+      var backNav = "#";
     } else {
       var flashMessage = "The conversation has been recovered."
+      var backNav = "#trash";
     }
     this.collection.forEach(function(email) {
       email_ids.push(email.id);
@@ -71,7 +73,7 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
       data: { "email_ids": email_ids },
       dataType: "json",
       success: function() {
-        Backbone.history.navigate("#", { trigger: true })
+        Backbone.history.navigate(backNav, { trigger: true })
         Maildog.router.addFlash(flashMessage);
       },
       error: function() {

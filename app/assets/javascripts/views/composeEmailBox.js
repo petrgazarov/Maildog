@@ -26,7 +26,8 @@ Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend(
     submit: function(e) {
       e.preventDefault();
       this.sendEmail({
-        saveEmail: false
+        saveEmail: false,
+        composeEmailBox: true
       })
     },
 

@@ -107,6 +107,9 @@ button {
   display: block;
   float: right;
   color: #777;
+  vertical-align: middle;
+  line-height: 40px;
+  margin-right: 5px;
 }
 
 [class*="icon-"] {
