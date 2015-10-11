@@ -58,7 +58,7 @@ Maildog.Models.Email = Backbone.Model.extend({
   },
 
   preview: function() {
-    return ("- " + this.get('body').slice(0, 50));
+    return ("- " + this.get('body').slice(0, 100));
   },
 
   getTimeOrDate: function() {

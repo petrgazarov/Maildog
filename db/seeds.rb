@@ -55,14 +55,6 @@ nikita = petr_user.contacts.create(
   gender: "M"
 )
 
-tommy = petr_user.contacts.create(
-  email: "tommy@maildog.xyz",
-  first_name: "Tommy",
-  last_name: "Duek",
-  job_title: "Instructor",
-  gender: "M"
-)
-
 thread1 = EmailThread.new(subject: "What is best practice?", owner: petr)
 thread2 = EmailThread.new(subject: "hi", owner: petr)
 thread3 = EmailThread.new(subject: "Atom editor", owner: petr)
@@ -152,9 +144,11 @@ atom_message_4 = nikita.received_emails.create(
 barack_email_1 = barack.received_emails.create(
   thread: thread4,
   subject: "Have a good weekend!",
-  body: "Hi Barack,\n"\
-        "Have a good weekend, man!\n"\
-        "Cheers, Petr",
+  body:
+"Hi Barack,\n"\
+"Have a good weekend, man!\n"\
+"Cheers, Petr",
+
   sender: petr,
   date: 'Thu, 17 Sep 2015',
   time: '2000-01-01 10:44:22 UTC'
@@ -163,9 +157,11 @@ barack_email_1 = barack.received_emails.create(
 barack_email_2 = petr.received_emails.create(
   thread: thread4,
   subject: "Have a good weekend!",
-  body: "Thanks! What are you doing this weekend?\n"\
-        "Wanna come along to see the commander-in-chief at the White House?\n"\
-        "Barack",
+  body:
+"Thanks! What are you doing this weekend?\n"\
+"Wanna come along to see the commander-in-chief at the White House?\n"\
+"Barack",
+
   sender: barack,
   date: 'Thu, 18 Sep 2015',
   time: '2000-01-01 10:44:22 UTC',
@@ -176,9 +172,11 @@ barack_email_2 = petr.received_emails.create(
 barack_email_3 = barack.received_emails.create(
   thread: thread4,
   subject: "Have a good weekend!",
-  body: "Ahh, I wish I could. I got to finish my final project at App Academy.\n"\
-        "Thanks for your kind offer!\n"\
-        "Petr",
+  body:
+"Ahh, I wish I could. I got to finish my final project at App Academy.\n"\
+"Thanks for your kind offer!\n"\
+"Petr",
+
   sender: petr,
   date: 'Thu, 19 Sep 2015',
   time: '2000-01-01 10:44:22 UTC',
@@ -189,9 +187,11 @@ barack_email_3 = barack.received_emails.create(
 barack_email_4 = petr.received_emails.create(
   thread: thread4,
   subject: "Have a good weekend!",
-  body: "Alright then. I'm going to try to set up a meeting with Tiger Woods.\n"\
-        "Farewell!\n"\
-        "Barack",
+  body:
+"Alright then. I'm going to try to set up a meeting with Tiger Woods.\n"\
+"Farewell!\n"\
+"Barack",
+
   sender: barack,
   date: 'Thu, 20 Sep 2015',
   time: '2000-01-01 10:44:22 UTC',
@@ -202,7 +202,9 @@ barack_email_4 = petr.received_emails.create(
 barack_email_5 = barack.received_emails.create(
   thread: thread4,
   subject: "Have a good weekend!",
-  body: "Barack, are you mad at me?! Barack!!!",
+  body:
+"Barack, are you mad at me?! Barack!!!",
+
   sender: petr,
   date: 'Thu, 21 Sep 2015',
   time: '2000-01-01 10:44:22 UTC',

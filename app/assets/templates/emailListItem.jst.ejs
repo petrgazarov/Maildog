@@ -7,12 +7,14 @@
     <%= correspondent %>
     <%= emailCount %>
   </p>
-  <p class='email-list-item-subject'>
-    <%= thread.escape('subject') %>
-  </p>
-  <p class='email-list-item-preview'>
-    <%= tail.preview() %>
-  </p>
+  <div class='email-list-item-subject-and-preview'>
+    <p class='email-list-item-subject'>
+      <%= thread.escape('subject') %>
+    </p>
+    <p class='email-list-item-preview'>
+      <%= tail.preview() %>
+    </p>
+  </div>
   <p class='email-list-item-time-date'>
     <%= tail.getTimeOrDate() %>
   </p>

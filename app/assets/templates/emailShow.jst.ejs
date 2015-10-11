@@ -13,6 +13,6 @@
 <p class='email-show-date-time'>
   <%= email.getTimeOrDate() %>
 </p>
-<p class='email-show-body'>
-  <%= email.escape('body') %>
-</p>
+<pre class='email-show-body'>
+<%= email.escape('body') %>
+</pre>

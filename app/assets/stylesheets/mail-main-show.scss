@@ -47,10 +47,11 @@
 }
 
 .email-list-item-link p,
-.email-list-item-div p {
-  top: 50%;
-  transform: translateY(-50%);
-  position: relative;
+.email-list-item-div p,
+.email-list-item-subject-and-preview {
+  line-height: 38px;
+  height: 38px;
+  vertical-align: middle;
 }
 
 .check-box {
@@ -104,22 +105,37 @@
 .email-list-item-correspondent {
   float: left;
   margin: 0 10px;
+  width: 200px;
 }
 
 .email-list-item-subject {
-  float: left;
-  margin-left: 80px;
+  display: inline-block;
 }
 
 .email-list-item-preview {
-  float: left;
   margin-left: 5px;
   color: gray;
+  display: inline-block;
+  min-width: 100px;
+}
+
+.email-list-item-subject-and-preview {
+  float: left;
+  max-width: 775px;
+  min-width: 200px;
+  width: calc(100% - 340px);
+  display: inline-block;
+  overflow: hidden;
+
+  text-overflow: clip;
+  white-space: nowrap;
 }
 
 .email-list-item-time-date {
-  float: right;
   margin: 0 20px 0 40px;
+  position: absolute;
+  right: 5px;
+  display: inline-block;
 }
 
 // EMAIL SHOW ITEM
@@ -163,6 +179,7 @@
   color: #222;
   width: calc(100% - 140px);
   word-wrap: break-word;
+  font-family: inherit;
 }
 
 .email-show-item .star {
