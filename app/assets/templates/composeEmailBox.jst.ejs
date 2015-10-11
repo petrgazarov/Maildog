@@ -4,21 +4,24 @@
          class='icon-light-cross'></aside>
 </header>
 
-<label class='compose-email-popup-to'>To:
+<label class='compose-email-popup-to'>To
   <input type='text' name='email[addressees][email]'>
   <input type='hidden' name='email[addressees][email_type]' value='to'>
 </label>
-<p class='compose-email-from'>
-  From: <%= Maildog.currentUser.escape('email') %>
-</p>
-<label class='compose-email-subject'>Subject:
-  <input type='text' name='email[subject]' value="<%= email.escape('subject') %>">
+<pre class='compose-email-from'>
+From   <%= Maildog.currentUser.escape('email') %>
+</pre>
+<label class='compose-email-subject'>
+  <input type='text' name='email[subject]' value="<%= email.escape('subject') %>"
+         placeholder="Subject">
 </label>
-<label class='compose-email-body'>Body:
+<label class='compose-email-body'>
   <textarea name='email[body]'><%= email.escape('body') %></textarea>
 </label>
-<div class='garbage-can-holder'>
-  <aside id='delete-message' class='icon-garbage-can'></aside>
+<div class='compose-email-footer'>
+  <div class='garbage-can-holder'>
+    <aside id='delete-message' class='icon-garbage-can'></aside>
+  </div>
+  <p class='saving-saved'></p>
+  <button class='blue-button'>Send</button>
 </div>
-<p class='saving-saved'></p>
-<button class='blue-button'>Send</button>
