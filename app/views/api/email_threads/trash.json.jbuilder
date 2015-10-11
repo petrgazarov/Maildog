@@ -2,9 +2,9 @@ json.array! @threads do |thread|
   json.extract! thread, :subject, :id, :checked
 
   json.tail do
-    email = thread.emails.select { |email| !email.trash }
-                         .sort_by { |email| [email.date, email.time] }
-                         .last
+    email = thread.emails.select { |email| email.trash }
+                  .sort_by { |email| [email.date, email.time] }
+                  .last
 
     json.partial! "api/emails/email", email: email
   end

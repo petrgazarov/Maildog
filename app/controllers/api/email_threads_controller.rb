@@ -69,7 +69,7 @@ class Api::EmailThreadsController < ApplicationController
                 .where(owner_id: current_user_contact.id)
                 .joins(:emails)
                 .where("emails.trash = true")
-    render :index
+    render :trash
   end
 
   def search
