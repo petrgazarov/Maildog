@@ -2,6 +2,7 @@
   height: 60px;
   line-height: 58px;
   background: rgba(243,243,243,.85);
+  min-width: 900px;
 }
 
 .main-page-logo .dog-logo {
@@ -16,11 +17,17 @@
 }
 
 .search-bar {
-  float: left;
   height: 60px;
   line-height: 58px;
-  width: 700px;
+  float: left;
+  width: auto;
+  text-align: left;
   text-align: start;
+  width: calc(100% - 400px);
+  position: relative;
+  max-width: 650px;
+  min-width: 300px;
+
 }
 
 .search-bar input {
@@ -31,7 +38,7 @@
   height: 27px;
   line-height: normal;
   white-space: nowrap;
-  width: 570px;
+  width: calc(100% - 120px);
   padding: 0 8px;
 }
 
@@ -57,6 +64,7 @@
   border-bottom: 1px #e5e5e5 solid;
   border-top: 1px #e5e5e5 solid;
   margin-bottom: 10px;
+  min-width: 900px;
 }
 
 .pages-menu {

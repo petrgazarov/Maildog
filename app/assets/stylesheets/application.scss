@@ -49,6 +49,10 @@ button {
   cursor: pointer;
 }
 
+.main-container {
+  min-width: 900px;
+}
+
 .group:after {
   clear: both;
   display: block;
