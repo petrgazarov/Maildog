@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :emails, except: [:new, :edit] do
       collection do
         post :trash
+        post :recover
       end
     end
 

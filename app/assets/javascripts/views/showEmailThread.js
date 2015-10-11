@@ -7,7 +7,13 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     this.model.fetch();
     this.trash = options.trash;
     Backbone.pubSub.on("deleteThread", this.deleteThread, this);
-    Backbone.pubSub.on("moveToTrashThread", this.moveToTrashThread, this);
+    Backbone.pubSub.on("moveToTrashThread", function() {
+      this.changeTrashValue("trash");
+    }.bind(this));
+    Backbone.pubSub.on("recoverThread", function() {
+      this.changeTrashValue("recover");
+    }.bind(this));
+
     Maildog.router.currentEmailThread = this.model;
   },
 
@@ -48,20 +54,25 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     Maildog.router.addFlash("The conversation has been deleted.");
   },
 
-  moveToTrashThread: function() {
+  changeTrashValue: function(urlCap) {
     var email_ids = [];
+    if (urlCap === 'trash') {
+      var flashMessage = "The conversation has been moved to the Trash.";
+    } else {
+      var flashMessage = "The conversation has been recovered."
+    }
     this.collection.forEach(function(email) {
       email_ids.push(email.id);
     });
 
     $.ajax({
-      url: "api/emails/trash",
+      url: "api/emails/" + urlCap,
       type: "POST",
       data: { "email_ids": email_ids },
       dataType: "json",
       success: function() {
         Backbone.history.navigate("#", { trigger: true })
-        Maildog.router.addFlash("The conversation has been moved to the Trash.");
+        Maildog.router.addFlash(flashMessage);
       },
       error: function() {
         alert("error");
