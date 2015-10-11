@@ -59,7 +59,6 @@ button {
   display: none;
 }
 
-
 .blue-button {
   font-size: 13px;
   border: 1px solid #3079ed;
@@ -131,10 +130,6 @@ button {
   overflow: hidden;
 }
 
-.pink-background {
-  background: #ffccd4;
-}
-
 .dog-logo {
   display: block;
   width: 100px;
@@ -147,4 +142,64 @@ button {
 .form-error-message {
   color: #dd4b39;
   font-size: 14px;
+}
+
+.garbage-can-holder {
+  float: right;
+  width: 28px;
+  height: 27px;
+  margin-right: 5px;
+  margin-top: 3px;
+  display: block;
+  border: 1px solid rgba(0,0,0,0);
+}
+
+.garbage-can-holder:hover {
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  -webkit-transition: all 0s;
+  background: -webkit-gradient(linear,left top,left bottom,from(#f8f8f8),to(#f1f1f1));
+  border: 1px solid rgba(0,0,0,0.2);
+}
+
+.icon-garbage-can {
+  background: no-repeat image-url('sprite.png') 0 -239px;
+  background-image: image-url('sprite.png');
+  background-position-x: 0px;
+  background-position-y: -239px;
+  width: 21px;
+  height: 21px;
+  margin: 5px 0 0 2px;
+  opacity: .55;
+  float: right;
+  padding: 3px 0 3px 0;
+  display: block;
+}
+
+.icon-garbage-can:hover {
+  opacity: 1;
+}
+
+.star {
+  background-image: image-url('star.png');
+  display: block;
+  height: 19px;
+  width: 19px;
+  position: relative;
+  float: left;
+  margin: 0 5px;
+  cursor: pointer;
+  top: 45%;
+  transform: translateY(-45%);
+}
+
+.star:hover {
+  background-image: image-url('star-hover.png');
+}
+
+.star-on {
+  background-image: image-url('star-lit.png');
+}
+
+.star-on:hover {
+  background-image: image-url('star-lit-hover.png');
 }

@@ -10,6 +10,48 @@
   text-align: left;
 }
 
+.email-thread-list {
+  margin-right: 280px;
+  min-width: 750px;
+}
+
+// EMAIL ITEM ITEM
+
+.email-list:first-child {
+  border-top: 1px #e5e5e5 solid;
+}
+
+.email-list-item {
+  height: 38px;
+  font-size: 14px;
+  background: rgba(243,243,243,.85);
+  border-bottom: 1px #e5e5e5 solid;
+}
+
+.checked-list-item {
+  background: #ffc;
+}
+
+.email-list-item-link,
+.email-list-item-div {
+  cursor: pointer;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+  width: calc(100% - 60px);
+  float: right;
+  text-align: left;
+  height: 100%;
+}
+
+.email-list-item-link p,
+.email-list-item-div p {
+  top: 50%;
+  transform: translateY(-50%);
+  position: relative;
+}
+
 .check-box {
   float: left;
   display: block;
@@ -54,41 +96,6 @@
   background-color: #fff;
 }
 
-.email-list:first-child {
-  border-top: 1px #e5e5e5 solid;
-}
-
-.email-list-item {
-  height: 38px;
-  font-size: 14px;
-  background: rgba(243,243,243,.85);
-  border-bottom: 1px #e5e5e5 solid;
-}
-
-.checked-list-item {
-  background: #ffc;
-}
-
-.email-list-item-link,
-.email-list-item-div {
-  cursor: pointer;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  display: block;
-  width: calc(100% - 60px);
-  float: right;
-  text-align: left;
-  height: 100%;
-}
-
-.email-list-item-link p,
-.email-list-item-div p {
-  top: 50%;
-  transform: translateY(-50%);
-  position: relative;
-}
-
 .email-list-item-star {
   float: left;
 }
@@ -113,6 +120,8 @@
   float: right;
   margin: 0 20px 0 40px;
 }
+
+// EMAIL SHOW ITEM
 
 .email-show-item {
   border-top: 1px #e5e5e5 solid;
@@ -172,11 +181,6 @@
   margin: 15px 50px;
 }
 
-.email-thread-list {
-  margin-right: 280px;
-  min-width: 750px;
-}
-
 .email-show-item:last-child {
   border-bottom: 1px solid #e5e5e5;
 }
@@ -222,32 +226,6 @@
 .reply-forward-footer .garbage-can-holder {
   margin-right: 15px;
   margin-top: 5px;
-}
-
-
-.star {
-  background-image: image-url('star.png');
-  display: block;
-  height: 19px;
-  width: 19px;
-  position: relative;
-  float: left;
-  margin: 0 5px;
-  cursor: pointer;
-  top: 45%;
-  transform: translateY(-45%);
-}
-
-.star:hover {
-  background-image: image-url('star-hover.png');
-}
-
-.star-on {
-  background-image: image-url('star-lit.png');
-}
-
-.star-on:hover {
-  background-image: image-url('star-lit-hover.png');
 }
 
 .email-show-item .garbage-can-holder {
