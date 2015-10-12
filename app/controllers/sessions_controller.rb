@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   end
 
   def create_guest
-    @user = User.find_by_credentials("petr", "password")
+    @user = User.find_by_credentials("barack", "password")
     log_in!(@user)
     redirect_to root_url
   end

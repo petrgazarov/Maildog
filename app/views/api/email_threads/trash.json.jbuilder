@@ -3,7 +3,7 @@ json.array! @threads do |thread|
 
   json.tail do
     email = thread.emails.select { |email| email.trash }
-                  .sort_by { |email| [email.date, email.time] }
+                  .sort_by { |email| email.time }
                   .last
 
     json.partial! "api/emails/email", email: email

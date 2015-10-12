@@ -6,7 +6,10 @@ class Label < ActiveRecord::Base
     foreign_key: :owner_id
 
   has_many :thread_labels,
-    dependent: :destroy
+    class_name: "ThreadLabel",
+    foreign_key: :label_id,
+    dependent: :destroy,
+    inverse_of: :label
 
   has_many :threads,
     through: :thread_labels,

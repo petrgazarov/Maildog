@@ -9,7 +9,10 @@ class EmailThread < ActiveRecord::Base
     foreign_key: :owner_id
 
   has_many :thread_labels,
-    dependent: :destroy
+    class_name: "ThreadLabel",
+    foreign_key: :email_thread_id,
+    dependent: :destroy,
+    inverse_of: :thread
 
   has_many :labels,
     through: :thread_labels,

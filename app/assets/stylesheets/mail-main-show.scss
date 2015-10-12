@@ -16,7 +16,7 @@
   min-width: 750px;
 }
 
-// EMAIL ITEM ITEM
+// EMAIL LIST ITEM
 
 .email-list:first-child {
   border-top: 1px #e5e5e5 solid;
@@ -121,7 +121,7 @@
 
 .email-list-item-subject-and-preview {
   float: left;
-  max-width: 775px;
+  max-width: 875px;
   min-width: 200px;
   width: calc(100% - 340px);
   display: inline-block;
@@ -178,8 +178,9 @@
   clear: both;
   color: #222;
   width: calc(100% - 140px);
-  word-wrap: break-word;
+  white-space: pre-wrap;
   font-family: inherit;
+
 }
 
 .email-show-item .star {

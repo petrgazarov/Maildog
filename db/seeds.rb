@@ -42,6 +42,14 @@ barack = petr_user.contacts.create(
   gender: "M"
 )
 
+barack = barack_user.contacts.create(
+  email: "barack@maildog.xyz",
+  first_name: "Barack",
+  last_name: "Obama",
+  job_title: "Politician",
+  gender: "M"
+)
+
 nikita = petr_user.contacts.create(
   email: "nikita@maildog.xyz",
   first_name: "Nikita",
@@ -228,22 +236,297 @@ john_kerry = barack_user.contacts.create(
   gender: "M"
 )
 
-b_thread1 = EmailThread.new(subject: "hi", owner: barack)
+john_boehner = barack_user.contacts.create(
+  email: "john.boehner@maildog.xyz",
+  first_name: "John",
+  last_name: "Boehner",
+  photo_src_path: nil,
+  gender: "M"
+)
 
+osama_bin_laden = barack_user.contacts.create(
+  email: "osama.bin.laden@maildog.xyz",
+  first_name: "Osama",
+  last_name: "Bin Laden",
+  photo_src_path: nil,
+  gender: "M"
+)
 
-hillary_email = petr.received_emails.create(
+vladimir_putin = barack_user.contacts.create(
+  email: "vladimir.putin@maildog.xyz",
+  first_name: "Vladimir",
+  last_name: "Putin",
+  photo_src_path: nil,
+  gender: "M"
+)
+
+family_label = barack.labels.create!(name: "Family")
+
+b_thread1 = EmailThread.create!(subject: "checking in", owner: barack)
+
+hillary_checkin_1 = hillary.received_emails.create(
   thread: b_thread1,
-  subject: "hi",
-  body: "Friend -- \n"\
-        "When I take the stage in Las Vegas at the first Democratic \n"\
-        "debate of this election, it will mean so much to know that a \n"\
-        "few of my best supporters are in the audience cheering me on.\n\n"\
-        "Today the campaign is launching a contest -- and if you win, you \n"\
-        "could fly out and meet me at the debate next month. Add your name \n"\
-        "to enter right now:\n\n"\
-        "https://www.hillaryclinton.com/meet-hillary-at-the-debate/\n\n"\
-        "Thanks,\n"\
-        "Hillary",
-  sender: hillary,
+  subject: "checking in",
+  body:
+"Hey Hill, I just wanted to check in. Is everything going alright?\n"\
+"Love,\n"\
+"Barack",
+
+  sender: barack,
   time: DateTime.new(2015,10,1,9,27,51).in_time_zone
+)
+
+hillary_checkin_2 = barack.received_emails.create(
+  thread: b_thread1,
+  subject: "checking in",
+  body:
+"Hey Barack,\n"\
+"Overwhelmed with the campaign, not easy. There are a dozen hungry republicans "\
+"and I'm basically alone, Bernie and I.\n"\
+"Hanging in there though.\n\n"\
+"Hill",
+
+  sender: hillary,
+  time: DateTime.new(2015,10,1,9,27,51).in_time_zone,
+  original_email: hillary_checkin_1,
+  parent_email: hillary_checkin_1
+)
+
+hillary_checkin_3 = hillary.received_emails.create(
+  thread: b_thread1,
+  subject: "checking in",
+  body:
+"Yeah, things are tough right now, but you know, if you never run, you never win.\n"\
+"Also, something I want to tell you: when going into the debate, you can blaim me "\
+"for the current federal spending issues.",
+
+  sender: barack,
+  time: DateTime.new(2015,10,1,9,27,51).in_time_zone,
+  original_email: hillary_checkin_1,
+  parent_email: hillary_checkin_2
+)
+
+hillary_checkin_4 = barack.received_emails.create(
+  thread: b_thread1,
+  subject: "checking in",
+  body:
+"Thanks for the nice words, Barack, catch up in a few.",
+
+  sender: hillary,
+  time: DateTime.new(2015,10,1,9,27,51).in_time_zone,
+  original_email: hillary_checkin_1,
+  parent_email: hillary_checkin_3
+)
+
+b_thread2 = EmailThread.create!(subject: "hi", owner: barack)
+
+barack.received_emails.create(
+  thread: b_thread2,
+  subject: "hi",
+  body:
+"Friend --\n\n"\
+"When I take the stage in Las Vegas at the first Democratic debate of this "\
+"election, it will mean so much to know that a few of my best supporters are "\
+"in the audience cheering me on.\n\n"\
+"Today the campaign is launching a contest -- and if you win, you could fly "\
+"out and meet me at the debate next month. Add your name to enter right now:\n\n"\
+"https://www.hillaryclinton.com/meet-hillary-at-the-debate/\n\n"\
+"Thanks,\n\n"\
+"Hillary",
+
+  sender: hillary,
+  trash: true,
+  time: DateTime.new(2015,10,1,9,27,51).in_time_zone
+)
+
+b_thread3 = EmailThread.create!(
+  subject: "I'm not watching tonight's debate", owner: barack
+)
+
+barack.received_emails.create(
+  thread: b_thread3,
+  subject: "I'm not watching tonight's debate",
+  body:
+"Friend --\n\n"\
+"Right this minute, ten Republican men are on national TV, arguing over which "\
+"one will do the best job of dragging our country backwards.\n\n"\
+"I'm not watching, and I don't need to be.\n\n"\
+"Donald Trump, Jeb Bush, Scott Walker, Marco Rubio -- they all have the "\
+"same agenda. They are out of step with the kind of country Americans want "\
+"for themselves and their children.\n\n"\
+"I'm on the road tonight, but I wanted to take a moment to ask you to chip "\
+"in $1 or more right now to fight for the vision you and I share:\n\n"\
+"https://www.hillaryclinton.com/gop-debate/\n\n"\
+"Thanks,\n\n"\
+"Hillary",
+
+  sender: hillary,
+  time: DateTime.new(2015,8,6,11,03,21).in_time_zone
+)
+
+b_thread4 = EmailThread.create!(
+  subject: "Here's the plan --", owner: barack
+)
+
+barack.received_emails.create(
+  thread: b_thread4,
+  subject: "Here's the plan --",
+  body:
+"Friend --\n\n"\
+"Earlier this week, I rolled out one of the biggest plans of this campaign: "\
+"the New College Compact.\n\n"\
+"Access to higher education is critical to strengthening middle-class "\
+"families. College needs to be affordable and available to everyone.\n\n"\
+"The New College Compact helps everyone -- from students who are just "\
+"starting out to those already struggling to pay back their loans.\n\n"\
+"There’s a lot in this plan, so to figure out exactly how it could help you, "\
+"answer a few short questions now:\n\n"\
+"https://www.hillaryclinton.com/collegequiz/\n\n"\
+"Thanks,\n\n"\
+"Hillary",
+
+  sender: hillary,
+  time: DateTime.new(2015,8,13,4,13,21).in_time_zone
+)
+
+b_thread5 = EmailThread.create!(
+  subject: "If you’re in, your name should be on this:", owner: barack
+)
+
+barack.received_emails.create(
+  thread: b_thread5,
+  subject: "If you’re in, your name should be on this:",
+  body:
+"Friend --\n\n"\
+"I'm asking you to pitch in to help build this campaign today -- even if it's "\
+"just $1 -- and put your name on our brand new Donor Wall here at campaign HQ.\n\n"\
+"We’re building a wall because we want to have something tangible that shows "\
+"what kind of campaign this is: an organization powered by hundreds of thousands of Americans.\n\n"\
+"Are you in?\n\n"\
+"https://www.hillaryclinton.com/get-on-the-wall/\n\n"\
+"Thanks,\n\n"\
+"Hillary",
+
+  sender: hillary,
+  trash: true,
+  time: DateTime.new(2015,8,19,6,13,21).in_time_zone
+)
+
+b_thread6 = EmailThread.create!(
+  subject: "dinner?", owner: barack
+)
+
+hillary_diner_email = barack.received_emails.create(
+  thread: b_thread6,
+  subject: "dinner?",
+  body:
+"Friend --\n\n"\
+"I'd like to get to know you, and I can't think of a better way to do that "\
+"than sitting down to dinner together.\n\n"\
+"We don't have to talk politics or get too serious -- no homework assignments before "\
+"this dinner. I just want to know what's on your mind, and I'd like to thank "\
+"you for being a part of this team.\n\n"\
+"The campaign will take care of your travel and accommodations, so you can "\
+"relax and enjoy our time together.\n\n"\
+"Chip in right now to be automatically entered for another chance to meet "\
+"me on the campaign trail:\n\n"\
+"https://www.hillaryclinton.com/enter-dinner-with-hillary/\n\n"\
+"See you for dinner,\n\n"\
+"Hillary",
+
+  sender: hillary,
+  time: DateTime.new(2015,8,25,6,44,21).in_time_zone
+)
+
+hillary.received_emails.create(
+  thread: b_thread6,
+  subject: "dinner?",
+  body:
+"Haha, Hillary, we've dined just the other day! Sure, why not.",
+
+  sender: barack,
+  time: DateTime.new(2015,8,26,1,25,21).in_time_zone,
+  original_email: hillary_diner_email,
+  parent_email: hillary_diner_email
+)
+
+b_thread7 = EmailThread.create!(subject: "From supporter", owner: barack)
+
+barack.received_emails.create(
+  thread: b_thread7,
+  subject: "From supporter",
+  body:
+"Hi Barack, \n\n"\
+"I'm Rando John, a random person from California. I just wanted to tell you "\
+"personally how much I support you and like what you are trying to do.\n"\
+"That's right, the republicans are giving you trouble, but isn't that how it "\
+"is supposed to be? Anyways, you probably know that better than I do.\n"\
+"Here is what I'm getting at: my wife and I are having an anniversary next weekend, "\
+"Will you join us? I know you will be in Ttexas then, but there is a good Delta flight "\
+"leaving Saturday at 11 in the morning, and it will get you here right in time.\n"\
+"There is free alcohol and BBQ.\n\n"\
+"With very best wishes,\n"\
+"Rando",
+  sender: rando_john,
+  time: DateTime.new(2015,10,1,2,15,21).in_time_zone
+)
+
+b_thread8 = family_label.threads.new(subject: "Tonight", owner: barack)
+b_thread8.save!
+
+michelle_diner_email = michelle.received_emails.create(
+  thread: b_thread8,
+  subject: "Tonight",
+  body:
+"Hey honey, what are we having for diner tonight?",
+
+  sender: barack,
+  time: DateTime.new(2015,10,8,15,55,21).in_time_zone
+)
+
+michelle_diner_email_2 = barack.received_emails.create(
+  thread: b_thread8,
+  subject: "Tonight",
+  body:
+"My uncle made an awesome BBQ rack of lamb, it's DELICIOUS. You should have Joe "\
+"come join us for dinner!\n"\
+"Michelle",
+
+  sender: michelle,
+  starred: true,
+  time: DateTime.new(2015,10,8,16,15,21).in_time_zone,
+  original_email: michelle_diner_email,
+  parent_email: michelle_diner_email
+)
+
+b_thread9 = family_label.threads.new(subject: "My first prom", owner: barack)
+b_thread9.save!
+
+malia_email = barack.received_emails.create(
+  thread: b_thread9,
+  subject: "My first prom",
+  body:
+"Daddy, I attended my first prom friday and it was Awesome!!\n"\
+"When will you be home?\n\n"\
+"Love,\n"\
+"Malia",
+
+  sender: malia,
+  time: DateTime.new(2015,5,8,21,31,21).in_time_zone
+)
+
+malia.received_emails.create(
+  thread: b_thread9,
+  subject: "My first prom",
+  body:
+"I'm very glad for you, my dear.\n"\
+"John Boehner and I are having a little argument here over federal spending, "\
+"so I'm still in a meeting. I will do my best to make it home before midnight.\n\n"\
+"Love,\n"\
+"Dad",
+
+  sender: barack,
+  time: DateTime.new(2015,5,8,21,55,21).in_time_zone,
+  original_email: malia_email,
+  parent_email: malia_email
 )
