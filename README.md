@@ -22,7 +22,7 @@ Below is a list of languages/frameworks/libraries/technologies I used:
 * Backbone.js
 * HTML/CSS
 * PostgreSQL
-* JQery/AJAX
+* JQuery/AJAX
 * sendgrid
 * pg_search
 * jbuilder
