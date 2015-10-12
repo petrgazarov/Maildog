@@ -52,23 +52,21 @@ ActiveRecord::Schema.define(version: 20151011200726) do
   end
 
   create_table "emails", force: :cascade do |t|
+    t.string   "subject"
     t.text     "body"
     t.integer  "sender_id"
     t.boolean  "starred",           default: false
-    t.date     "date",                              null: false
-    t.time     "time",                              null: false
+    t.datetime "time",                              null: false
     t.integer  "original_email_id"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.integer  "parent_email_id"
     t.boolean  "draft",             default: false
     t.boolean  "trash",             default: false
-    t.text     "subject"
     t.integer  "email_thread_id"
   end
 
   add_index "emails", ["original_email_id"], name: "index_emails_on_original_email_id", using: :btree
-  add_index "emails", ["sender_id", "date"], name: "index_emails_on_sender_id_and_date", using: :btree
   add_index "emails", ["sender_id", "starred"], name: "index_emails_on_sender_id_and_starred", using: :btree
   add_index "emails", ["sender_id", "time"], name: "index_emails_on_sender_id_and_time", using: :btree
   add_index "emails", ["sender_id"], name: "index_emails_on_sender_id", using: :btree
@@ -91,14 +89,15 @@ ActiveRecord::Schema.define(version: 20151011200726) do
   end
 
   create_table "thread_labels", force: :cascade do |t|
+    t.integer  "email_id",        null: false
     t.integer  "label_id",        null: false
-    t.integer  "email_thread_id", null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "email_thread_id", null: false
   end
 
+  add_index "thread_labels", ["email_id"], name: "index_thread_labels_on_email_id", using: :btree
   add_index "thread_labels", ["email_thread_id", "label_id"], name: "index_thread_labels_on_email_thread_id_and_label_id", unique: true, using: :btree
-  add_index "thread_labels", ["email_thread_id"], name: "index_thread_labels_on_email_thread_id", using: :btree
   add_index "thread_labels", ["label_id"], name: "index_thread_labels_on_label_id", using: :btree
 
   create_table "users", force: :cascade do |t|

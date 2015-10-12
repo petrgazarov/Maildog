@@ -51,6 +51,7 @@ class Api::EmailsController < ApplicationController
   end
 
   def save_email(email)
+    byebug
     createOrSetThread(email)
 
     if email.save
@@ -74,6 +75,8 @@ class Api::EmailsController < ApplicationController
   def persist_and_send_email(action, email)
     contact, email_addressee = create_or_get_contact_and_email_addressee(email)
     createOrSetThread(email)
+
+    email.time = DateTime.now.in_time_zone
 
     if (action == :update && email.update!(email_params)) ||
          (action == :create && email.save!)

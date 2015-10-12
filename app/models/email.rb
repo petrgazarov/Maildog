@@ -8,7 +8,7 @@ class Email < ActiveRecord::Base
     find_each { |record| record.update_pg_search_document }
   end
 
-  validates :date, :time, presence: true
+  validates :time, presence: true
 
   belongs_to :sender,
     class_name: "Contact",
@@ -43,13 +43,10 @@ class Email < ActiveRecord::Base
     class_name: "EmailThread",
     foreign_key: :email_thread_id
 
-  after_initialize :ensure_date_and_time
+  before_save :ensure_time
 
-  def ensure_date_and_time
-    if !self.trash
-      self.date ||= Date.today
-      self.time ||= Time.now
-    end
+  def ensure_time
+      self.time ||= DateTime.now.in_time_zone
   end
 
   def changed_star_or_trash(new_starred, new_trash)

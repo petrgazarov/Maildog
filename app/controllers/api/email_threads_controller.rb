@@ -3,7 +3,7 @@ class Api::EmailThreadsController < ApplicationController
     @email_thread = EmailThread.includes(:labels).find(params[:id])
     @emails = Email.includes(:sender, :addressees)
                    .where(email_thread_id: params[:id])
-                   .order(date: :asc, time: :asc)
+                   .order(time: :asc)
 
     render :show
   end

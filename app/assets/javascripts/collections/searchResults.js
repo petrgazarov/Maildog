@@ -10,7 +10,7 @@ Maildog.Collections.SearchResults = Backbone.Collection.extend({
 	},
 
 	comparator: function(thread) {
-		return [thread.tail().get('date'), thread.tail().get('time')]
+		return thread.tail().get('time');
 	},
 
 	model: function (attrs) {
@@ -23,7 +23,7 @@ Maildog.Collections.SearchResults = Backbone.Collection.extend({
 	},
 
   folderName: function() {
-    return "Search"
+    return "Search";
   },
 
 	noConversationsMemo: function() {
