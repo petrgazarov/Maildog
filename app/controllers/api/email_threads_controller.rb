@@ -77,6 +77,7 @@ class Api::EmailThreadsController < ApplicationController
       .multisearch(params[:query])
       .includes(:searchable)
       .page(params[:page])
+    @current_user_contact = current_user_contact
 
     render :search
   end
