@@ -39,14 +39,6 @@ barack = petr_user.contacts.create(
   gender: "M"
 )
 
-hillary = petr_user.contacts.create(
-  email: "hillary@maildog.xyz",
-  first_name: "Hillary",
-  last_name: "Clinton",
-  job_title: "Politician",
-  gender: "F"
-)
-
 nikita = petr_user.contacts.create(
   email: "nikita@maildog.xyz",
   first_name: "Nikita",
@@ -56,7 +48,6 @@ nikita = petr_user.contacts.create(
 )
 
 thread1 = EmailThread.new(subject: "What is best practice?", owner: petr)
-thread2 = EmailThread.new(subject: "hi", owner: petr)
 thread3 = EmailThread.new(subject: "Atom editor", owner: petr)
 thread4 = EmailThread.new(subject: "Have a good weekend!", owner: petr)
 
@@ -74,24 +65,6 @@ practice_email = petr.received_emails.create(
   sender: petr,
   date: 'Thu, 17 Sep 2015',
   time: '2000-01-01 09:07:48 UTC'
-)
-
-hillary_email = petr.received_emails.create(
-  thread: thread2,
-  subject: "hi",
-  body: "Friend -- \n"\
-        "When I take the stage in Las Vegas at the first Democratic \n"\
-        "debate of this election, it will mean so much to know that a \n"\
-        "few of my best supporters are in the audience cheering me on.\n\n"\
-        "Today the campaign is launching a contest -- and if you win, you \n"\
-        "could fly out and meet me at the debate next month. Add your name \n"\
-        "to enter right now:\n\n"\
-        "https://www.hillaryclinton.com/meet-hillary-at-the-debate/\n\n"\
-        "Thanks,\n"\
-        "Hillary",
-  sender: hillary,
-  date: 'Thu, 17 Sep 2015',
-  time: '2000-01-01 09:16:34 UTC'
 )
 
 atom_message_1 = petr.received_emails.create(
@@ -210,4 +183,75 @@ barack_email_5 = barack.received_emails.create(
   time: '2000-01-01 10:44:22 UTC',
   original_email: barack_email_1,
   parent_email: barack_email_4
+)
+
+# BARACKS SEEDS
+
+hillary = barack_user.contacts.create(
+  email: "hillary@maildog.xyz",
+  first_name: "Hillary",
+  last_name: "Clinton",
+  photo_src_path: nil,
+  gender: "F"
+)
+
+rando_john = barack_user.contacts.create(
+  email: "rando_john@maildog.xyz",
+  first_name: "Rando",
+  last_name: "John",
+  photo_src_path: nil,
+  gender: "M"
+)
+
+michelle = barack_user.contacts.create(
+  email: "michelle@maildog.xyz",
+  first_name: "Michelle",
+  last_name: "Obama",
+  photo_src_path: nil,
+  gender: "F"
+)
+
+malia = barack_user.contacts.create(
+  email: "malia@maildog.xyz",
+  first_name: "Malia",
+  last_name: "Obama",
+  photo_src_path: nil,
+  gender: "F"
+)
+
+joe_biden = barack_user.contacts.create(
+  email: "joe.biden@maildog.xyz",
+  first_name: "Joe",
+  last_name: "Biden",
+  photo_src_path: nil,
+  gender: "M"
+)
+
+john_kerry = barack_user.contacts.create(
+  email: "john.kerry@maildog.xyz",
+  first_name: "John",
+  last_name: "Kerry",
+  photo_src_path: nil,
+  gender: "M"
+)
+
+b_thread1 = EmailThread.new(subject: "hi", owner: barack)
+
+
+hillary_email = petr.received_emails.create(
+  thread: thread2,
+  subject: "hi",
+  body: "Friend -- \n"\
+        "When I take the stage in Las Vegas at the first Democratic \n"\
+        "debate of this election, it will mean so much to know that a \n"\
+        "few of my best supporters are in the audience cheering me on.\n\n"\
+        "Today the campaign is launching a contest -- and if you win, you \n"\
+        "could fly out and meet me at the debate next month. Add your name \n"\
+        "to enter right now:\n\n"\
+        "https://www.hillaryclinton.com/meet-hillary-at-the-debate/\n\n"\
+        "Thanks,\n"\
+        "Hillary",
+  sender: hillary,
+  date: 'Thu, 17 Sep 2015',
+  time: '2000-01-01 09:16:34 UTC'
 )

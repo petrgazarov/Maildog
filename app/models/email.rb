@@ -46,8 +46,10 @@ class Email < ActiveRecord::Base
   after_initialize :ensure_date_and_time
 
   def ensure_date_and_time
-    self.date ||= Date.today
-    self.time ||= Time.now.strftime("%I:%M:%S %z")
+    if !self.trash
+      self.date ||= Date.today
+      self.time ||= Time.now
+    end
   end
 
   def changed_star_or_trash(new_starred, new_trash)
