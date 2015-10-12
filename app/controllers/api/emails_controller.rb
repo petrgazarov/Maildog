@@ -51,7 +51,6 @@ class Api::EmailsController < ApplicationController
   end
 
   def save_email(email)
-    byebug
     createOrSetThread(email)
 
     if email.save

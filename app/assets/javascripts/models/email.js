@@ -62,7 +62,13 @@ Maildog.Models.Email = Backbone.Model.extend({
   },
 
   getTimeOrDate: function() {
-    return this.get('time');
+    var time = moment(this.get('time'));
+
+    if (moment().isSame(time, "day")) {
+      return time.format('h:mma')
+    } else {
+      return time.format('MMM D')
+    }
   },
 
   starOnIfStarred: function() {

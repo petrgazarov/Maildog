@@ -43,10 +43,10 @@ class Email < ActiveRecord::Base
     class_name: "EmailThread",
     foreign_key: :email_thread_id
 
-  before_save :ensure_time
+  before_validation :ensure_time
 
   def ensure_time
-      self.time ||= DateTime.now.in_time_zone
+    self.time ||= DateTime.now.in_time_zone
   end
 
   def changed_star_or_trash(new_starred, new_trash)

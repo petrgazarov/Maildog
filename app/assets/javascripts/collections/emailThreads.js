@@ -7,7 +7,7 @@ Maildog.Collections.EmailThreads = Backbone.Collection.extend({
 
     this.comparator = options.comparator ||
       function(thread) {
-        return -thread.tail().get('time');
+        return -moment(thread.tail().get('time'));
       }
   },
 

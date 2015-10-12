@@ -15,6 +15,7 @@
 //= require jquery.serializejson
 //= require jquery.transit
 //= require underscore
+//= require moment
 //= require backbone
 //= require_tree ./utils
 //= require maildog
