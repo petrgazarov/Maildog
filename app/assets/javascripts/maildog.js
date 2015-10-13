@@ -36,7 +36,6 @@ window.Maildog = {
     var mailSidebarView = new Maildog.Views.MailSidebar();
     $("#mail-sidebar").html(mailSidebarView.render().$el);
 
-
     Backbone.history.start();
   }
 };
