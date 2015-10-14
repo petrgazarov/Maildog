@@ -27,9 +27,9 @@ class Contact < ActiveRecord::Base
     class_name: "EmailThread",
     foreign_key: :owner_id
 
-  def self.create_or_get(email_address)
-    contact = Contact.find_by({ email: email_address })
-    contact ? contact : Contact.new({ email: email_address })
+  def self.create_or_get(email_address, current_user)
+    contact = Contact.where(email: email_address, owner_id: current_user.id).first
+    contact ? contact : Contact.new(email: email_address)
   end
 
   def all_emails

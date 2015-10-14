@@ -26,6 +26,8 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
     this.eachSubview(function(subview) { subview.remove() });
     this.$el.html(this.template());
     this.collection.sort();
+
+    this.checkedThreads = this._extractCheckedThreads();
     this.collection.forEach(this.addSubviewForThread.bind(this));
     return this;
   },
@@ -76,9 +78,7 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
       this.checkedThreads.splice(index, 1);
     }
 
-    Backbone.pubSub.trigger('checkBox',
-      this.checkedThreads, this.folder
-    );
+    Backbone.pubSub.trigger('checkBox', this.checkedThreads);
   },
 
   insertNoConversationsMemo: function() {
@@ -86,5 +86,20 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
       this.$('.email-list-empty-folder-memo')
         .text(this.collection.noConversationsMemo());
     }
+  },
+
+  _extractCheckedThreads: function() {
+    var checkedThreads = [];
+
+    this.collection.forEach(function(thread) {
+      if (thread.get('checked')) {
+        checkedThreads.push(thread.id);
+      }
+    });
+    if (checkedThreads.length > 0) {
+      Backbone.pubSub.trigger('checkBox', checkedThreads);
+    }
+
+    return checkedThreads;
   }
 });

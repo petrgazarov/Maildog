@@ -16,24 +16,14 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
   },
 
   render: function() {
-    var correspondent = this.thread.tail().correspondentString(this.folder);
-    var trash = (this.folder === "trash" ? "/trash" : null);
-    var content = this.template({
-      thread: this.thread,
-      tail: this.email,
-      correspondent: correspondent,
-      trash: trash,
-      emailCount: this.thread.displayCount(this.folder)
-    });
+    var content = this._determineContent();
     this.$el.html(content);
+    this._renderCheckIfChecked();
 
     if (this.email.get('trash')) {
       this.$('.star').remove();
     }
     if (this.folder === "drafts") { this.swapLinkForDiv(); }
-    if (this.thread.get('checked')) {
-      this.$el.addClass("checked-list-item");
-    }
 
     return this;
   },
@@ -98,5 +88,26 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
         alert("error")
       }
     });
+  },
+
+  _determineContent: function() {
+    var correspondent = this.thread.tail().correspondentString(this.folder);
+    var trash = (this.folder === "trash" ? "/trash" : null);
+
+    return this.template({
+      thread: this.thread,
+      tail: this.email,
+      correspondent: correspondent,
+      trash: trash,
+      emailCount: this.thread.displayCount(this.folder)
+    });
+  },
+
+  _renderCheckIfChecked: function() {
+    if (this.thread.get('checked')) {
+      this.$el.addClass("checked-list-item");
+      this.$('.check-box-container').addClass('checked');
+      this.$('.check-box').addClass('checked-check-box');
+    }
   }
 });

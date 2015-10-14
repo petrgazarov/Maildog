@@ -91,7 +91,7 @@ class Api::EmailsController < ApplicationController
   end
 
   def create_or_get_contact_and_email_addressee(email)
-    contact = Contact.create_or_get(params[:email][:addressees][:email])
+    contact = Contact.create_or_get(params[:email][:addressees][:email], current_user)
     save_contact_if_new(contact)
 
     email_addressee = email.email_addressees.new(
