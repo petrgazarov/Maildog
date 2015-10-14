@@ -66,6 +66,7 @@ Maildog.Views.MainFolders = Backbone.CompositeView.extend({
       Maildog.router.addFlash('Please close one of the windows and try again', 5000);
       return;
     }
+    
     Maildog.router.removeFlashes();
     var view = new Maildog.Views.ComposeEmailBox();
     this.addSubview('.compose-email-popup-container', view, true);

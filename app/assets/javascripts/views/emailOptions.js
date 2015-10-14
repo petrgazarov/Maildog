@@ -140,11 +140,11 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
 
   checkBox: function(checkedThreads) {
     this.checkedThreads = checkedThreads;
+    var trash = this.state === "trash" ? true : false
 
     if (this.checkedThreads.length === 0) {
-      this.render();
+      this.render(this.state, trash, false);
     } else {
-      var trash = this.state === "trash" ? true : false
       this.render(this.state, trash, true);
     }
   },
@@ -174,7 +174,10 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
   },
 
   _twickTemplate: function(state, checked) {
-    if (checked) { this.$('#email-show-back-button').remove() }
+    if (checked) {
+      this.$('#email-show-back-button').remove();
+      this.$('.label-as-button-container').remove();
+    }
     if (state === "drafts") {
       this.$('#delete-email-thread').text("Discard Drafts")
                                     .css("font-size", 14).css('width', '100px');
@@ -216,6 +219,9 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
         Maildog.currentThreadList.refreshCollection();
         Maildog.router.addFlash(flashMessage);
         this.checkedThreads = [];
+
+        var trash = this.state === "trash" ? true : false
+        this.render(this.state, trash, false);
       }.bind(this),
       error: function() {
         alert("error");

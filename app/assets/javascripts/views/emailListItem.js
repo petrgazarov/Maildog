@@ -70,24 +70,14 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
   },
 
   showDraft: function() {
+    if (Maildog.mainFolders.subviews('.compose-email-popup-container')
+                           .values().length === 2) {
+      Maildog.router.addFlash('Please close one of the windows and try again', 5000);
+      return;
+    }
     Maildog.router.removeFlashes();
-    var thread = new Maildog.Models.EmailThread({ id: this.thread.id });
-    thread.fetch({
-      success: function() {
-        if (thread.emails().length === 1) {
-          var view = new Maildog.Views.ComposeEmailBox({
-            email: thread.emails().at(0)
-          });
-          Maildog.mainFolders.addSubview('.compose-email-popup-container', view);
-          $('.compose-email-body').focus();
-        } else {
-          Backbone.history.navigate("/threads/" + this.thread.id, { trigger: true });
-        }
-      }.bind(this),
-      error: function() {
-        alert("error")
-      }
-    });
+    
+    this._fetchDraftThread();
   },
 
   _determineContent: function() {
@@ -109,5 +99,26 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
       this.$('.check-box-container').addClass('checked');
       this.$('.check-box').addClass('checked-check-box');
     }
+  },
+
+  _fetchDraftThread: function() {
+    var thread = new Maildog.Models.EmailThread({ id: this.thread.id });
+
+    thread.fetch({
+      success: function() {
+        if (thread.emails().length === 1) {
+          var view = new Maildog.Views.ComposeEmailBox({
+            email: thread.emails().at(0)
+          });
+          Maildog.mainFolders.addSubview('.compose-email-popup-container', view);
+          $('.compose-email-body').focus();
+        } else {
+          Backbone.history.navigate("/threads/" + this.thread.id, { trigger: true });
+        }
+      }.bind(this),
+      error: function() {
+        alert("error")
+      }
+    });
   }
 });

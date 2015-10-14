@@ -64,31 +64,14 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
       var backNav = "#trash";
     }
 
-    $.ajax({
-      url: "api/email_threads/" + urlCap,
-      type: "POST",
-      data: { "email_thread_ids": [this.model.id] },
-      dataType: "json",
-      success: function() {
-        Backbone.history.navigate(backNav, { trigger: true })
-        Maildog.router.addFlash(flashMessage);
-      },
-      error: function() {
-        alert("error");
-      }
-    });
+    this._ajaxChangeTrashValue(urlCap, backNav, flashMessage);
   },
 
   addReplyForwardView: function(options) {
-    var newEmail = options.model ||
-      new Maildog.Models.Email({
-        parent_email_id: this.collection.last().id,
-        original_email_id: this.collection.first().id,
-        email_thread_id: this.model.id,
-        subject: this.model.get('subject')
-      });
+    Maildog.router.removeFlashes();
 
-    var model = (options && options.model) || newEmail;
+    var model = (options && options.model) || this._createNewEmail();
+
     var subview = new Maildog.Views.ReplyForwardEmailBox({
       model: model,
       recipient: this.model.replyTo(),
@@ -99,12 +82,19 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     }
     this.addSubview(".reply-forward-email-section", subview);
     $('textarea').focus();
-    Maildog.router.removeFlashes();
   },
 
   returnBox: function(e) {
     e.preventDefault()
     $('.reply-forward-email-box').removeClass('invisible');
+  },
+
+  remove: function () {
+    Backbone.View.prototype.remove.call(this);
+    this.eachSubview(function (subview) {
+      subview.remove();
+    });
+    Maildog.router.currentEmailThread = null;
   },
 
   _addSubviewForEmail: function(email) {
@@ -122,11 +112,28 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     }
   },
 
-  remove: function () {
-    Backbone.View.prototype.remove.call(this);
-    this.eachSubview(function (subview) {
-      subview.remove();
+  _ajaxChangeTrashValue: function(urlCap, backNav, flashMessage) {
+    $.ajax({
+      url: "api/email_threads/" + urlCap,
+      type: "POST",
+      data: { "email_thread_ids": [this.model.id] },
+      dataType: "json",
+      success: function() {
+        Backbone.history.navigate(backNav, { trigger: true })
+        Maildog.router.addFlash(flashMessage);
+      },
+      error: function() {
+        alert("error");
+      }
     });
-    Maildog.router.currentEmailThread = null;
   },
+
+  _createNewEmail: function() {
+    return new Maildog.Models.Email({
+      parent_email_id: this.collection.last().id,
+      original_email_id: this.collection.first().id,
+      email_thread_id: this.model.id,
+      subject: this.model.get('subject')
+    });
+  }
 });
