@@ -30,6 +30,7 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
 
     var that = this;
     window.setTimeout(function () {
+      Backbone.pubSub.off('checkBox');
       Backbone.pubSub.on('checkBox', that.checkBox, that);
     }, 0);
 
@@ -137,14 +138,14 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
     $('html').off('click');
   },
 
-  checkBox: function(threadIds) {
+  checkBox: function(threadIds, trash) {
     this.checkedThreads = threadIds;
 
     if (this.checkedThreads.length === 0) {
       this.render();
     } else {
       if (this.state !== "checked") {
-        this.render("checked", false);
+        this.render("checked", trash);
       }
     }
   },

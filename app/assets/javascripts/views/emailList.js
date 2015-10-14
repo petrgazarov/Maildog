@@ -76,7 +76,9 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
       this.checkedThreads.splice(index, 1);
     }
 
-    Backbone.pubSub.trigger('checkBox', this.checkedThreads);
+    Backbone.pubSub.trigger('checkBox',
+      this.checkedThreads, (this.folder === "trash" ? true : false)
+    );
   },
 
   insertNoConversationsMemo: function() {
