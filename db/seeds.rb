@@ -34,7 +34,7 @@ petr = petr_user.contacts.create(
   gender: "M"
 )
 
-barack = petr_user.contacts.create(
+petrs_barack = petr_user.contacts.create(
   email: "barack@maildog.xyz",
   first_name: "Barack",
   last_name: "Obama",
@@ -120,7 +120,7 @@ atom_message_4 = nikita.received_emails.create(
   parent_email: atom_message_3
 )
 
-barack_email_1 = barack.received_emails.create(
+barack_email_1 = petrs_barack.received_emails.create(
   thread: thread4,
   subject: "Have a good weekend!",
   body:
@@ -140,13 +140,13 @@ barack_email_2 = petr.received_emails.create(
 "Wanna come along to see the commander-in-chief at the White House?\n"\
 "Barack",
 
-  sender: barack,
+  sender: petrs_barack,
   time: DateTime.new(2015,9,15,22,27,51).in_time_zone,
   original_email: barack_email_1,
   parent_email: barack_email_1
 )
 
-barack_email_3 = barack.received_emails.create(
+barack_email_3 = petrs_barack.received_emails.create(
   thread: thread4,
   subject: "Have a good weekend!",
   body:
@@ -168,13 +168,13 @@ barack_email_4 = petr.received_emails.create(
 "Farewell!\n"\
 "Barack",
 
-  sender: barack,
+  sender: petrs_barack,
   time: DateTime.new(2015,9,28,9,30,51).in_time_zone,
   original_email: barack_email_1,
   parent_email: barack_email_3
 )
 
-barack_email_5 = barack.received_emails.create(
+barack_email_5 = petrs_barack.received_emails.create(
   thread: thread4,
   subject: "Have a good weekend!",
   body:
