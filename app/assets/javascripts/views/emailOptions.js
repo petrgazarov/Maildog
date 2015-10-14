@@ -6,8 +6,7 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
   initialize: function() {
     this.checkedThreads = [];
     this._setUpListenersOnInitialize();
-    this.collection = new Maildog.Collections.Labels();
-    this.collection.fetch();
+    this.collection = Maildog.labels;
   },
 
   events: {
@@ -89,7 +88,7 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
       dataType: "json",
       success: function() {
         Maildog.currentThreadList.refreshCollection();
-        Maildog.router.addFlash("Drafts were discarded");
+        Maildog.router.addFlash("Drafts have been discarded");
         this.checkedThreads = [];
       }.bind(this),
       error: function() {
@@ -104,26 +103,18 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
   },
 
   showLabelList: function() {
-    Maildog.router.currentEmailThread.labels().fetch({ reset: true });
-
     if (!this.$('.email-options-label-list').hasClass('invisible')) { return; }
-    window.setTimeout(function() {
-      $('html').click(function(e) {
-        this.hideLabelList(e);
-      }.bind(this))
-    }.bind(this), 0);
+
+    if (this.state === "show") {
+      Maildog.router.currentEmailThread.labels().fetch({ reset: true });
+    }
+    this._hideLabelListWhenClickAway();
 
     this.$('.icon-label-as-button').css('opacity', 1);
     this.$('.down-arrow-symbol').css('opacity', 1);
     this.$('.email-options-label-list').removeClass('invisible');
-    this.collection.fetch({
-      success: function() {
-        this.collection.forEach(this.addSubviewforLabel.bind(this));
-      }.bind(this),
-      error: function() {
-        alert('error')
-      }
-    });
+
+    this._fetchCollection();
   },
 
   hideLabelList: function(e) {
@@ -160,7 +151,8 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
 
   addSubviewforLabel: function(label) {
     var subview = new Maildog.Views.EmailOptionsLabelListItem({
-      model: label
+      model: label,
+      state: this.state
     });
     this.addSubview('.email-options-label-list', subview);
   },
@@ -230,4 +222,23 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
       }
     });
   },
+
+  _hideLabelListWhenClickAway: function() {
+    window.setTimeout(function() {
+      $('html').click(function(e) {
+        this.hideLabelList(e);
+      }.bind(this))
+    }.bind(this), 0);
+  },
+
+  _fetchCollection: function() {
+    this.collection.fetch({
+      success: function() {
+        this.collection.forEach(this.addSubviewforLabel.bind(this));
+      }.bind(this),
+      error: function() {
+        alert('error')
+      }
+    });
+  }
 });

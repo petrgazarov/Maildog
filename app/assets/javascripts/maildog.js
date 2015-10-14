@@ -31,6 +31,8 @@ window.Maildog = {
       $rootEl: $('.main-container')
     });
 
+    Maildog.labels = new Maildog.Collections.Labels();
+
     var mailNavView = new Maildog.Views.MailNav();
     $("#mail-nav").html(mailNavView.render().$el);
     var mailSidebarView = new Maildog.Views.MailSidebar();

@@ -10,15 +10,7 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
     this.folder = options.folder;
     this.refreshCollection();
     this.listenTo(this.collection, 'reset', this.render);
-
-    Backbone.pubSub.on("refreshCollection", function() {
-      this.refreshCollection({ success: function() {
-        Maildog.router.addFlash("Loading...");
-        window.setTimeout(function() {
-          Maildog.router.removeFlashes();
-        }, 85);
-      }})
-    }.bind(this));
+    this._setupRefreshCollectionListener();
   },
 
   render: function() {
@@ -101,5 +93,16 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
     }
 
     return checkedThreads;
+  },
+
+  _setupRefreshCollectionListener: function() {
+    Backbone.pubSub.on("refreshCollection", function() {
+      this.refreshCollection({ success: function() {
+        Maildog.router.addFlash("Loading...");
+        window.setTimeout(function() {
+          Maildog.router.removeFlashes();
+        }, 85);
+      }})
+    }.bind(this));
   }
 });
