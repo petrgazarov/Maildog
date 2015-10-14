@@ -5,15 +5,7 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
 
   initialize: function() {
     this.checkedThreads = [];
-
-    this.listenTo(
-      Maildog.router, "showEmailMessageOptions", this.render.bind(this, "show")
-    );
-    this.listenTo(Maildog.router, "folderNavigation", function(state) {
-      this.render(state, false);
-      this.backButtonValue = state;
-    });
-
+    this._setUpListenersOnInitialize();
     this.collection = new Maildog.Collections.Labels();
     this.collection.fetch();
   },
@@ -24,17 +16,22 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
     "click #refresh-button": "refreshCollection",
     "click .label-as-button-container": "showLabelList",
     "click #recover-email-thread": function(e) { this.changeTrashValue(e, "recover") },
-    "click #delete-email-thread": function(e) { this.changeTrashValue(e, "move_to_trash") }
+    "click #delete-email-thread": function(e) {
+      if (this.state === 'drafts') {
+        this.discardCheckedDrafts();
+      } else {
+        this.changeTrashValue(e, "move_to_trash")
+      }
+    }
   },
 
-  render: function(state, trash) {
-    var template;
+  render: function(state, trash, checked) {
     this._resetCheckBoxListener();
-    var template = this._determineTemplate(state, trash);
-    this.state = state || "list";
+    var template = this._determineTemplate(state, trash, checked);
+    this.state = state;
 
     this.$el.html(template());
-    this._twickTemplate(state);
+    this._twickTemplate(state, checked);
 
     return this;
   },
@@ -82,6 +79,23 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
     else {
       Backbone.pubSub.trigger("deleteThread");
     }
+  },
+
+  discardCheckedDrafts: function() {
+    $.ajax({
+      url: "api/email_threads/discard_drafts",
+      type: "DELETE",
+      data: { "email_thread_ids": this.checkedThreads },
+      dataType: "json",
+      success: function() {
+        Maildog.currentThreadList.refreshCollection();
+        Maildog.router.addFlash("Drafts were discarded");
+        this.checkedThreads = [];
+      }.bind(this),
+      error: function() {
+        alert("error");
+      }
+    });
   },
 
   goBack: function(e) {
@@ -133,17 +147,14 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
     $('html').off('click');
   },
 
-  checkBox: function(checkedThreads, folder) {
+  checkBox: function(checkedThreads) {
     this.checkedThreads = checkedThreads;
-    this.folder = folder;
 
     if (this.checkedThreads.length === 0) {
       this.render();
     } else {
-      if (this.state !== "checked") {
-        this.render("checked", this.folder === "trash" ? true : false);
-      }
-      this.folder = null;
+      var trash = this.state === "trash" ? true : false
+      this.render(this.state, trash, true);
     }
   },
 
@@ -160,20 +171,33 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
     Backbone.pubSub.trigger("refreshCollection");
   },
 
-  _twickTemplate: function(state) {
-    if (state === "checked") { this.$('#email-show-back-button').remove() }
-    if (this.folder && this.folder === "drafts") {
+  _setUpListenersOnInitialize: function() {
+    this.listenTo(
+      Maildog.router, "showEmailMessageOptions", this.render.bind(this, "show")
+    );
+    this.listenTo(Maildog.router, "folderNavigation", function(state) {
+      this.render(state, false);
+      this.backButtonValue = state;
+    });
+  },
+
+  _twickTemplate: function(state, checked) {
+    if (checked) { this.$('#email-show-back-button').remove() }
+    if (state === "drafts") {
       this.$('#delete-email-thread').text("Discard Drafts")
                                     .css("font-size", 14).css('width', '100px');
     }
   },
 
-  _determineTemplate: function(state, trash) {
+  _determineTemplate: function(state, trash, checked) {
     if (trash) {
       return this.templateShowTrash;
     }
+    else if (checked) {
+      return this.templateShow;
+    }
     else {
-      return state === "show" || state === "checked" ? this.templateShow : this.templateList
+      return state === "show" ? this.templateShow : this.templateList
     }
   },
 

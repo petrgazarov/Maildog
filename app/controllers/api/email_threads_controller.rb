@@ -109,6 +109,16 @@ class Api::EmailThreadsController < ApplicationController
     render json: {}
   end
 
+  def discard_drafts
+    Email.where(
+      email_thread_id: params[:email_thread_ids], draft: true
+    ).destroy_all
+
+    EmailThread.where(id: params[:email_thread_ids]).update_all(checked: false)
+
+    render json: {}
+  end
+
   private
 
   def thread_params

@@ -20,13 +20,14 @@ Rails.application.routes.draw do
 
     resources :email_threads, only: [:show, :destroy, :update] do
       collection do
-        get  :inbox
-        get  :starred
-        get  :sent
-        get  :drafts
-        get  :trash
-        post :move_to_trash
-        post :recover
+        get    :inbox
+        get    :starred
+        get    :sent
+        get    :drafts
+        get    :trash
+        post   :move_to_trash
+        post   :recover
+        delete :discard_drafts
       end
 
       resources :labels, only: [:index]

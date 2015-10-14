@@ -69,10 +69,10 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
     var id = $(e.target).data('thread-id');
 
     if ($(e.target).hasClass('checked-check-box')) {
-      this.checkedThreads.push(this.collection.get(id))
+      this.checkedThreads.push(id);
     }
     else {
-      var index = this.checkedThreads.indexOf(this.collection.get(id));
+      var index = this.checkedThreads.indexOf(id);
       this.checkedThreads.splice(index, 1);
     }
 
