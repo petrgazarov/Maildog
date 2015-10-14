@@ -12,26 +12,26 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
       this.backButtonValue = state;
     });
 
-    var that = this;
-    window.setTimeout(function () {
-      Backbone.pubSub.on('checkBox', that.checkBox, that);
-    }, 0);
-
     this.collection = new Maildog.Collections.Labels();
     this.collection.fetch();
   },
 
   events: {
-    "click #delete-email-thread": "fireMoveToTrash",
-    "click #delete-forever-email-thread": "fireDeleteForever",
-    "click #recover-email-thread": "fireRecoverEvent",
+    "click #delete-forever-email-thread": "deleteForever",
     "click #email-show-back-button": "goBack",
     "click #refresh-button": "refreshCollection",
-    "click .label-as-button-container": "showLabelList"
+    "click .label-as-button-container": "showLabelList",
+    "click #recover-email-thread": function(e) { this.changeTrashValue(e, "recover") },
+    "click #delete-email-thread": function(e) { this.changeTrashValue(e, "move_to_trash") }
   },
 
   render: function(state, trash) {
     var template;
+
+    var that = this;
+    window.setTimeout(function () {
+      Backbone.pubSub.on('checkBox', that.checkBox, that);
+    }, 0);
 
     if (trash) {
       template = this.templateShowTrash;
@@ -49,17 +49,41 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
     return this;
   },
 
-  fireMoveToTrash: function(e) {
+  changeTrashValue: function(e, urlCap) {
     e.preventDefault();
-    Backbone.pubSub.trigger("moveToTrashThread");
+    if (urlCap === "recover") {
+      var flashMessage = "The conversation(s) have been recovered";
+      var fireEvent = "recoverThread";
+    } else {
+      var flashMessage = "The conversation(s) have been moved to trash";
+      var fireEvent = "moveToTrashThread";
+    }
+
+    if (this.checkedThreads && this.checkedThreads.length > 0) {
+      $.ajax({
+        url: "api/email_threads/" + urlCap,
+        type: "POST",
+        data: { "email_thread_ids": this.checkedThreads },
+        dataType: "json",
+        success: function() {
+          Maildog.currentThreadList.refreshCollection();
+          Maildog.router.addFlash(flashMessage);
+        },
+        error: function() {
+          alert("error");
+        }
+      });
+    } else {
+      Backbone.pubSub.trigger(fireEvent);
+    }
   },
 
-  fireDeleteForever: function(e) {
+  deleteForever: function(e) {
     e.preventDefault();
     Backbone.pubSub.trigger("deleteThread");
   },
 
-  fireRecoverEvent: function(e) {
+  recover: function(e) {
     e.preventDefault();
     Backbone.pubSub.trigger("recoverThread");
   },
@@ -115,6 +139,7 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
 
   checkBox: function(threadIds) {
     this.checkedThreads = threadIds;
+
     if (this.checkedThreads.length === 0) {
       this.render();
     } else {

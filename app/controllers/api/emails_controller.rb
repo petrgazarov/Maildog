@@ -29,18 +29,6 @@ class Api::EmailsController < ApplicationController
     render json: email
   end
 
-  def trash
-    Email.where(id: params[:email_ids]).update_all(trash: true)
-
-    render json: {}
-  end
-
-  def recover
-    Email.where(id: params[:email_ids]).update_all(trash: false)
-
-    render json: {}
-  end
-
   private
 
   def save_contact_if_new(contact)

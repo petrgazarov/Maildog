@@ -91,6 +91,24 @@ class Api::EmailThreadsController < ApplicationController
     render template: "api/labels/index"
   end
 
+  def move_to_trash
+    Email.where(email_thread_id: params[:email_thread_ids])
+                                  .update_all(trash: true)
+    EmailThread.where(id: params[:email_thread_ids])
+                                  .update_all(checked: false)
+
+    render json: {}
+  end
+
+  def recover
+    Email.where(email_thread_id: params[:email_thread_ids])
+                                  .update_all(trash: false)
+    EmailThread.where(id: params[:email_thread_ids])
+                                  .update_all(checked: false)
+
+    render json: {}
+  end
+
   private
 
   def thread_params

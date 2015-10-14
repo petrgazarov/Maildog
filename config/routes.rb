@@ -8,12 +8,7 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create]
 
   namespace :api, defaults: { format: :json } do
-    resources :emails, except: [:new, :edit] do
-      collection do
-        post :trash
-        post :recover
-      end
-    end
+    resources :emails, except: [:new, :edit]
 
     get "/search", to: "email_threads#search"
     resource  :user
@@ -30,6 +25,8 @@ Rails.application.routes.draw do
         get  :sent
         get  :drafts
         get  :trash
+        post :move_to_trash
+        post :recover
       end
 
       resources :labels, only: [:index]
