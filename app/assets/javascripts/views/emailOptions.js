@@ -12,6 +12,11 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
       this.backButtonValue = state;
     });
 
+    var that = this;
+    window.setTimeout(function () {
+      Backbone.pubSub.on('checkBox', that.checkBox, that);
+    }, 0);
+
     this.collection = new Maildog.Collections.Labels();
     this.collection.fetch();
   },
@@ -29,11 +34,18 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
     var template;
 
     if (trash) {
-      template = this.templateShowTrash
-    } else {
-      template = (state === "show" ? this.templateShow : this.templateList);
+      template = this.templateShowTrash;
     }
+    else {
+      template = (
+        state === "show" || state === "checked" ? this.templateShow : this.templateList
+      );
+      this.state = state || "list";
+    }
+
     this.$el.html(template());
+    if (state === "checked") { this.$('#email-show-back-button').remove() }
+
     return this;
   },
 
@@ -99,6 +111,17 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
 
     delete this.subviews;
     $('html').off('click');
+  },
+
+  checkBox: function(threadIds) {
+    this.checkedThreads = threadIds;
+    if (this.checkedThreads.length === 0) {
+      this.render();
+    } else {
+      if (this.state !== "checked") {
+        this.render("checked", false);
+      }
+    }
   },
 
   addSubviewforLabel: function(label) {

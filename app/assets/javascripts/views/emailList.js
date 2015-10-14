@@ -1,10 +1,16 @@
 Maildog.Views.EmailList = Backbone.CompositeView.extend({
   template: JST['emailList'],
 
+  events: {
+    "click .check-box": "checkBox"
+  },
+
   initialize: function(options) {
+    this.checkedThreads = [];
     this.folder = options.folder;
     this.refreshCollection();
     this.listenTo(this.collection, 'reset', this.render);
+
     Backbone.pubSub.on("refreshCollection", function() {
       this.refreshCollection({ success: function() {
         Maildog.router.addFlash("Loading...");
@@ -55,6 +61,22 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
         }.bind(this)
       });
     }
+  },
+
+  checkBox: function(e) {
+    e.preventDefault();
+
+    var id = $(e.target).data('thread-id');
+
+    if ($(e.target).hasClass('checked-check-box')) {
+      this.checkedThreads.push(id)
+    }
+    else {
+      var index = this.checkedThreads.indexOf(id);
+      this.checkedThreads.splice(index, 1);
+    }
+
+    Backbone.pubSub.trigger('checkBox', this.checkedThreads);
   },
 
   insertNoConversationsMemo: function() {

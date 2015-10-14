@@ -1,5 +1,6 @@
 <div class='check-box-container <%= tail.checkedIfChecked() %>'>
-  <div class='check-box <%= tail.checkedCheckBoxIfChecked() %>'></div>
+  <div class='check-box <%= tail.checkedCheckBoxIfChecked() %>'
+       data-thread-id='<%= thread.id %>'></div>
 </div>
 <div class='star <%= tail.starOnIfStarred() %>'></div>
 <a href='#threads/<%= thread.id %><%= trash %>' class='email-list-item-link group'>
