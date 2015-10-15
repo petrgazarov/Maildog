@@ -70,7 +70,7 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
       this.checkedThreads.splice(index, 1);
     }
 
-    Backbone.pubSub.trigger('checkBox', this.checkedThreads);
+    Backbone.pubSub.trigger('checkBox', "update", this.checkedThreads);
   },
 
   insertNoConversationsMemo: function() {
@@ -88,9 +88,9 @@ Maildog.Views.EmailList = Backbone.CompositeView.extend({
         checkedThreads.push(thread.id);
       }
     });
-    if (checkedThreads.length > 0) {
-      Backbone.pubSub.trigger('checkBox', checkedThreads);
-    }
+
+    Backbone.pubSub.trigger('checkBox', "update", checkedThreads);
+    Backbone.pubSub.trigger('checkBox', "update", checkedThreads);
 
     return checkedThreads;
   },

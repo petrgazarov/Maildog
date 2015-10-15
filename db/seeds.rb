@@ -287,7 +287,7 @@ hillary_checkin_2 = barack.received_emails.create(
 "Hill",
 
   sender: hillary,
-  time: DateTime.new(2015,10,1,9,27,51).in_time_zone,
+  time: DateTime.new(2015,10,2,11,31,51).in_time_zone,
   original_email: hillary_checkin_1,
   parent_email: hillary_checkin_1
 )
@@ -301,7 +301,7 @@ hillary_checkin_3 = hillary.received_emails.create(
 "for the current federal spending issues.",
 
   sender: barack,
-  time: DateTime.new(2015,10,1,9,27,51).in_time_zone,
+  time: DateTime.new(2015,10,2,12,27,51).in_time_zone,
   original_email: hillary_checkin_1,
   parent_email: hillary_checkin_2
 )
@@ -313,7 +313,7 @@ hillary_checkin_4 = barack.received_emails.create(
 "Thanks for the nice words, Barack, catch up in a few.",
 
   sender: hillary,
-  time: DateTime.new(2015,10,1,9,27,51).in_time_zone,
+  time: DateTime.new(2015,10,3,0,27,51).in_time_zone,
   original_email: hillary_checkin_1,
   parent_email: hillary_checkin_3
 )

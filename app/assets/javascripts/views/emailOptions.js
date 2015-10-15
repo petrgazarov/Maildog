@@ -26,6 +26,7 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
 
   render: function(state, trash, checked) {
     this._resetCheckBoxListener();
+
     var template = this._determineTemplate(state, trash, checked);
     this.state = state;
 
@@ -58,22 +59,7 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
     e.preventDefault();
 
     if (this.checkedThreads.length > 0) {
-      $.ajax({
-        url: "api/email_threads/nil",
-        type: "DELETE",
-        data: { "email_thread_ids": this.checkedThreads },
-        dataType: "json",
-        success: function() {
-          Maildog.currentThreadList.refreshCollection();
-          Maildog.router.addFlash(
-            "The conversation" + this._flashPhrasing() + "been deleted"
-          );
-          this.checkedThreads = [];
-        }.bind(this),
-        error: function() {
-          alert("error");
-        }
-      });
+      this._ajaxDeleteForever();
     }
     else {
       Backbone.pubSub.trigger("deleteThread");
@@ -138,14 +124,15 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
     $('html').off('click');
   },
 
-  checkBox: function(checkedThreads) {
-    this.checkedThreads = checkedThreads;
-    var trash = this.state === "trash" ? true : false
-
-    if (this.checkedThreads.length === 0) {
-      this.render(this.state, trash, false);
-    } else {
-      this.render(this.state, trash, true);
+  checkBox: function(action, threads) {
+    if (action === 'empty') {
+      this._emptyCheckedThreads();
+    }
+    else if (action === "remove") {
+      this._removeCheckedThread(threads[0]);
+    }
+    else {
+      this._updateCheckedThreads(threads);
     }
   },
 
@@ -161,6 +148,34 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
     e.preventDefault();
     Maildog.router.removeFlashes();
     Backbone.pubSub.trigger("refreshCollection");
+  },
+
+  _updateCheckedThreads: function(threads) {
+    this.checkedThreads = threads;
+
+    var trash = (this.state === 'trash' ? true : false);
+
+    if (this.checkedThreads.length === 0) {
+      this.render(this.state, false, false);
+    } else {
+      this.render(this.state, trash, true);
+    }
+  },
+
+  _removeCheckedThread: function(thread) {
+    this.checkedThreads.splice(this.checkedThreads.indexOf(thread), 1);
+
+    var trash = (this.state === 'trash' ? true : false);
+
+    if (this.checkedThreads.length === 0) {
+      this.render(this.state, false, false);
+    } else {
+      this.render(this.state, trash, true);
+    }
+  },
+
+  _emptyCheckedThreads: function() {
+    this.checkedThreads = [];
   },
 
   _setUpListenersOnInitialize: function() {
@@ -198,6 +213,8 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
 
   _resetCheckBoxListener: function() {
     var that = this;
+    Backbone.pubSub.off('checkBox');
+    Backbone.pubSub.on('checkBox', that.checkBox, that);
 
     window.setTimeout(function () {
       Backbone.pubSub.off('checkBox');
@@ -220,8 +237,28 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
         Maildog.router.addFlash(flashMessage);
         this.checkedThreads = [];
 
-        var trash = this.state === "trash" ? true : false
-        this.render(this.state, trash, false);
+        this.render(this.state, false, false);
+      }.bind(this),
+      error: function() {
+        alert("error");
+      }
+    });
+  },
+
+  _ajaxDeleteForever: function() {
+    $.ajax({
+      url: "api/email_threads/nil",
+      type: "DELETE",
+      data: { "email_thread_ids": this.checkedThreads },
+      dataType: "json",
+      success: function() {
+        Maildog.currentThreadList.refreshCollection();
+        Maildog.router.addFlash(
+          "The conversation" + this._flashPhrasing() + "been deleted"
+        );
+        this.checkedThreads = [];
+
+        this.render(this.state, false, false);
       }.bind(this),
       error: function() {
         alert("error");

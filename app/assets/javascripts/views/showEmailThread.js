@@ -6,13 +6,8 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     this.listenTo(this.collection, "add", this._addSubviewForEmail);
     this.model.fetch();
     this.trash = options.trash;
-    Backbone.pubSub.on("deleteThread", this.deleteThread, this);
-    Backbone.pubSub.on("moveToTrashThread", function() {
-      this.changeTrashValue("move_to_trash");
-    }.bind(this));
-    Backbone.pubSub.on("recoverThread", function() {
-      this.changeTrashValue("recover");
-    }.bind(this));
+    this._setUpListenersOnInitialize();
+    this._emptyCheckedThreads();
 
     Maildog.router.currentEmailThread = this.model;
   },
@@ -39,16 +34,7 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
         emailsToDelete.push(email);
       }
     });
-    for (var i = 0; i < emailsToDelete.length; i++) {
-      emailsToDelete[i].destroy({
-        success: function(model) {
-          Maildog.trash.remove(model)
-        },
-        error: function() {
-          alert('error');
-        }
-      });
-    }
+    this._ajaxDeleteEmails(emailsToDelete);
 
     Backbone.history.navigate("#trash", { trigger: true })
     Maildog.router.addFlash("The conversation has been deleted.");
@@ -65,13 +51,13 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     }
 
     this._ajaxChangeTrashValue(urlCap, backNav, flashMessage);
+    Backbone.pubSub.trigger('checkBox', "remove", [this.model.id]);
   },
 
   addReplyForwardView: function(options) {
     Maildog.router.removeFlashes();
 
     var model = (options && options.model) || this._createNewEmail();
-
     var subview = new Maildog.Views.ReplyForwardEmailBox({
       model: model,
       recipient: this.model.replyTo(),
@@ -95,6 +81,16 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
       subview.remove();
     });
     Maildog.router.currentEmailThread = null;
+  },
+
+  _setUpListenersOnInitialize: function() {
+    Backbone.pubSub.on("deleteThread", this.deleteThread, this);
+    Backbone.pubSub.on("moveToTrashThread", function() {
+      this.changeTrashValue("move_to_trash");
+    }.bind(this));
+    Backbone.pubSub.on("recoverThread", function() {
+      this.changeTrashValue("recover");
+    }.bind(this));
   },
 
   _addSubviewForEmail: function(email) {
@@ -128,6 +124,19 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     });
   },
 
+  _ajaxDeleteEmails: function(emailsToDelete) {
+    for (var i = 0; i < emailsToDelete.length; i++) {
+      emailsToDelete[i].destroy({
+        success: function(model) {
+          Maildog.trash.remove(model)
+        },
+        error: function() {
+          alert('error');
+        }
+      });
+    }
+  },
+
   _createNewEmail: function() {
     return new Maildog.Models.Email({
       parent_email_id: this.collection.last().id,
@@ -135,5 +144,9 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
       email_thread_id: this.model.id,
       subject: this.model.get('subject')
     });
+  },
+
+  _emptyCheckedThreads: function() {
+    Backbone.pubSub.trigger('checkBox', "empty");
   }
 });

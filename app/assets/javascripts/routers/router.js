@@ -64,6 +64,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   showEmailThread: function(id) {
     Backbone.pubSub.off();
     this.removeFlashes();
+
     var trash = (
       Backbone.history.getFragment().indexOf('trash') === -1 ? false : true
     );
