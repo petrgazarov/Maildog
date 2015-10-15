@@ -50,10 +50,8 @@
 .search-bar .blue-button {
   height: 15px;
   width: 60px;
-  vertical-align: middle;
   cursor: default;
   font-weight: bold;
-  display: inline-block;
   line-height: 17px;
   font-size: 14px;
   margin-left: 0;
@@ -143,7 +141,7 @@
 .current-user-info {
   float: right;
   display: block;
-  width: 198px;
+  width: 203px;
   position: relative;
 }
 
@@ -209,7 +207,7 @@
 
 #delete-forever-email-thread {
   font-size: 13px;
-  width: 90px;
+  width: 95px;
 }
 
 #recover-email-thread {

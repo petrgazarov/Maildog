@@ -1,0 +1,19 @@
+@-moz-document url-prefix() {
+  .gray-button-text {
+    font-size: 160%;
+    position: relative;
+    top: -7px;
+  }
+
+  .gray-button {
+    vertical-align: middle;
+  }
+
+  .log-out-button {
+    vertical-align: -10%;
+  }
+
+  .search-bar .blue-button {
+    line-height: 15px;
+  }
+}
