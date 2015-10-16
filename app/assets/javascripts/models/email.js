@@ -42,9 +42,9 @@ Maildog.Models.Email = Backbone.Model.extend({
       if (
         this.addressees().first().get('email') !== Maildog.currentUser.get('email')
       ) {
-        string = "To: " + this.addressees().first().escape('email');
+        string = "To: " + this.addressees().first().escape('email').split("@")[0];
       } else {
-        string = "To: " + this.sender().escape('email');
+        string = "To: " + this.sender().escape('email').split("@")[0];
       }
     }
     else if (folder === "drafts") {
