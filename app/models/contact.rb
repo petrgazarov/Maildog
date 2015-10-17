@@ -1,8 +1,6 @@
 class Contact < ActiveRecord::Base
   validates :email, :owner, presence: true
 
-  scope :emails, lambda{ ||}
-
   has_many :received_emails,
     through: :email_addressees,
     source: :email
