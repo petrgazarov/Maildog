@@ -29,22 +29,4 @@ class Contact < ActiveRecord::Base
     contact = Contact.where(email: email_address, owner_id: current_user.id).first
     contact ? contact : Contact.new(email: email_address)
   end
-
-  def all_emails
-    written_emails + received_emails
-  end
-
-  def inbox_emails
-    Email.joins("JOIN email_addressees ON emails.id = email_addressees.id")
-         .where("email_addressees.addressee_id = #{id}")
-         .where("emails.trash = 'false'")
-  end
-
-  def sent_emails
-    Email.where(sender_id: id, trash: false)
-  end
-
-  def draft_emails
-    Email.where(sender_id: id, trash: false, draft: true)
-  end
 end

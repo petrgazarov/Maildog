@@ -1,7 +1,7 @@
 class Email < ActiveRecord::Base
   include PgSearch
   multisearchable against: [
-    :body, :sender_first_name, :sender_last_name
+    :body, :subject, :sender_first_name, :sender_last_name
   ]
 
   def self.rebuild_pg_search_documents

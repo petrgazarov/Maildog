@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   attr_reader :password
 
   after_initialize :ensure_session_token
-  before_validation :ensure_email
+  after_initialize :ensure_email
 
   has_many :contacts,
     class_name: "Contact",
