@@ -39,15 +39,8 @@ class Api::LabelsController < ApplicationController
   end
 
   def destroy
-    if params[:email_thread_id]
-      EmailThread.where({
-        email_thread_id: params[:email_thread_id],
-        label_id: params[:id]
-        }).destroy
-    else
-      label = Label.find(params[:id])
-      label.destroy
-      render json: {}
-    end
+    label = Label.find(params[:id])
+    label.destroy
+    render json: {}
   end
 end

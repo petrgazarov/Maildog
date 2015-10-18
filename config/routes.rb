@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     post :create_guest
   end
 
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new]
 
   namespace :api, defaults: { format: :json } do
     resources :emails, except: [:new, :edit]
@@ -33,7 +33,7 @@ Rails.application.routes.draw do
       resources :labels, only: [:index]
     end
 
-    resources :labels, except: [:new, :edit] do
+    resources :labels, except: [:new, :edit, :update] do
       member do
         get :threads
       end

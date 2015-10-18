@@ -2,7 +2,7 @@
 
 [Live link][live]
 
-[live]: www.maildog.xyz/
+[live]: http://maildog.xyz/
 
 ## Welcome!
 

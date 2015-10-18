@@ -6,7 +6,4 @@ class StaticPagesController < ApplicationController
   def mail
     remove_checks_from_current_users_emails
   end
-
-  def contacts
-  end
 end

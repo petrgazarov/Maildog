@@ -15,8 +15,6 @@ class ApplicationController < ActionController::Base
       Contact.where(
         "email = ? AND owner_id = ?", current_user.email, current_user.id
       ).first
-    else
-      nil
     end
   end
 
