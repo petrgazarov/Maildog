@@ -183,6 +183,8 @@ Maildog.Views.EmailOptions = Backbone.CompositeView.extend({
       Maildog.router, "showEmailMessageOptions", this.render.bind(this, "show")
     );
     this.listenTo(Maildog.router, "folderNavigation", function(state) {
+      if (state === "nonFolder") { return }
+      
       this.render(state, false);
       this.backButtonValue = state;
     });

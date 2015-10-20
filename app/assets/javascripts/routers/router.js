@@ -82,6 +82,7 @@ Maildog.Routers.Router = Backbone.Router.extend({
   search: function(query) {
     Backbone.pubSub.off();
     this.removeFlashes();
+    this.trigger("folderNavigation", "nonFolder");
 
     var searchResults = new Maildog.Collections.SearchResults();
     searchResults.query = query;

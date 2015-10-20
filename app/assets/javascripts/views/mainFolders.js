@@ -11,6 +11,10 @@ Maildog.Views.MainFolders = Backbone.CompositeView.extend({
     "click #trash-folder": "routeToTrash",
   },
 
+  initialize: function() {
+    this.listenTo(Maildog.router, "folderNavigation", this.colorSelectedFolder);
+  },
+
   render: function() {
     this.$el.html(this.template());
     return this;
@@ -61,6 +65,20 @@ Maildog.Views.MainFolders = Backbone.CompositeView.extend({
     }
   },
 
+  colorSelectedFolder: function(folder) {
+    if (folder === 'nonFolder' || folder.indexOf("labels") >= 0) {
+      this._clearColorFromSelectedFolder();
+    }
+    else {
+      this._clearColorFromSelectedFolder();
+
+      this.$('#' + folder + "-folder").css({
+        "color": "#dd4b39", "font-weight": "bold"
+      });
+      this.selectedFolder = folder;
+    }
+  },
+
   popUpComposeEmailBox: function() {
     if (this.subviews('.compose-email-popup-container').values().length === 2) {
       Maildog.router.addFlash('Please close one of the windows and try again', 5000);
@@ -86,5 +104,12 @@ Maildog.Views.MainFolders = Backbone.CompositeView.extend({
     })
 
     return hasOpen;
-  }
+  },
+
+  _clearColorFromSelectedFolder: function() {
+    this.selectedFolder &&
+      this.$('#' + this.selectedFolder + "-folder").css({
+        "color": "", "font-weight": ""
+      });
+  },
 });
