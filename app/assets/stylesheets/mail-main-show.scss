@@ -27,6 +27,22 @@
   font-size: 14px;
   background: rgba(243,243,243,.85);
   border-bottom: 1px #e5e5e5 solid;
+  position: relative;
+}
+
+.email-list-item-grippy {
+  background: image-url('grippy') 1px 50%;
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 10px;
+  height: 30px;
+  top: 4px;
+  left: 3px;
+  display: none;
+}
+
+.email-list-item:hover .email-list-item-grippy {
+  display: block;
 }
 
 .checked-list-item {

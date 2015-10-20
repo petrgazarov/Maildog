@@ -6,8 +6,13 @@
 }
 
 .main-page-logo .dog-logo {
+  background-image: image-url('happy-dog-gray.png');
   width: 50px;
   height: 50px;
+}
+
+.main-page-logo .dog-logo:hover {
+  background-image: image-url('happy-dog.png');
 }
 
 .main-page-logo {
@@ -93,11 +98,11 @@
 
 .made-with-love {
   display: block;
-  position: relative;
-  transform: translateY(67%);
   margin: 0 20px;
   color: gray;
   cursor: default;
+  line-height: 48px;
+  vertical-align: middle;
 }
 
 .made-with-love > a:hover {

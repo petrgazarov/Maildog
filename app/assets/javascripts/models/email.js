@@ -39,20 +39,13 @@ Maildog.Models.Email = Backbone.Model.extend({
   correspondentString: function(folder) {
     var string;
     if (folder === "sent") {
-      if (
-        this.addressees().first().get('email') !== Maildog.currentUser.get('email')
-      ) {
-        string = "To: " + this.addressees().first().escape('email').split("@")[0];
-      } else {
-        string = "To: " + this.sender().escape('email').split("@")[0];
-      }
+      string = this._getSentTo();
     }
     else if (folder === "drafts") {
       string = "Draft";
     }
     else {
-      string = this.sender().escape('first_name') + " " +
-               this.sender().escape('last_name');
+      string = this._getSender();
     }
 
     return string;
@@ -87,5 +80,28 @@ Maildog.Models.Email = Backbone.Model.extend({
 
   checkedCheckBoxIfChecked: function() {
     if (this.get('checked')) { return "checked-check-box" }
+  },
+
+  _getSentTo: function() {
+    if (
+      this.addressees().first().get('email') !== Maildog.currentUser.get('email')
+    ) {
+      return "To: " + this.addressees().first().escape('email').split("@")[0];
+    } else {
+      return "To: " + this.sender().escape('email').split("@")[0];
+    }
+  },
+
+  _getSender: function() {
+    if (this.sender().get('email') !== Maildog.currentUser.get('email')) {
+      var string = this.sender().escape('first_name') + " " +
+                   this.sender().escape('last_name');
+    }
+    else {
+      var string = this.addressees().first().escape('first_name') + " " +
+                   this.addressees().first().escape('last_name')
+    }
+
+    return string;
   }
 });

@@ -26,16 +26,17 @@ class Contact < ActiveRecord::Base
     foreign_key: :owner_id
 
   def self.create_or_get(email_address, user, current_user_contact = nil)
-    contact = Contact.where(email: email_address, owner_id: user.id).first
-    
+    contact = Contact.find_by(email: email_address, owner_id: user.id)
+
     if !contact
       if current_user_contact.nil?
         contact = Contact.new(email: email_address)
       else
         contact = current_user_contact.dup
       end
+
+      contact.owner_id = user.id
     end
-    contact.owner = user
 
     contact
   end
