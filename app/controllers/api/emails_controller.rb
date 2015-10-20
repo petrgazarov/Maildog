@@ -31,15 +31,15 @@ class Api::EmailsController < ApplicationController
 
   private
 
-  def save_contact_if_new(contact)
-    if !contact.owner
-      contact.owner = current_user
+  def save_contact_if_new(contact, user)
+    if !contact.persisted?
+      contact.owner = user
       contact.save!
     end
   end
 
   def save_email(email)
-    createOrSetThread(email)
+    create_or_set_thread(email)
 
     if email.save
       render json: email
@@ -61,7 +61,7 @@ class Api::EmailsController < ApplicationController
 
   def persist_and_send_email(action, email)
     contact, email_addressee = create_or_get_contact_and_email_addressee(email)
-    createOrSetThread(email)
+    create_or_set_thread(email)
 
     email.time = DateTime.now.in_time_zone
 
@@ -71,13 +71,45 @@ class Api::EmailsController < ApplicationController
       EmailThread.find(email.email_thread_id).update!(subject: email.subject)
       email_addressee.save!
       MaildogMailer.send_email(contact, email, current_user_contact).deliver
+
+      if contact.email.include?('@maildog.xyz') &&
+          contact.email != current_user_contact.email
+        create_recipient_copy(email, contact)
+      end
+
       render :show
     else
       render json: email.errors.full_messages, status: :unprocessable_entity
     end
   end
 
-  def createOrSetThread(email)
+  def create_recipient_copy(email, recipient)
+    rec_user = User.find_by(email: recipient.email)
+    return if rec_user.nil?
+    
+    rec_current_user_contact = Contact.create_or_get(current_user.email, rec_user, current_user)
+    save_contact_if_new(rec_current_user_contact, rec_user)
+    rec_contact = Contact.find_by(email: rec_user.email, owner_id: rec_user.id)
+
+    email = email.dup
+    email.parent_email_id = nil
+    email.original_email_id = nil
+    email.starred = false
+    email.sender = rec_current_user_contact
+
+    email_addressee = email.email_addressees.new(
+      email_type: params[:email][:addressees][:email_type],
+      addressee_id: rec_contact.id
+    )
+    thread = EmailThread.create!(
+        owner_id: rec_contact.id, subject: email.subject
+    )
+    email.email_thread_id = thread.id
+
+    email_addressee.save! if email.save!
+  end
+
+  def create_or_set_thread(email)
     if email.email_thread_id
       thread = EmailThread.find(email.email_thread_id).update!(subject: email.subject)
     else
@@ -92,7 +124,7 @@ class Api::EmailsController < ApplicationController
 
   def create_or_get_contact_and_email_addressee(email)
     contact = Contact.create_or_get(params[:email][:addressees][:email], current_user)
-    save_contact_if_new(contact)
+    save_contact_if_new(contact, current_user)
 
     email_addressee = email.email_addressees.new(
       email_type: params[:email][:addressees][:email_type],

@@ -25,8 +25,17 @@ class Contact < ActiveRecord::Base
     class_name: "EmailThread",
     foreign_key: :owner_id
 
-  def self.create_or_get(email_address, current_user)
-    contact = Contact.where(email: email_address, owner_id: current_user.id).first
-    contact ? contact : Contact.new(email: email_address)
+  def self.create_or_get(email_address, user, current_user = nil)
+    contact = Contact.where(email: email_address, owner_id: user.id).first
+    if !contact
+      if current_user.nil?
+        contact = Contact.new(email: email_address)
+      else
+        contact = current_user.dup
+      end
+    end
+    contact.owner = user
+
+    contact
   end
 end

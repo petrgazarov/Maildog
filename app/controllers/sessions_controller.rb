@@ -1,9 +1,9 @@
 class SessionsController < ApplicationController
   before_action :require_user!, only: [:destroy]
-  before_action :redirect_current_user, only: [:new, :create]
+  before_action :redirect_current_user, only: [:new, :create_guest]
 
   def new
-    @user = User.new
+    render :new
   end
 
   def create_guest
