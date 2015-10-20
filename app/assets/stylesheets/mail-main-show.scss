@@ -190,6 +190,12 @@
   display: block;
 }
 
+.email-show-addressee {
+  clear: left;
+  color: #777;
+  padding-top: 5px;
+}
+
 .email-show-body {
   clear: both;
   color: #222;
@@ -241,6 +247,7 @@
   top: 50%;
   transform: translateY(-50%);
   position: relative;
+  width: 100%;
 }
 
 .reply-forward-email-form textarea {

@@ -62,6 +62,7 @@
 .compose-email-popup-to > input {
   color: black;
   margin-left: 32px;
+  width: calc(100% - 60px);
 }
 
 .compose-email-from {
