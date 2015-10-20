@@ -12,9 +12,9 @@ class ApplicationController < ActionController::Base
 
   def current_user_contact
     if logged_in?
-      Contact.where(
-        "email = ? AND owner_id = ?", current_user.email, current_user.id
-      ).first
+      @current_user_contact ||= Contact.find_by(
+          "email = ? AND owner_id = ?", current_user.email, current_user.id
+        )
     end
   end
 

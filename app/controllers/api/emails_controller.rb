@@ -33,7 +33,12 @@ class Api::EmailsController < ApplicationController
 
   def save_contact_if_new(contact, user)
     if !contact.persisted?
-      contact.owner = user
+      if contact.email.include?('@maildog.xyz')
+        copy_from_contact = Contact.find_by(email: contact.email)
+        contact = copy_from_contact.dup if copy_from_contact
+      end
+      contact.owner_id = user.id
+
       contact.save!
     end
   end
@@ -90,6 +95,7 @@ class Api::EmailsController < ApplicationController
     rec_current_user_contact = Contact.create_or_get(
       current_user.email, rec_user, current_user_contact
     )
+
     save_contact_if_new(rec_current_user_contact, rec_user)
     rec_contact = Contact.find_by(email: rec_user.email, owner_id: rec_user.id)
 
