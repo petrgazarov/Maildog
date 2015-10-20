@@ -70,13 +70,16 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
   },
 
   showDraft: function() {
-    if (Maildog.mainFolders.subviews('.compose-email-popup-container')
-                           .values().length === 2) {
+    if (Maildog.mainFolders.alreadyTwoThreadsOpen()) {
       Maildog.router.addFlash('Please close one of the windows and try again', 5000);
       return;
     }
+    else if (Maildog.mainFolders.threadAlreadyOpen(this.email.id)) {
+      Maildog.router.addFlash('This draft is already opened', 5000);
+      return;
+    }
+
     Maildog.router.removeFlashes();
-    
     this._fetchDraftThread();
   },
 
@@ -110,7 +113,7 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
           var view = new Maildog.Views.ComposeEmailBox({
             email: thread.emails().at(0)
           });
-          Maildog.mainFolders.addSubview('.compose-email-popup-container', view);
+          Maildog.mainFolders.addSubview('.compose-email-popup-container', view, true);
           $('.compose-email-body').focus();
         } else {
           Backbone.history.navigate("/threads/" + this.thread.id, { trigger: true });

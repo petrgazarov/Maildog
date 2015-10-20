@@ -66,10 +66,25 @@ Maildog.Views.MainFolders = Backbone.CompositeView.extend({
       Maildog.router.addFlash('Please close one of the windows and try again', 5000);
       return;
     }
-    
+
     Maildog.router.removeFlashes();
     var view = new Maildog.Views.ComposeEmailBox();
     this.addSubview('.compose-email-popup-container', view, true);
     $('.compose-email-popup-to').focus();
+  },
+
+  alreadyTwoThreadsOpen: function() {
+    return this.subviews('.compose-email-popup-container').values().length === 2
+  },
+
+  threadAlreadyOpen: function(id) {
+    hasOpen = false;
+    this.subviews('.compose-email-popup-container').values().forEach(function(view) {
+      if (view.model.id === id) {
+        hasOpen = true;
+      }
+    })
+
+    return hasOpen;
   }
 });
