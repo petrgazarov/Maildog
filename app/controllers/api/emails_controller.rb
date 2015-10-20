@@ -86,8 +86,10 @@ class Api::EmailsController < ApplicationController
   def create_recipient_copy(email, recipient)
     rec_user = User.find_by(email: recipient.email)
     return if rec_user.nil?
-    
-    rec_current_user_contact = Contact.create_or_get(current_user.email, rec_user, current_user)
+
+    rec_current_user_contact = Contact.create_or_get(
+      current_user.email, rec_user, current_user_contact
+    )
     save_contact_if_new(rec_current_user_contact, rec_user)
     rec_contact = Contact.find_by(email: rec_user.email, owner_id: rec_user.id)
 

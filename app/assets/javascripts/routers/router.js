@@ -85,7 +85,10 @@ Maildog.Routers.Router = Backbone.Router.extend({
 
     var searchResults = new Maildog.Collections.SearchResults();
     searchResults.query = query;
-    Maildog.currentThreadList = new Maildog.Views.EmailList({ collection: searchResults });
+    Maildog.currentThreadList = new Maildog.Views.EmailList({
+      collection: searchResults,
+      folder: "search"
+    });
     this._swapView(Maildog.currentThreadList);
   },
 
