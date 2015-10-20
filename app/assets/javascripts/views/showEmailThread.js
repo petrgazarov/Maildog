@@ -75,6 +75,14 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     $('.reply-forward-email-box').removeClass('invisible');
   },
 
+  goBackIfNoEmailsToShow: function() {
+    if (this.subviews(".email-thread-list").values().length === 0) {
+      currentRoute =
+        Maildog.currentThreadList && Maildog.currentThreadList.folder || "inbox";
+      Backbone.history.navigate("#" + currentRoute, { trigger: true });
+    }
+  },
+
   remove: function () {
     Backbone.View.prototype.remove.call(this);
     this.eachSubview(function (subview) {
@@ -101,7 +109,8 @@ Maildog.Views.ShowEmailThread = Backbone.CompositeView.extend({
     else if (this.trash && email.get('trash') ||
             !this.trash && !email.get('trash')) {
       subview = new Maildog.Views.EmailShow({
-        model: email
+        model: email,
+        parentView: this
       });
 
       this.addSubview(".email-thread-list", subview);

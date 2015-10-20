@@ -8,6 +8,10 @@ Maildog.Views.EmailShow = Backbone.CompositeView.extend({
     "click #delete-message": "deleteMessage"
   },
 
+  initialize: function(options) {
+    options && (this.parentView = options.parentView)
+  },
+
   render: function() {
     var content = this.template({ email: this.model });
     this.$el.html(content);
@@ -38,13 +42,16 @@ Maildog.Views.EmailShow = Backbone.CompositeView.extend({
 
   deleteMessage: function() {
     this.model.save({ "trash": true }, {
-      success: function() {
-        Maildog.router.addFlash("The message has been moved to the trash.")
-        this.remove();
-      }.bind(this),
       error: function() {
         alert('error')
       }
     });
+
+    this.parentView.removeSubview(".email-thread-list", this);
+    this.parentView.goBackIfNoEmailsToShow();
+
+    setTimeout(function() {
+      Maildog.router.addFlash("The message has been moved to the trash.");
+    }, 0);
   }
 });
