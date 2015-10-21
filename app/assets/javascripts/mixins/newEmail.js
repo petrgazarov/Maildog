@@ -28,6 +28,7 @@ Maildog.Mixins.NewEmail = {
   },
 
   sendEmail: function(sendOptions) {
+    Maildog.router.addFlash("Sending...")
     this.dontSave = true;
 
     var formData = this.$el.serializeJSON();
