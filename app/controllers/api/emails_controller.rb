@@ -41,6 +41,7 @@ class Api::EmailsController < ApplicationController
 
       contact.save!
     end
+    contact
   end
 
   def save_email(email)
@@ -96,7 +97,9 @@ class Api::EmailsController < ApplicationController
       current_user.email, rec_user, current_user_contact
     )
 
-    save_contact_if_new(rec_current_user_contact, rec_user)
+    rec_current_user_contact = save_contact_if_new(
+      rec_current_user_contact, rec_user
+    )
     rec_contact = Contact.find_by(email: rec_user.email, owner_id: rec_user.id)
 
     email = email.dup
@@ -132,7 +135,7 @@ class Api::EmailsController < ApplicationController
 
   def create_or_get_contact_and_email_addressee(email)
     contact = Contact.create_or_get(params[:email][:addressees][:email], current_user)
-    save_contact_if_new(contact, current_user)
+    contact = save_contact_if_new(contact, current_user)
 
     email_addressee = email.email_addressees.new(
       email_type: params[:email][:addressees][:email_type],
