@@ -23,3 +23,6 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 end
+
+# require helper files here to make available in all tests
+require_relative 'examples_helper'
