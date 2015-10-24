@@ -16,7 +16,7 @@ RSpec.describe Contact do
 
   describe "::create_or_get" do
     context "when contact exists with the given email and owner" do
-      before(:all) do
+      before(:each) do
         @contact = create(:contact)
       end
 
@@ -52,7 +52,7 @@ RSpec.describe Contact do
       end
 
       it "returns a contact instance with same attributes as current_contact" do
-        current_user_contact = build(:fully_filled_contact)
+        current_user_contact = build(:fully_filled_contact, email: "Test111@testtest.com")
         user = create(:user)
         return_value = Contact.create_or_get(@contact.email, user, current_user_contact)
 

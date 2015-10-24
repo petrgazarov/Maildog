@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :contact do
     association :owner, factory: :user
-
     email Faker::Internet.email
 
     factory :fully_filled_contact do

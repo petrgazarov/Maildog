@@ -1,8 +1,8 @@
 module ExamplesHelper
   def insert_before_for_contact_create_or_get
-    before(:all) do
+    before(:each) do
       @contact = build(:contact)
-      @user = create(:user)
+      @user = create(:user_with_password)
       @return_value = Contact.create_or_get(@contact.email, @user)
     end
   end

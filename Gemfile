@@ -22,11 +22,11 @@ group :development, :test do
   gem 'spring'
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'faker'
 end
 
 group :test do
   gem "shoulda-matchers"
-  gem 'faker'
   gem 'launchy'
 end
 
