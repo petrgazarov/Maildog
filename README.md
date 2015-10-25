@@ -15,21 +15,38 @@ provide quick UX.
 
 ## What did I use?
 
-Below is a list of languages/frameworks/libraries/technologies I used:
-
-* Ruby on Rails
+#### Languages
+* Ruby
 * JavaScript
-* Backbone.js
 * HTML/CSS
+
+#### Frameworks
+* Backbone.js
+* Rails
+
+#### Database
 * PostgreSQL
-* JQuery/AJAX
+
+#### Libraries
+* Front-end
+  * JQuery
+  * JQuery.serializeJSON
+  * moment.js
+  * JQuery.transit
+
+* Back-end
+  * pg_search
+  * jbuilder
+  * figaro
+  * BCrypt
+
+#### Third party APIs:
 * sendgrid
-* pg_search
-* jbuilder
-* JQuery.serializeJSON
-* moment.js
-* JQuery.transit
-* figaro
+
+I wrote comprehensive unit tests for my models using RSpec, FactoryGirl and Faker.
+Tests live [here][specs].
+
+[specs]: /spec/
 
 ## What can I do on this website?
 
@@ -58,6 +75,7 @@ Glad you asked! :)
     Instead, I instantiated an object: an extension of Backbone.Events, that I used to trigger/listen to various events and optionally pass arguments around.
   * Many views are nested Composite Views, some serving as sub-routers that change between
     templates depending on what the user is viewing.
+
 * Back-end design
   * Okay, so now you have your main folders plus user-generated labels, each fetching a
     different collection of email threads. It would be a waste to have a controller for each folder. Instead, I use
