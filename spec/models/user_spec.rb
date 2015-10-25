@@ -79,4 +79,20 @@ RSpec.describe User do
       expect(@user.is_password?("foobar")).to be false
     end
   end
+
+  describe "#reset_session_token!" do
+    before(:each) do
+      @user = create(:user_with_password)
+      @old_session_token = @user.session_token
+      @user.reset_session_token!
+    end
+
+    it "resets user's session token" do
+      expect(@user.session_token).not_to equal(@old_session_token)
+    end
+
+    it "saves the user after updating user's session token" do
+      expect(User.find_by(session_token: @user.session_token)).to eq(@user)
+    end
+  end
 end

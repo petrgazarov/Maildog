@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
     @password = password
     self.password_digest = BCrypt::Password.create(password)
   end
-  
+
   def is_password?(password)
     BCrypt::Password.new(self.password_digest).is_password?(password)
   end
@@ -35,15 +35,6 @@ class User < ActiveRecord::Base
   def reset_session_token!
     self.session_token = self.class.generate_session_token
     self.save!
-  end
-
-  def full_name
-    "#{self.first_name} #{self.last_name}"
-  end
-
-  def find_by_username(username)
-    user = User.find_by(username: username)
-    user.empty? ? nil : user
   end
 
   private
