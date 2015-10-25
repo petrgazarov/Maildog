@@ -64,4 +64,19 @@ RSpec.describe User do
       expect(@user.password).to eq("password")
     end
   end
+
+  describe "#is_password?" do
+    before(:all) do
+      @user = build(:user)
+      @user.password = "password"
+    end
+
+    it "returns true when the given password matches saved password" do
+      expect(@user.is_password?("password")).to be true
+    end
+
+    it "returns false when the given password does not match saved password" do
+      expect(@user.is_password?("foobar")).to be false
+    end
+  end
 end
