@@ -6,4 +6,10 @@ module ExamplesHelper
       @return_value = Contact.create_or_get(@contact.email, @user)
     end
   end
+
+  def insert_before_for_email_thread
+    before(:each) do
+      @email_thread = build(:email_thread_with_emails)
+    end
+  end
 end

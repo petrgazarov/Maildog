@@ -1,4 +1,6 @@
 class EmailThread < ActiveRecord::Base
+  validates :owner, presence: true
+  
   has_many :emails,
     dependent: :destroy,
     class_name: "Email",

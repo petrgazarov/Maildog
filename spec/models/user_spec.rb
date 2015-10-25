@@ -18,28 +18,29 @@ RSpec.describe User do
 
   it "is valid with username, first_name, last_name and password" do
     # sets email and session_token on after_initialize hooks
-
     expect(build(:user_with_password)).to be_valid
   end
 
   it "validates uniqueness of username" do
     username = user.username
-    create(:user_with_password, username: username)
+    first_user = create(:user_with_password, username: username)
     user.valid?
     expect(user.errors[:username]).to include("has already been taken")
   end
 
   describe "::find_by_credentials" do
     context "when the user exists" do
+      before(:each) do
+        @persisted_user = create(:user, password: "password")
+      end
 
       it "returns the user if provided password matches" do
-        persisted_user = create(:user, password: "password")
-        expect(User.find_by_credentials(persisted_user.username, "password")).to eq(persisted_user)
+        expect(User.find_by_credentials(@persisted_user.username, "password"))
+                   .to eq(@persisted_user)
       end
 
       it "returns nil if provided password is incorrect" do
-        user = create(:user, password: "password")
-        expect(User.find_by_credentials(user.email, "foo")).to be(nil)
+        expect(User.find_by_credentials(@persisted_user.email, "foo")).to be(nil)
       end
     end
 

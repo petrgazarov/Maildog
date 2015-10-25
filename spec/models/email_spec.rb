@@ -13,7 +13,7 @@ RSpec.describe Email do
   end
 
   describe "#changed_star_or_trash?" do
-    before(:all) do
+    before(:each) do
       @email = build(:email)
     end
 
