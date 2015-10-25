@@ -24,7 +24,7 @@ RSpec.describe User do
 
   it "validates uniqueness of username" do
     username = user.username
-    create(:user, username: username)
+    create(:user_with_password, username: username)
     user.valid?
     expect(user.errors[:username]).to include("has already been taken")
   end
@@ -51,14 +51,17 @@ RSpec.describe User do
   end
 
   describe "#password=" do
-    before(:each) do
+    before(:all) do
       @user = build(:user)
+      @user.password = "password"
     end
 
     it "sets user's password digest" do
-      expect(@user.password_digest).to be nil
+      expect(@user.password_digest).to be_truthy
     end
 
-    it "saves the password to user's password attribute"
+    it "saves the password to user's password attribute" do
+      expect(@user.password).to eq("password")
+    end
   end
 end

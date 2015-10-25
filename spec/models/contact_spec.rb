@@ -53,7 +53,7 @@ RSpec.describe Contact do
 
       it "returns a contact instance with same attributes as current_contact" do
         current_user_contact = build(:fully_filled_contact, email: "Test111@testtest.com")
-        user = create(:user)
+        user = create(:user_with_password)
         return_value = Contact.create_or_get(@contact.email, user, current_user_contact)
 
         expect(return_value.email).to eq(current_user_contact.email)
