@@ -27,7 +27,6 @@ RSpec.describe Contact do
 
     context "when contact with given attributes does not exist and "\
             "current_user_contact is not given" do
-      extend ExamplesHelper
       insert_before_for_contact_create_or_get
 
       it "returns a new contact instance that is not persisted to database" do
@@ -43,7 +42,6 @@ RSpec.describe Contact do
 
     context "when contact with given attributes does not exist and "\
             "current_user_contact is given" do
-      extend ExamplesHelper
       insert_before_for_contact_create_or_get
 
       it "returns a new contact instance that is not persisted to database" do

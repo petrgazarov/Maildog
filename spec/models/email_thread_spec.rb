@@ -12,7 +12,6 @@ RSpec.describe EmailThread do
   end
 
   describe "#trash_count" do
-    extend ExamplesHelper
     insert_before_for_email_thread
 
     it "returns the correct count of trash emails that belong to the thread" do
@@ -21,7 +20,6 @@ RSpec.describe EmailThread do
   end
 
   describe "#non_trash_count" do
-    extend ExamplesHelper
     insert_before_for_email_thread
 
     it "returns the correct count of non trash emails that belong to the thread" do

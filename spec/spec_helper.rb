@@ -25,4 +25,7 @@ RSpec.configure do |config|
 end
 
 # require helper files here to make available in all tests
-require_relative 'examples_helper'
+require_relative 'unit_tests_helper'
+require_relative 'integration_tests_helper'
+# require capybara for request specs
+require 'capybara/rspec'
