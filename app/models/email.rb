@@ -1,5 +1,6 @@
 class Email < ActiveRecord::Base
   include PgSearch
+
   multisearchable against: [
     :body, :subject, :sender_first_name, :sender_last_name
   ], if: :not_trash?
@@ -27,15 +28,7 @@ class Email < ActiveRecord::Base
     class_name: "Email",
     foreign_key: :parent_email_id
 
-  has_many :responses_forwards,
-    class_name: "Email",
-    foreign_key: :parent_email_id
-
   belongs_to :original_email,
-    class_name: "Email",
-    foreign_key: :original_email_id
-
-  has_many :following_emails,
     class_name: "Email",
     foreign_key: :original_email_id
 
@@ -45,15 +38,11 @@ class Email < ActiveRecord::Base
 
   before_validation :ensure_time
 
-  def ensure_time
-    self.time ||= DateTime.now.in_time_zone
-  end
-
-  def changed_star_or_trash(new_starred, new_trash)
+  def changed_star_or_trash?(new_starred, new_trash)
     !(self.starred == new_starred && self.trash == new_trash)
   end
 
-  # Below methods are for pg_search
+  # The below three methods are for pg_search
 
   def sender_first_name
     sender.first_name
@@ -65,5 +54,11 @@ class Email < ActiveRecord::Base
 
   def not_trash?
     !self.trash
+  end
+
+  private
+
+  def ensure_time
+    self.time ||= DateTime.now.in_time_zone
   end
 end

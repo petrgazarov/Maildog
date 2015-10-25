@@ -14,7 +14,7 @@ class Api::EmailsController < ApplicationController
 
     if @email.draft
       update_email(@email, true)
-    elsif @email.changed_star_or_trash(
+    elsif @email.changed_star_or_trash?(
       params[:email][:starred], params[:email][:trash]
       )
       update_email(@email, false)
