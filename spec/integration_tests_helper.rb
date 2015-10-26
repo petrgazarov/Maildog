@@ -1,7 +1,7 @@
 module IntegrationTestsHelpers
-  def click_sign_up_button_and_expect_content(content, on_page)
-    page.execute_script("$('form .blue-button').trigger('click');")
-    
+  def click_button_and_expect_content(selector, content, on_page)
+    page.execute_script("$('#{selector}').trigger('click');")
+
     if on_page
       expect(page).to have_content(content)
     else
