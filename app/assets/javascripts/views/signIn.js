@@ -6,10 +6,7 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
     "click .sign-in-as-different": "backToUsername",
     "submit .sign-in-password-form": "submit",
     "focusin .sign-in-text-box": "removeErrorMessages",
-    "click .sign-in-next-button": function(e) {
-       this.fetchUser(e);
-       this.toggleLinks(e);
-     }
+    "click .sign-in-next-button": "fetchUser"
   },
 
   initialize: function(){
@@ -27,6 +24,7 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
 
   fetchUser: function(e) {
     e.preventDefault();
+
     var formData = this.$('.sign-in-username-form').serializeJSON().user;
     Maildog.currentUser.set("username", "");
 
@@ -34,7 +32,8 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
       username: formData.username,
       success: function() {
         if (Maildog.currentUser.get('username')) {
-          this._shiftToAuth()
+          this._shiftToAuth();
+          this.toggleLinks();
         } else {
           this._tryAgain()
         }
@@ -69,8 +68,7 @@ Maildog.Views.SignIn = Backbone.CompositeView.extend({
     })
   },
 
-  toggleLinks: function(e) {
-    e.preventDefault();
+  toggleLinks: function() {
     this.$('.sign-in-as-different').toggleClass('invisible');
     this.$('.create-account-link').toggleClass('invisible');
   },

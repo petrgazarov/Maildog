@@ -39,7 +39,8 @@ class ApplicationController < ActionController::Base
   def redirect_current_user
     redirect_to root_url if current_user
   end
-
+  
+  # removes all checks from email threads at sign in
   def remove_checks_from_current_users_emails
     EmailThread.where(owner_id: current_user_contact.id).update_all(checked: false)
   end

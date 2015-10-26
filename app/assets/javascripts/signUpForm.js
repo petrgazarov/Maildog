@@ -115,7 +115,6 @@ Maildog.signUpForm = {
     window.scrollTo(0, 0);
 
     indices = (typeof indices === 'undefined' ? [7] : indices);
-
     indices.forEach(function(index) {
       var $message = $("<div>" + message + "<div>").addClass('form-error-message');
       $(".create-account-form > " + selector + ":nth-of-type(" + index + ")")

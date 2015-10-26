@@ -42,6 +42,11 @@ Maildog.Views.SignInBox = Backbone.View.extend({
   },
 
   tryAgain: function() {
-    alert("Sorry, Maildog doesn't recognize that email.");
+    $('.form-error-message').remove();
+    
+    $message = $("<div>").text("Sorry, Maildog doesn't recognize that username")
+                         .addClass('form-error-message')
+    $('.sign-in-text-box').after($message)
+    $('.sign-in-text-box').addClass('error-input')
   }
 });

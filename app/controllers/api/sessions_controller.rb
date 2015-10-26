@@ -14,8 +14,7 @@ class Api::SessionsController < ApplicationController
       log_in!(@user)
       render json: @user
     else
-      @user = User.new
-      render json: @user.errors.full_messages, status: :unprocessable_entity
+      render json: {}, status: :unprocessable_entity
     end
   end
 end
