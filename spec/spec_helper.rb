@@ -2,7 +2,8 @@ require 'capybara/rspec'
 require_relative 'integration_tests_helper'
 require_relative 'unit_tests_helper'
 
-Capybara.javascript_driver = :webkit
+Capybara.javascript_driver = :poltergeist
+
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
