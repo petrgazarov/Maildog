@@ -1,8 +1,18 @@
+require_relative 'unit_tests_helper'
+require_relative 'integration_tests_helper'
+
+require 'capybara/rspec'
+require 'capybara/webkit/matchers'
+Capybara.javascript_driver = :webkit
+
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
+
+  config.include(Capybara::Webkit::RspecMatchers, :type => :feature)
+
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`
     # and `failure_message` of custom matchers include text for helper methods
@@ -23,9 +33,3 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 end
-
-# require helper files here to make available in all tests
-require_relative 'unit_tests_helper'
-require_relative 'integration_tests_helper'
-# require capybara for request specs
-require 'capybara/rspec'

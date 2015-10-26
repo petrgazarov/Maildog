@@ -58,6 +58,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-webkit (1.7.1)
+      capybara (>= 2.3.0, < 2.6.0)
+      json
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -66,6 +69,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.9.1.1)
+    database_cleaner (1.5.1)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     eco (1.0.0)
@@ -226,7 +230,9 @@ DEPENDENCIES
   binding_of_caller
   byebug
   capybara
+  capybara-webkit
   coffee-rails (~> 4.1.0)
+  database_cleaner
   factory_girl_rails
   faker
   figaro
