@@ -9,16 +9,25 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
     end
 
     it "displays the sender of the last email in a thread" do
-      expect(page).to have_content("checking in")
+      expect(page).to have_content("Hillary Clinton")
     end
 
     it "displays the number of emails in a thread" do
       expect(page).to have_content("(4)")
     end
 
-    it "displays the subject of a thread"
-    it "displays the body preview of a thread"
-    it "displays the date of the last email in the thread"
+    it "displays the subject of a thread" do
+      expect(page).to have_content("checking in")
+    end
+
+    it "displays the body preview of a last email in the thread" do
+      expect(page).to have_content(
+        "Thanks for the nice words, Barack, catch up in a few.")
+    end
+
+    it "displays the date of the last email in the thread" do
+      expect(page).to have_content("Oct 2")
+    end
   end
 
   describe "checking check box" do

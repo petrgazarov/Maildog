@@ -1,9 +1,9 @@
 module IntegrationTestsHelpers
   def sign_in_as(username, password)
     visit "/session/new"
-    find(:css, "input[name='user[username]']").set("barack")
+    find(:css, "input[name='user[username]']").set(username)
     page.execute_script("$('.sign-in-next-button').trigger('click');")
-    find(:css, "input[name='user[password]']").set("password")
+    find(:css, "input[name='user[password]']").set(password)
     page.execute_script("$('.sign-in-submit-button').trigger('click');")
   end
 
