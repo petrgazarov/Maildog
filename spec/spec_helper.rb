@@ -1,6 +1,7 @@
 require 'capybara/rspec'
 require_relative 'integration_tests_helper'
 require_relative 'unit_tests_helper'
+require_relative 'specs_seed_helper'
 
 Capybara.javascript_driver = :poltergeist
 

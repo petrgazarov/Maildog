@@ -1,6 +1,6 @@
 include IntegrationTestsHelpers
 
-RSpec.feature "Sign up", js: true do
+RSpec.feature "Sign up", js: true, type: :feature do
   before(:each) do
     visit '/users/new'
   end
@@ -103,11 +103,11 @@ RSpec.feature "Sign up", js: true do
     end
 
     it "validates uniqueness of username" do
-      create(:user_with_password, username: "petr")
+      create(:barack_user)
 
       find(:css, '.sign-up-first-name').set(Faker::Name.first_name)
       find(:css, '.sign-up-last-name').set(Faker::Name.last_name)
-      find(:css, "input[name = 'user[username]']").set("petr")
+      find(:css, "input[name = 'user[username]']").set("barack")
       find(:css, ".sign-up-password").set("test123")
       find(:css, ".sign-up-confirm-password").set("test123")
       find(:css, ".sign-up-checkbox").set(true)

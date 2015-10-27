@@ -1,4 +1,12 @@
 module IntegrationTestsHelpers
+  def sign_in_as(username, password)
+    visit "/session/new"
+    find(:css, "input[name='user[username]']").set("barack")
+    page.execute_script("$('.sign-in-next-button').trigger('click');")
+    find(:css, "input[name='user[password]']").set("password")
+    page.execute_script("$('.sign-in-submit-button').trigger('click');")
+  end
+
   def click_button_and_expect_content(selector, content, on_page)
     page.execute_script("$('#{selector}').trigger('click');")
 
@@ -10,8 +18,8 @@ module IntegrationTestsHelpers
   end
 
   def create_barack_user_and_contact
-    user = create(:user_with_password, username: "barack",
-                  first_name: "Barack", last_name: "Obama", password: "password")
-    create(:contact, owner: user, email: user.email)
+    barack_user = create(:barack_user)
+    barack = create(:contact, owner: barack_user, email: barack_user.email)
+    [barack_user, barack]
   end
 end

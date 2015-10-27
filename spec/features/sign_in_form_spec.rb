@@ -1,6 +1,6 @@
 include IntegrationTestsHelpers
 
-RSpec.feature "Sign in", js: true do
+RSpec.feature "Sign in", js: true, type: :feature do
   before(:each) do
     visit '/session/new'
   end
@@ -65,13 +65,9 @@ RSpec.feature "Sign in", js: true do
 
     it "logs user in when the username/password combo is correct" do
       create_barack_user_and_contact
-      find(:css, "input[name='user[username]']").set("barack")
-      find('.sign-in-next-button').click
+      sign_in_as("barack", "password")
 
-      find('.sign-in-text-box').set("password")
-      click_button_and_expect_content(
-        '.sign-in-submit-button', "The email and password you entered don't match.", false)
-
+      expect(page).not_to have_content("The email and password you entered don't match.")
       expect(page).to have_content("Barack")
       expect(page).to have_content("Inbox")
     end

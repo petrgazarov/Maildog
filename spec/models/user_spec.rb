@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe User do
   subject(:user) {
-    build(:user, first_name: nil, last_name: nil)
+    build(:user_with_username, first_name: nil, last_name: nil)
   }
 
   it { should validate_presence_of(:email) }
@@ -18,12 +18,15 @@ RSpec.describe User do
 
   it "is valid with username, first_name, last_name and password" do
     # sets email and session_token on after_initialize hooks
-    expect(build(:user_with_password)).to be_valid
+    expect(build(:user_with_username_and_password)).to be_valid
   end
 
   it "validates uniqueness of username" do
     username = user.username
-    first_user = create(:user_with_password, username: username)
+    first_user = create(
+      :user_with_username_and_password, username: username,
+      email: "#{username}@maildog.xyz"
+    )
     user.valid?
     expect(user.errors[:username]).to include("has already been taken")
   end
@@ -31,7 +34,7 @@ RSpec.describe User do
   describe "::find_by_credentials" do
     context "when the user exists" do
       before(:each) do
-        @persisted_user = create(:user, password: "password")
+        @persisted_user = create(:user_with_username, password: "password")
       end
 
       it "returns the user if provided password matches" do
@@ -53,7 +56,7 @@ RSpec.describe User do
 
   describe "#password=" do
     before(:all) do
-      @user = build(:user)
+      @user = build(:user_with_username)
       @user.password = "password"
     end
 
@@ -68,7 +71,7 @@ RSpec.describe User do
 
   describe "#is_password?" do
     before(:all) do
-      @user = build(:user)
+      @user = build(:user_with_username)
       @user.password = "password"
     end
 
@@ -83,7 +86,7 @@ RSpec.describe User do
 
   describe "#reset_session_token!" do
     before(:each) do
-      @user = create(:user_with_password)
+      @user = create(:user_with_username_and_password)
       @old_session_token = @user.session_token
       @user.reset_session_token!
     end
