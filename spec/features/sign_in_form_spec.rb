@@ -1,5 +1,3 @@
-include IntegrationTestsHelpers
-
 RSpec.feature "Sign in", js: true, type: :feature do
   before(:each) do
     visit '/session/new'

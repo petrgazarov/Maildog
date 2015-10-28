@@ -23,3 +23,7 @@ module IntegrationTestsHelpers
     [barack_user, barack]
   end
 end
+
+RSpec.configure do |config|
+  config.include IntegrationTestsHelpers, type: :feature
+end

@@ -4,6 +4,7 @@ require_relative 'unit_tests_helper'
 require_relative 'specs_seed_helper'
 
 Capybara.javascript_driver = :poltergeist
+Capybara.default_wait_time = 5
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|

@@ -1,4 +1,3 @@
-include IntegrationTestsHelpers
 include SpecsSeedHelpers
 
 RSpec.feature "Email Thread List", js: true, type: :feature do
@@ -31,6 +30,62 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
   end
 
   describe "checking check box" do
-    it "changes the checked value of the thread"
+    before(:each) do
+      seed_for_one_thread
+      sign_in_as("barack", "password")
+    end
+
+    it "erases all checks upon page refresh" do
+      find('.check-box').trigger('click')
+      wait_for_ajax
+      thread = EmailThread.find(@b_thread1.id)
+      expect(thread.checked).to be true
+
+      page.visit page.current_path
+      thread = EmailThread.find(@b_thread1.id)
+      expect(thread.checked).to be false
+    end
+
+    it "toggles the checked value of the thread" do
+      find('.check-box').trigger('click')
+      wait_for_ajax
+      thread = EmailThread.find(@b_thread1.id)
+      expect(thread.checked).to be true
+
+      find('.check-box').trigger('click')
+      wait_for_ajax
+      thread = EmailThread.find(@b_thread1.id)
+      expect(thread.checked).to be false
+    end
+
+    it "triggers email options view to display a different template" do
+      find('.check-box').trigger('click')
+      expect(page).to have_content("Delete")
+      find('.check-box').trigger('click')
+      expect(page).to_not have_content("Delete")
+    end
+  end
+
+  describe "clicking star icon" do
+    before(:each) do
+      seed_for_one_thread
+      sign_in_as("barack", "password")
+    end
+
+    it "toggles the starred value of the displayed email" do
+      email_body = "Thanks for the nice words, Barack, catch up in a few."
+
+      find('.star').trigger('click')
+      wait_for_ajax
+      email = Email.where(
+        email_thread_id: @b_thread1.id, body: email_body).first
+      expect(email.starred).to be true
+
+      find('.star').trigger('click')
+      wait_for_ajax
+      email = Email.where(
+        email_thread_id: @b_thread1.id, body: email_body).first
+      expect(email.starred).to be false
+    end
   end
 end

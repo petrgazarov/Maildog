@@ -1,4 +1,3 @@
-include IntegrationTestsHelpers
 include SpecsSeedHelpers
 
 RSpec.feature "Main page", js: true, type: :feature do

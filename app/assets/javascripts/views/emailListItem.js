@@ -63,7 +63,7 @@ Maildog.Views.EmailListItem = Backbone.View.extend({
 
   swapLinkForDiv: function() {
     var $a = this.$("a");
-    $div = $("<div>");
+    var $div = $("<div>");
     $div.addClass('email-list-item-div');
     $div.append($a.children());
     $a.replaceWith($div);
