@@ -1,12 +1,16 @@
 .flash-message {
+  display: inline-block;
   border: 1px solid #f0c36d;
   background-color: #f9edbe;
   padding: 6px 10px;
   font-size: 80%;
   font-weight: bold;
   text-align: center;
+}
+
+.flash-container {
   position: fixed;
   top: 50px;
-  left: 43%;
   z-index: 1000;
+  width: 100%;
 }

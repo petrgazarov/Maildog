@@ -96,3 +96,7 @@ module SpecsSeedHelpers
     )
   end
 end
+
+RSpec.configure do |config|
+  config.include SpecsSeedHelpers, type: :feature
+end

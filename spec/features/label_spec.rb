@@ -1,3 +1,3 @@
-RSpec.feature "Label", js: true, type: :feature do
+RSpec.feature "Labels", js: true, type: :feature do
 
 end

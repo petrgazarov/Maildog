@@ -1,5 +1,3 @@
-include SpecsSeedHelpers
-
 RSpec.feature "Main page", js: true, type: :feature do
   before(:each) do
     create_barack_user_and_contact
@@ -25,5 +23,4 @@ RSpec.feature "Main page", js: true, type: :feature do
       expect(page).to have_content("Create new label")
     end
   end
-
 end

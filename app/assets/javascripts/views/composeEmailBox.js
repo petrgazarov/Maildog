@@ -25,6 +25,11 @@ Maildog.Views.ComposeEmailBox = Backbone.CompositeView.extend(
 
     submit: function(e) {
       e.preventDefault();
+
+      if ($("input[name='email[addressees][email]']").val() == "") {
+        Maildog.router.addFlash("Looks like you forgot to include a recipient!", 8000)
+        return;
+      }
       this.sendEmail({
         saveEmail: false,
         composeEmailBox: true
