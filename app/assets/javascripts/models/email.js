@@ -45,7 +45,7 @@ Maildog.Models.Email = Backbone.Model.extend({
       string = "Draft";
     }
     else {
-      string = this._getSender();
+      string = this._getSender(folder);
     }
 
     return string;
@@ -92,8 +92,9 @@ Maildog.Models.Email = Backbone.Model.extend({
     }
   },
 
-  _getSender: function() {
-    if (this.sender().get('email') !== Maildog.currentUser.get('email')) {
+  _getSender: function(folder) {
+    if (this.sender().get('email') !== Maildog.currentUser.get('email') ||
+        folder === "trash") {
       var string = this.sender().escape('first_name') + " " +
                    this.sender().escape('last_name');
     }
