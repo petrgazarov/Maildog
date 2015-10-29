@@ -19,7 +19,8 @@ module IntegrationTestsHelpers
 
   def create_barack_user_and_contact
     barack_user = create(:barack_user)
-    barack = create(:contact, owner: barack_user, email: barack_user.email)
+    barack = create(:contact, owner: barack_user, email: barack_user.email,
+                              first_name: "Barack", last_name: "Obama")
     [barack_user, barack]
   end
 end
