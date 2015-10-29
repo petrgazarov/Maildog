@@ -52,7 +52,7 @@ class Api::EmailThreadsController < ApplicationController
                 .where(owner_id: current_user_contact.id)
                 .joins(:emails)
                 .where("emails.draft = true")
-                
+
     @drafts = true
     render :index
   end

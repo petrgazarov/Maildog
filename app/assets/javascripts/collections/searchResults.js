@@ -10,7 +10,7 @@ Maildog.Collections.SearchResults = Backbone.Collection.extend({
 	},
 
 	comparator: function(thread) {
-		return thread.tail().get('time');
+		return -moment(thread.tail().get('time'));
 	},
 
 	model: function (attrs) {
