@@ -11,6 +11,9 @@ json.results do
         json.partial! "api/emails/email", email: search_result.searchable
         json._type "Email"
       end
+
+      json.trashCount search_result.searchable.thread.trash_count
+      json.nonTrashCount search_result.searchable.thread.non_trash_count
     end
   end
 end

@@ -88,4 +88,25 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
       expect(email.starred).to be false
     end
   end
+
+  describe "clicking on email thread list item" do
+    before(:each) do
+      seed_for_one_thread
+      sign_in_as("barack", "password")
+    end
+
+    context "while in any folder other than Drafts" do
+      it "initializes ShowEmailThread view and shows the details of the selected thread" do
+        find('.email-list-item-link').trigger('click')
+        wait_for_ajax
+      end
+
+      it "displays the draft email as a form ready to be sent"
+    end
+
+    context "while in Drafts folder" do
+      it "shows the details of the selected thread if the thread has more than one message"
+      it "pops up ComposeEmailBox view if the thread only contains the draft message"
+    end
+  end
 end
