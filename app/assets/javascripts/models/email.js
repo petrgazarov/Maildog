@@ -94,7 +94,7 @@ Maildog.Models.Email = Backbone.Model.extend({
 
   _getSender: function(folder) {
     if (this.sender().get('email') !== Maildog.currentUser.get('email') ||
-        folder === "trash") {
+        !this.addressees().first().get('first_name')) {
       var string = this.sender().escape('first_name') + " " +
                    this.sender().escape('last_name');
     }

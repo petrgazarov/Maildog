@@ -3,6 +3,8 @@ RSpec.feature "Sign in", js: true, type: :feature do
     visit '/session/new'
   end
 
+  scenario "trying to access the page when logged in results in a redirect to the main page"
+
   it "has a user sign in page" do
     expect(page).to have_content "Sign in to continue"
   end

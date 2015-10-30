@@ -43,11 +43,6 @@ provide quick UX.
 #### Third party APIs:
 * sendgrid
 
-I wrote comprehensive unit tests for my models using RSpec, FactoryGirl and Faker.
-Tests live [here][specs].
-
-[specs]: /spec/
-
 ## What can I do on this website?
 
 You can:
@@ -85,7 +80,18 @@ Glad you asked! :)
     Well, not when you see the list. In the folder/label, when you see a list and a preview of
     the thread's most recent conversation, that is all that is fetched at that point. When you click on a list item, the full thread gets sent from the server.
 
-### Future To-Dos
+## Tests
+
+I wrote comprehensive unit and integration tests with RSpec and Capybara.
+
+Capybara uses Poltergeist as its JavaScript driver.
+Helper libraries are FactoryGirl and Faker.
+
+Tests live [here][specs].
+
+[specs]: /spec/
+
+## Future To-Dos
 - [ ] Make emails draggable via jQuery-UI
 - [ ] Users able to attach files to emails
 - [ ] Pagination via Kaminari gem
@@ -95,5 +101,9 @@ Glad you asked! :)
 - [ ] Contacts page (all contacts are already being saved automatically)
 - [ ] Enable receiving emails from outside Maildog
 - [ ] Users able to change theme/background image
+
+## Licence
+
+MIT
 
 [routes]: ./config/routes.rb

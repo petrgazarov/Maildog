@@ -22,5 +22,13 @@ RSpec.feature "Main page", js: true, type: :feature do
       expect(page).to have_content("Trash")
       expect(page).to have_content("Create new label")
     end
+
+    it "navigates to the inbox folder by default"
+    it "clears all email threads' checks"
   end
+
+  scenario "trying to access the page when not logged in results in a redirect to the sign in page"
+  scenario "clicking on the Maildog logo refreshes the site"
+  scenario "clicking the 'Petr Gazarov' link redirects user to www.petrgazarov.com"
+  scenario "clicking the 'Log out' link logs user out and redirects to the sign in page"
 end

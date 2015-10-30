@@ -3,6 +3,8 @@ RSpec.feature "Sign up", js: true, type: :feature do
     visit '/users/new'
   end
 
+  scenario "trying to access the page when logged in results in a redirect to the main page"
+
   it "has a user sign up page" do
     expect(page).to have_content "Create account"
   end
