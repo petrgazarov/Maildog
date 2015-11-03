@@ -67,12 +67,12 @@ module SpecsSeedHelpers
       original_email: hillary_checkin_1,
       parent_email: hillary_checkin_3
     )
+
+    @b_thread1
   end
 
   def seed_for_two_threads
     seed_for_one_thread
-
-    create_barack_user_and_contact
 
     @b_thread2 = EmailThread.create!(subject: "hi", owner: @barack)
 

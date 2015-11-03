@@ -23,6 +23,24 @@ module IntegrationTestsHelpers
                               first_name: "Barack", last_name: "Obama")
     [barack_user, barack]
   end
+
+  def check_li_for_css_absence_except(selector)
+    if selector != '#inbox-folder'
+      expect(["", nil]).to include(page.find('#inbox-folder')['style'])
+    end
+    if selector != '#starred-folder'
+      expect(["", nil]).to include(page.find('#starred-folder')['style'])
+    end
+    if selector != '#sent-folder'
+      expect(["", nil]).to include(page.find('#sent-folder')['style'])
+    end
+    if selector != '#drafts-folder'
+      expect(["", nil]).to include(page.find('#drafts-folder')['style'])
+    end
+    if selector != '#trash-folder'
+      expect(["", nil]).to include(page.find('#trash-folder')['style'])
+    end
+  end
 end
 
 RSpec.configure do |config|
