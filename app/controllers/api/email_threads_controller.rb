@@ -9,7 +9,10 @@ class Api::EmailThreadsController < ApplicationController
   end
 
   def destroy
-    thread = EmailThread.where(id: params[:email_thread_ids]).destroy_all
+    Email.where(email_thread_id: params[:email_thread_ids], trash: true)
+         .destroy_all
+    # remove checks from threads
+    EmailThread.where(id: params[:email_thread_ids]).update_all(checked: false)
 
     render json: {}
   end
