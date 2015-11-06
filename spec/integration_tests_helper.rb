@@ -76,6 +76,16 @@ module IntegrationTestsHelpers
 
     thread
   end
+
+  def seed_for_one_thread_and_sign_in_as_barack
+    seed_for_one_thread
+    sign_in_as("barack", "password")
+  end
+
+  def barack_has_no_emails_other_than_trash
+    @barack.received_emails.select { |email| !email.trash }.empty? &&
+      @barack.written_emails.select { |email| !email.trash }.empty?
+  end
 end
 
 RSpec.configure do |config|

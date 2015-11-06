@@ -91,7 +91,6 @@ module SpecsSeedHelpers
     "Hillary",
 
       sender: @hillary,
-      trash: true,
       time: DateTime.new(2015,10,1,9,27,51).in_time_zone
     )
   end

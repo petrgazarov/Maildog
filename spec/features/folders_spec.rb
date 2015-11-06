@@ -1,8 +1,7 @@
 RSpec.feature "Folders", js: true, type: :feature do
   describe "navigating to folders using sidebar links" do
     before(:each) do
-      seed_for_one_thread
-      sign_in_as("barack", "password")
+      seed_for_one_thread_and_sign_in_as_barack
       wait_for_ajax
     end
 

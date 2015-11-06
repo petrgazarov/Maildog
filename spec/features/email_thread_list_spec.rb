@@ -1,8 +1,7 @@
 RSpec.feature "Email Thread List", js: true, type: :feature do
   context "when initially logged in" do
     before(:each) do
-      seed_for_one_thread
-      sign_in_as("barack", "password")
+      seed_for_one_thread_and_sign_in_as_barack
     end
 
     it "displays the sender of the last email in a thread" do
@@ -29,8 +28,7 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
 
   describe "check box" do
     scenario "hard refresh of the page removes all checks" do
-      seed_for_one_thread
-      sign_in_as("barack", "password")
+      seed_for_one_thread_and_sign_in_as_barack
 
       find('.check-box').trigger('click')
       wait_for_ajax
@@ -45,8 +43,7 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
     end
 
     scenario "clicking the check box toggles the checked value of the thread" do
-      seed_for_one_thread
-      sign_in_as("barack", "password")
+      seed_for_one_thread_and_sign_in_as_barack
 
       find('.check-box').trigger('click')
       wait_for_ajax
@@ -60,12 +57,10 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
     end
 
     context "in any non-trash folder" do
-      before(:each) do
-        seed_for_one_thread
-        sign_in_as("barack", "password")
-      end
+      scenario "clicking the check box triggers email options to display a "\
+               "different template" do
+        seed_for_one_thread_and_sign_in_as_barack
 
-      scenario "clicking the check box triggers email options to display a different template" do
         find('.check-box').trigger('click')
         expect(page).to have_content("Delete")
         find('.check-box').trigger('click')
@@ -74,10 +69,47 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
       end
 
       context "when a thread is checked" do
-        scenario "clicking the 'Delete' button moves the checked thread to trash"
+        scenario "clicking 'Delete' button moves the checked thread to trash" do
+          seed_for_one_thread_and_sign_in_as_barack
+
+          find('.check-box').trigger('click')
+          find('button', text: "Delete")
+          page.execute_script("$('#delete-email-thread').trigger('click');")
+          wait_for_ajax
+          expect(page).to have_content('The conversation has been moved to trash')
+          expect(page).not_to have_content('Delete')
+
+          find('#trash-folder').trigger('click')
+          wait_for_ajax
+          expect(page).to have_content('checking in')
+
+          thread_query = EmailThread.where(owner: @barack)
+          expect(thread_query.first.emails.all? { |email| email.trash }).to be true
+        end
       end
+
       context "when several threads are checked" do
-        scenario "clicking the 'Delete' button moves the checked threads to trash"
+        scenario "clicking 'Delete' button moves the checked threads to trash" do
+          seed_for_two_threads
+          sign_in_as('barack', "password")
+          find('button', text: 'Log out')
+          wait_for_ajax
+
+          all(:css, '.check-box').each { |box| box.trigger('click') }
+          find('button', text: "Delete")
+          page.execute_script("$('#delete-email-thread').trigger('click');")
+          wait_for_ajax
+
+          expect(page).to have_content('The conversations have been moved to trash')
+          expect(page).not_to have_content('Delete')
+
+          find('#trash-folder').trigger('click')
+          wait_for_ajax
+          expect(page).to have_content('checking in')
+          expect(page).to have_content('hi')
+
+          expect(barack_has_no_emails_other_than_trash).to be true
+        end
       end
     end
 
@@ -120,8 +152,7 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
 
   describe "star icon" do
     before(:each) do
-      seed_for_one_thread
-      sign_in_as("barack", "password")
+      seed_for_one_thread_and_sign_in_as_barack
     end
 
     scenario "clicking star icon toggles the starred value of the displayed email" do
@@ -145,8 +176,7 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
 
   describe "clicking on email thread list item in any folder other than Drafts" do
     before(:each) do
-      seed_for_one_thread
-      sign_in_as("barack", "password")
+      seed_for_one_thread_and_sign_in_as_barack
       find('.email-list-item-link').trigger('click')
       wait_for_ajax
     end
@@ -154,7 +184,9 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
     it "triggers EmailOptions view to display the correct template"
 
     it "initializes ShowEmailThread view and shows the details of the selected thread" do
-      expect(page).to have_content("Hey Hill, I just wanted to check in. Is everything going alright?")
+      expect(page).to have_content(
+        "Hey Hill, I just wanted to check in. Is everything going alright?"
+      )
       expect(page).to have_content("Oct 1")
       expect(page).to have_content("Hey Barack")
       expect(page).to have_content("Yeah, things are tough right now")
@@ -185,8 +217,7 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
 
   describe "clicking on email thread list item while in Drafts folder" do
     before(:each) do
-      seed_for_one_thread
-      sign_in_as("barack", "password")
+      seed_for_one_thread_and_sign_in_as_barack
     end
 
     it "shows the details of the selected thread if the thread has more than one message" do
@@ -197,7 +228,9 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
       find('#drafts-folder').trigger('click')
       find('.email-list-item-div').trigger('click')
 
-      expect(page).to have_content("Hey Hill, I just wanted to check in. Is everything going alright?")
+      expect(page).to have_content(
+        "Hey Hill, I just wanted to check in. Is everything going alright?"
+      )
       expect(page).to have_content("Oct 1")
       expect(page).to have_content("Hey Barack")
       expect(page).to have_content("Yeah, things are tough right now")
