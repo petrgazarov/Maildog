@@ -3,7 +3,16 @@ RSpec.feature "Sign up", js: true, type: :feature do
     visit '/users/new'
   end
 
-  scenario "trying to access the page when logged in results in a redirect to the main page"
+  scenario "trying to access the page when logged in results in a redirect "\
+           "to the main page" do
+     @barack_user, @barack = create_barack_user_and_contact
+     sign_in_as("barack", "password")
+     wait_for_ajax
+
+     visit '/users/new'
+     wait_for_ajax
+     expect(page).not_to have_content("Create your Maildog account!")     
+  end
 
   it "has a user sign up page" do
     expect(page).to have_content "Create account"
