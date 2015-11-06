@@ -59,8 +59,8 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
     context "in any non-trash folder" do
       scenario "clicking the check box triggers email options to display a "\
                "different template" do
-        seed_for_one_thread_and_sign_in_as_barack
 
+        seed_for_one_thread_and_sign_in_as_barack
         find('.check-box').trigger('click')
         expect(page).to have_content("Delete")
         find('.check-box').trigger('click')
@@ -70,8 +70,8 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
 
       context "when a thread is checked" do
         scenario "clicking 'Delete' button moves the checked thread to trash" do
-          seed_for_one_thread_and_sign_in_as_barack
 
+          seed_for_one_thread_and_sign_in_as_barack
           find('.check-box').trigger('click')
           find('button', text: "Delete")
           page.execute_script("$('#delete-email-thread').trigger('click');")
@@ -124,6 +124,7 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
 
       scenario "clicking the check box triggers email options to display a "\
                "different template" do
+
         first('.check-box').trigger('click')
         expect(page).to have_content("Delete Forever")
         expect(page).to have_content("Recover")
@@ -156,8 +157,8 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
     end
 
     scenario "clicking star icon toggles the starred value of the displayed email" do
-      email_body = "Thanks for the nice words, Barack, catch up in a few."
 
+      email_body = "Thanks for the nice words, Barack, catch up in a few."
       find('.star').trigger('click')
       wait_for_ajax
       email = Email.where(
@@ -189,7 +190,11 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
       wait_for_ajax
     end
 
-    it "triggers EmailOptions view to display the correct template"
+    it "triggers EmailOptions view to display the correct template" do
+      find('button#email-show-back-button')
+      find('button#delete-email-thread')
+      find('div.label-as-button-container')
+    end
 
     it "initializes ShowEmailThread view and shows the details of the selected thread" do
       expect(page).to have_content(
@@ -263,9 +268,38 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
       expect(page).to have_content("To")
       expect(page).to have_content("Send")
       expect(page).to have_content("New Message")
+      expect(find('form.compose-email-popup textarea').value).to eq paragraph
+      expect(find("form input[name='email[subject]']").value).to eq sentence
     end
 
-    it "doesn't pop up ComposeEmailBox view if draft message is already popped up"
-    it "doesn't pop up more than two ComposeEmailBox views at a time"
+    it "doesn't pop up ComposeEmailBox view if draft message is already popped up" do
+      create(:email, draft: true, thread: create(:email_thread, owner: @barack))
+
+      click_on_drafts_folder
+      wait_for_ajax
+      find('.email-list-item-div').trigger('click')
+      find('form.compose-email-popup')
+      find('.email-list-item-div').trigger('click')
+      expect(page).to have_content('This draft is already opened')
+
+      # check that there is only one popup one the page
+      find('form.compose-email-popup')
+    end
+
+    it "doesn't pop up more than two ComposeEmailBox views at a time" do
+      3.times do
+        create(:email, draft: true, thread: create(:email_thread, owner: @barack))
+      end
+
+      click_on_drafts_folder
+      wait_for_ajax
+      find('.email-list-item-div', match: :first)
+      all('.email-list-item-div')[0..1].each(&:click)
+      find('form.compose-email-popup', match: :first)
+
+      all('.email-list-item-div')[2].click
+      expect(page).to have_content('Please close one of the windows and try again')
+      expect(all('form.compose-email-popup').count).to be 2
+    end
   end
 end

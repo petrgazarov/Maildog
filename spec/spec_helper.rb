@@ -30,10 +30,5 @@ RSpec.configure do |config|
   # show exception that triggers a retry if verbose_retry is set to true
   config.display_try_failure_messages = true
 
-  config.default_sleep_interval = 3
-
-  # run retry only on features
-  config.around :each, :js do |ex|
-    ex.run_with_retry retry: 3
-  end
+  config.default_sleep_interval = 2
 end
