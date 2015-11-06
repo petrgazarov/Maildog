@@ -93,14 +93,16 @@ Maildog.Models.Email = Backbone.Model.extend({
   },
 
   _getSender: function(folder) {
+    var string;
+
     if (this.sender().get('email') !== Maildog.currentUser.get('email') ||
         !this.addressees().first().get('first_name')) {
-      var string = this.sender().escape('first_name') + " " +
-                   this.sender().escape('last_name');
+      string = this.sender().escape('first_name') + " " +
+               this.sender().escape('last_name');
     }
     else {
-      var string = this.addressees().first().escape('first_name') + " " +
-                   this.addressees().first().escape('last_name')
+      string = this.addressees().first().escape('first_name') + " " +
+               this.addressees().first().escape('last_name')
     }
 
     return string;

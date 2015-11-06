@@ -3,7 +3,7 @@ class Email < ActiveRecord::Base
 
   multisearchable against: [
     :body, :subject, :sender_first_name, :sender_last_name
-  ], if: :not_trash?
+  ], if: lambda { |record| !(record.trash || record.draft) }
 
   def self.rebuild_pg_search_documents
     find_each { |record| record.update_pg_search_document }
@@ -42,18 +42,15 @@ class Email < ActiveRecord::Base
     !(self.starred == new_starred && self.trash == new_trash)
   end
 
-  # The below three methods are for pg_search
+  # The below two methods are for pg_search
 
   def sender_first_name
+    byebug
     sender.first_name
   end
 
   def sender_last_name
     sender.last_name
-  end
-
-  def not_trash?
-    !self.trash
   end
 
   private

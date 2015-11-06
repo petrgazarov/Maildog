@@ -46,16 +46,5 @@ RSpec.describe Email do
         expect(@email.sender_last_name).to eq(@email.sender.last_name)
       end
     end
-
-    describe "#not_trash?" do
-      it "returns true when email is not trash" do
-        expect(@email.not_trash?).to be true
-      end
-
-      it "returns false when email is trash" do
-        @email.trash = true
-        expect(@email.not_trash?).to be false
-      end
-    end
   end
 end
