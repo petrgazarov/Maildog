@@ -56,7 +56,7 @@ You can:
 * Move emails and email threads to trash, recover and delete forever
 * Create new labels
 * Label email threads
-* Search for content in emails or senders name
+* Search for content in emails
 
 ## What kind of problems did you have to solve?
 
@@ -92,11 +92,13 @@ Tests live [here][specs].
 [specs]: /spec/
 
 ## Future To-Dos
+- [x] Write unit and integration tests
+- [ ] Write tests for JavaScript code
 - [ ] Make emails draggable via jQuery-UI
 - [ ] Users able to attach files to emails
 - [ ] Pagination via Kaminari gem
 - [ ] Emails style editing via marked or markdown.js
-- [ ] User profile with photo upload option via AWS
+- [ ] User profile with photo upload option via AWS S3
 - [ ] Chat with other users in real time via Faye gem
 - [ ] Contacts page (all contacts are already being saved automatically)
 - [ ] Enable receiving emails from outside Maildog
