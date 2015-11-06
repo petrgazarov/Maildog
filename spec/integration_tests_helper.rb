@@ -41,6 +41,33 @@ module IntegrationTestsHelpers
       expect(["", nil]).to include(page.find('#trash-folder')['style'])
     end
   end
+
+  def click_compose_button
+    find('button.compose-button')
+    page.execute_script("$('button.compose-button').trigger('click');")
+  end
+
+  def send_email_from_popup(options)
+    click_compose_button
+    find('form.compose-email-popup')
+
+    find("input[name='email[addressees][email]']").set(options[:recipient])
+    find("input[name='email[subject]']").set(options[:subject])
+    find('form.compose-email-popup textarea').set(options[:body])
+
+    page.execute_script(
+      "$('form.compose-email-popup button.blue-button').trigger('click');"
+    )
+  end
+
+  def create_fake_subject_body_and_recipient
+    subject = Faker::Lorem.word
+    body = Faker::Lorem.paragraph
+    # make sure email address is fake
+    recipient = "//#{Faker::Internet.email}a"
+
+    [subject, body, recipient]
+  end
 end
 
 RSpec.configure do |config|

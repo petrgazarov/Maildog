@@ -73,6 +73,15 @@ Maildog.Mixins.NewEmail = {
     }
     Maildog.currentThreadList && Maildog.currentThreadList.refreshCollection();
     if (!options || !options.saveEmail) { return }
+
+    // don't save draft if subject and body are empty
+    if (this._checkIfEmptyForm()) { return; }
     this.saveEmail();
+  },
+
+  _checkIfEmptyForm: function() {
+    formData = this.$el.serializeJSON();
+    if (!formData.email.subject && !formData.email.body) { return true; }
+    return false;
   }
 };
