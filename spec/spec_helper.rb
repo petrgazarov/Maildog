@@ -2,9 +2,10 @@ require 'capybara/rspec'
 require_relative 'integration_tests_helper'
 require_relative 'unit_tests_helper'
 require_relative 'specs_seed_helper'
+require 'rspec/retry'
 
 Capybara.javascript_driver = :poltergeist
-Capybara.default_wait_time = 5
+Capybara.default_wait_time = 30
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
@@ -22,5 +23,17 @@ RSpec.configure do |config|
     # a real object. This is generally recommended, and will default to
     # `true` in RSpec 4.
     mocks.verify_partial_doubles = true
+  end
+
+  # show retry status in spec process
+  config.verbose_retry = true
+  # show exception that triggers a retry if verbose_retry is set to true
+  config.display_try_failure_messages = true
+
+  config.default_sleep_interval = 3
+
+  # run retry only on features
+  config.around :each, :js do |ex|
+    ex.run_with_retry retry: 3
   end
 end

@@ -79,7 +79,7 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
           expect(page).to have_content('The conversation has been moved to trash')
           expect(page).not_to have_content('Delete')
 
-          find('#trash-folder').trigger('click')
+          click_on_trash_folder
           wait_for_ajax
           expect(page).to have_content('checking in')
 
@@ -103,7 +103,7 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
           expect(page).to have_content('The conversations have been moved to trash')
           expect(page).not_to have_content('Delete')
 
-          find('#trash-folder').trigger('click')
+          click_on_trash_folder
           wait_for_ajax
           expect(page).to have_content('checking in')
           expect(page).to have_content('hi')
@@ -117,9 +117,8 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
       before(:each) do
         seed_for_two_threads
         @b_thread1.emails.first.update(trash: true)
-        @b_thread2.emails.first.update(trash: true)
         sign_in_as("barack", "password")
-        find('#trash-folder').trigger('click')
+        click_on_trash_folder
         wait_for_ajax
       end
 
@@ -138,6 +137,7 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
       context "when a thread is checked" do
         scenario "clicking the 'Delete Forever' button deletes the trash "\
                  "emails of the checked thread"
+
         scenario "clicking the 'Recover' button recovers the trash emails of "\
                  "the checked thread"
       end
@@ -171,7 +171,15 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
       expect(email.starred).to be false
     end
 
-    scenario "clicking star icon adds email thread to the Starred folder list"
+    scenario "clicking star icon adds email thread to the Starred folder list" do
+      find('.star').trigger('click')
+      wait_for_ajax
+      click_on_starred_folder
+      expect(page).to have_content(
+        "Thanks for the nice words, Barack, catch up in a few."
+      )
+      expect(page).to have_content("checking in")
+    end
   end
 
   describe "clicking on email thread list item in any folder other than Drafts" do
@@ -225,7 +233,7 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
       create(:email, thread: @b_thread1, sender: @barack,
               body: paragraph, subject: @b_thread1.subject, draft: true)
 
-      find('#drafts-folder').trigger('click')
+      click_on_drafts_folder
       find('.email-list-item-div').trigger('click')
 
       expect(page).to have_content(
@@ -247,7 +255,7 @@ RSpec.feature "Email Thread List", js: true, type: :feature do
       sentence = Faker::Lorem.sentence
       create(:email, draft: true, body: paragraph, subject: sentence,
              thread: create(:email_thread, subject: sentence, owner: @barack))
-      find('#drafts-folder').trigger('click')
+      click_on_drafts_folder
       wait_for_ajax
       find('.email-list-item-div').trigger('click')
 

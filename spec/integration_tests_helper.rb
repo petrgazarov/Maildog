@@ -86,6 +86,31 @@ module IntegrationTestsHelpers
     @barack.received_emails.select { |email| !email.trash }.empty? &&
       @barack.written_emails.select { |email| !email.trash }.empty?
   end
+
+  def click_on_inbox_folder
+    find('#inbox-folder')
+    find('#inbox-folder').trigger('click')
+  end
+
+  def click_on_starred_folder
+    find('#starred-folder')
+    find('#starred-folder').trigger('click')
+  end
+
+  def click_on_sent_folder
+    find('#sent-folder')
+    find('#sent-folder').trigger('click')
+  end
+
+  def click_on_drafts_folder
+    find('#drafts-folder')
+    find('#drafts-folder').trigger('click')
+  end
+
+  def click_on_trash_folder
+    find('#trash-folder')
+    find('#trash-folder').trigger('click')
+  end
 end
 
 RSpec.configure do |config|

@@ -25,6 +25,7 @@ group :development, :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'database_cleaner'
+  gem 'rspec-retry'
 end
 
 group :test do
