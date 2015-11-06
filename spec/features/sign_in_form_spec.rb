@@ -3,7 +3,16 @@ RSpec.feature "Sign in", js: true, type: :feature do
     visit '/session/new'
   end
 
-  scenario "trying to access the page when logged in results in a redirect to the main page"
+  scenario "trying to access the page when logged in results in a redirect "\
+           "to the main page" do
+     @barack_user, @barack = create_barack_user_and_contact
+     sign_in_as("barack", "password")
+     wait_for_ajax
+
+     visit '/session/new'
+     wait_for_ajax
+     expect(page).not_to have_content("Sign in to continue")
+  end
 
   it "has a user sign in page" do
     expect(page).to have_content "Sign in to continue"
