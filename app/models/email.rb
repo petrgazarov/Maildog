@@ -45,7 +45,6 @@ class Email < ActiveRecord::Base
   # The below two methods are for pg_search
 
   def sender_first_name
-    byebug
     sender.first_name
   end
 

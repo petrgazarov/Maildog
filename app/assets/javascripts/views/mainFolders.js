@@ -66,12 +66,10 @@ Maildog.Views.MainFolders = Backbone.CompositeView.extend({
   },
 
   colorSelectedFolder: function(folder) {
-    if (folder === 'nonFolder' || folder.indexOf("labels") >= 0) {
-      this._clearColorFromSelectedFolder();
-    }
-    else {
-      this._clearColorFromSelectedFolder();
+    this._clearColorFromSelectedFolder();
 
+    if (folder !== 'nonFolder' && folder.indexOf("labels") === -1 &&
+        folder.indexOf('search') === -1) {
       this.$('#' + folder + "-folder").css({
         "color": "#dd4b39", "font-weight": "bold"
       });
