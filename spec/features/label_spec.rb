@@ -2,6 +2,7 @@ RSpec.feature "Labels", js: true, type: :feature do
   before(:each) do
     @barack_user, @barack = create_barack_user_and_contact
     sign_in_as("barack", "password")
+    wait_for_ajax
   end
 
   scenario "clicking 'Create new label' button puts an empty input field on the page" do
@@ -75,16 +76,13 @@ RSpec.feature "Labels", js: true, type: :feature do
   end
 
   scenario "clicking the cross next to the label name deletes the label" do
-    find('#create-new-label-button')
-    page.execute_script("$('#create-new-label-button').trigger('click');")
-    find('input.new-label-input')
-    label = Faker::Lorem.word
-    find('input.new-label-input').set(label)
-    page.execute_script("$('html').trigger('click');")
+    name = Faker::Lorem.word
+    create(:label, owner: @barack, name: name)
+    page.visit page.current_path
     wait_for_ajax
-    page.execute_script("$('div.icon-dark-cross').trigger('click');")
+    page.execute_script("$('div#delete-label-cross').trigger('click');")
     wait_for_ajax
-    expect(page).to_not have_content(label)
+    expect(page).not_to have_content(name)
     expect(Label.all).to be_empty
   end
 end

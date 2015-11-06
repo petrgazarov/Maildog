@@ -68,6 +68,14 @@ module IntegrationTestsHelpers
 
     [subject, body, recipient]
   end
+
+  def create_self_addressed_thread_with_emails
+    thread = create(:email_thread_with_emails, owner: @barack)
+    thread.emails.update_all(sender_id: @barack.id)
+    @barack.received_emails << thread.emails
+
+    thread
+  end
 end
 
 RSpec.configure do |config|
