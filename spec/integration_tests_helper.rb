@@ -111,6 +111,11 @@ module IntegrationTestsHelpers
     find('#trash-folder')
     find('#trash-folder').trigger('click')
   end
+
+  def click_on_back_button
+    find('button', text: "Back")
+    find('button', text: "Back").trigger('click')
+  end
 end
 
 RSpec.configure do |config|

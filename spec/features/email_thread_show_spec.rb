@@ -1,6 +1,58 @@
 RSpec.feature "Email Thread Show", js: true, type: :feature do
   context "when looking at a specific email thread" do
-    scenario "clicking the 'Back' button takes the user back to the previous folder"
+    before(:each) do
+      seed_for_one_thread_and_sign_in_as_barack
+      wait_for_ajax
+      find('a.email-list-item-link').trigger('click')
+      wait_for_ajax
+    end
+
+    scenario "clicking the 'Back' button takes the user back to the "\
+             "previous folder" do
+      # test for inbox
+      click_on_back_button
+      wait_for_ajax
+      expect(current_url).to include("/#inbox")
+
+      # test for sent
+      click_on_sent_folder
+      find('a.email-list-item-link').trigger('click')
+      wait_for_ajax
+      click_on_back_button
+      wait_for_ajax
+      expect(current_url).to include("/#sent")
+
+      # test for starred
+      @b_thread1.emails.first.update(starred: true)
+      click_on_starred_folder
+      find('a.email-list-item-link').trigger('click')
+      wait_for_ajax
+      click_on_back_button
+
+      wait_for_ajax
+      expect(current_url).to include("/#starred")
+
+      # test for drafts
+      @b_thread1.emails.create!(draft: true, sender_id: @barack.id,
+          body: Faker::Lorem.paragraph, subject: Faker::Lorem.word)
+      click_on_drafts_folder
+      find('div.email-list-item-div').trigger('click')
+      wait_for_ajax
+      click_on_back_button
+
+      wait_for_ajax
+      expect(current_url).to include("/#drafts")
+
+      # test for trash
+      @b_thread1.emails.first.update(trash: true)
+      click_on_trash_folder
+      find('a.email-list-item-link').trigger('click')
+      wait_for_ajax
+      click_on_back_button
+
+      wait_for_ajax
+      expect(current_url).to include("/#trash")
+    end
 
     context "while in any folder other than Trash" do
       scenario "clicking 'Delete' button moves the thread to the trash folder"

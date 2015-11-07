@@ -5,7 +5,7 @@ require_relative 'specs_seed_helper'
 require 'rspec/retry'
 
 Capybara.javascript_driver = :poltergeist
-Capybara.default_wait_time = 30
+Capybara.default_wait_time = 15
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
