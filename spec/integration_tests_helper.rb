@@ -116,6 +116,21 @@ module IntegrationTestsHelpers
     find('button', text: "Back")
     find('button', text: "Back").trigger('click')
   end
+
+  def click_on_label_as
+    find('div.label-as-button-container')
+    find('div.label-as-button-container').trigger('click')
+  end
+
+  def click_on_delete_button
+    find('button', text: "Delete")
+    find('button', text: "Delete").trigger('click')
+  end
+
+  def click_on_label_li(name)
+    find('li', text: name)
+    find('li', text: name).trigger('click')
+  end
 end
 
 RSpec.configure do |config|
