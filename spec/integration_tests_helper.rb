@@ -131,6 +131,26 @@ module IntegrationTestsHelpers
     find('li', text: name)
     find('li', text: name).trigger('click')
   end
+
+  def click_first_garbage_can
+    find('aside.icon-garbage-can', match: :first)
+    find('aside.icon-garbage-can', match: :first).trigger('click')
+  end
+
+  def click_on_recover
+    find('button', text: "Recover")
+    find('button', text: "Recover").trigger('click')
+  end
+
+  def click_on_delete_forever
+    find('button', text: "Delete Forever")
+    find('button', text: "Delete Forever").trigger('click')
+  end
+
+  def click_on_email_list_item_link
+    find('a.email-list-item-link')
+    find('a.email-list-item-link').trigger('click')
+  end
 end
 
 RSpec.configure do |config|

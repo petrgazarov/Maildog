@@ -2,7 +2,7 @@ RSpec.feature "Email Thread Show", js: true, type: :feature do
   before(:each) do
     seed_for_one_thread_and_sign_in_as_barack
     wait_for_ajax
-    find('a.email-list-item-link').trigger('click')
+    click_on_email_list_item_link
     wait_for_ajax
   end
 
@@ -15,7 +15,7 @@ RSpec.feature "Email Thread Show", js: true, type: :feature do
 
     # test for sent
     click_on_sent_folder
-    find('a.email-list-item-link').trigger('click')
+    click_on_email_list_item_link
     wait_for_ajax
     click_on_back_button
     wait_for_ajax
@@ -24,7 +24,7 @@ RSpec.feature "Email Thread Show", js: true, type: :feature do
     # test for starred
     @b_thread1.emails.first.update(starred: true)
     click_on_starred_folder
-    find('a.email-list-item-link').trigger('click')
+    click_on_email_list_item_link
     wait_for_ajax
     click_on_back_button
 
@@ -45,7 +45,7 @@ RSpec.feature "Email Thread Show", js: true, type: :feature do
     # test for trash
     @b_thread1.emails.first.update(trash: true)
     click_on_trash_folder
-    find('a.email-list-item-link').trigger('click')
+    click_on_email_list_item_link
     wait_for_ajax
     click_on_back_button
 
@@ -74,6 +74,7 @@ RSpec.feature "Email Thread Show", js: true, type: :feature do
     scenario "clicking 'Label as' button toggles the label list below "\
              "the button", retry: 3 do
       click_on_label_as
+      wait_for_ajax
       expect(page).to have_content('Label as:')
     end
 
@@ -122,7 +123,6 @@ RSpec.feature "Email Thread Show", js: true, type: :feature do
           find('ul.email-options-label-list li')
           find('ul.email-options-label-list li').trigger('click')
           wait_for_ajax
-
           expect(EmailThread.find(@b_thread1.id).labels).not_to be_blank
         end
       end
@@ -141,11 +141,11 @@ RSpec.feature "Email Thread Show", js: true, type: :feature do
           wait_for_ajax
         end
 
-        it "creates and saves a new instance of ThreadLabel" do
+        it "creates and saves a new instance of ThreadLabel", retry: 3 do
           expect(ThreadLabel.all).not_to be_empty
         end
 
-        it "adds the thread to the email thread list for that label" do
+        it "adds the thread to the email thread list for that label", retry: 3 do
           page.visit page.current_path
           wait_for_ajax
           click_on_label_li(@label.name)
@@ -158,21 +158,120 @@ RSpec.feature "Email Thread Show", js: true, type: :feature do
 
     context "when the star icon is clicked" do
       scenario "clicking the star icon changes the starred value of the "\
-               "selected email"
+               "selected email" do
+        find('div.star', match: :first)
+        find('div.star', match: :first).trigger('click')
+        wait_for_ajax
+        expect(page).to have_css('div.star-on')
+        expect(Email.where(email_thread_id: @b_thread1.id)
+                    .order(time: :asc).first.starred).to be true
+      end
     end
 
     context "when the garbage can icon is clicked" do
-      it "sets the trash value of the email to true"
-      it "removes the email from the visible thread"
-      it "puts the deleted email in the trash folder"
+      it "sets the trash value of the email to true", retry: 3 do
+        click_first_garbage_can
+        wait_for_ajax
+        find('div', text: 'The message has been moved to the trash.', match: :first)
+        expect(Email.where(email_thread_id: @b_thread1.id)
+                    .order(time: :asc).first.trash).to be true
+      end
+
+      it "removes the email from the visible thread", retry: 3 do
+        click_first_garbage_can
+        wait_for_ajax
+        find('div', text: 'The message has been moved to the trash.', match: :first)
+        wait_for_ajax
+        expect(page).not_to have_content(
+          'Hey Hill, I just wanted to check in. Is everything going alright?')
+      end
+
+      it "puts the deleted email in the trash folder", retry: 3 do
+        click_first_garbage_can
+        wait_for_ajax
+        find('div', text: 'The message has been moved to the trash.', match: :first)
+        click_on_trash_folder
+        wait_for_ajax
+        expect(page).to have_content('checking in')
+        expect(page).to have_content(
+          'Hey Hill, I just wanted to check in. Is everything going alright?')
+      end
+
       it "shows the deleted email in one thread with other deleted emails "\
-         "from the same thread"
+         "from the same thread", retry: 3 do
+        @b_thread1.emails.select do |e|
+          e.body == 'Thanks for the nice words, Barack, catch up in a few.'
+        end.first.update(trash: true)
+
+        click_first_garbage_can
+        wait_for_ajax
+        find('div', text: 'The message has been moved to the trash.', match: :first)
+        click_on_trash_folder
+        wait_for_ajax
+        expect(page).to have_content('Hillary Clinton (2)')
+        expect(page).to have_content('checking in')
+      end
     end
   end
 
   context "while in Trash folder" do
-    scenario "clicking 'Delete Forever' or 'Recover' buttons brings user back to the folder"
-    scenario "clicking 'Delete Forever' button deletes the thread"
-    scenario "clicking 'Recover' button puts the thread back to its folder"
+    scenario "clicking or 'Recover' buttons brings user back to the folder", retry: 3 do
+
+      @b_thread1.emails[0..1].each { |e| e.update(trash: true) }
+      click_on_trash_folder
+      wait_for_ajax
+      click_on_email_list_item_link
+      wait_for_ajax
+      click_on_recover
+      find('div', text: "The conversation has been recovered.", match: :first)
+      wait_for_ajax
+      expect(page).to have_content('No conversations in Trash')
+      wait_for_ajax
+    end
+
+    scenario "clicking or 'Delete Forever' buttons brings user back to "\
+             "the folder", retry: 3 do
+
+      @b_thread1.emails[0..1].each { |e| e.update(trash: true) }
+      click_on_trash_folder
+      wait_for_ajax
+      click_on_email_list_item_link
+      wait_for_ajax
+      click_on_delete_forever
+      find('div', text: 'The conversation has been deleted', match: :first)
+      expect(page).to have_content('No conversations in Trash')
+    end
+
+    scenario "clicking 'Delete Forever' button deletes the trash emails "\
+             "from the thread", retry: 3 do
+
+      @b_thread1.emails[0..1].each { |e| e.update(trash: true) }
+      click_on_trash_folder
+      wait_for_ajax
+      click_on_email_list_item_link
+      wait_for_ajax
+      click_on_delete_forever
+      find('div', text: 'The conversation has been deleted', match: :first)
+      find('aside', text: 'No conversations in Trash')
+      wait_for_ajax
+      expect(EmailThread.find(@b_thread1.id).emails.count).to be 2
+    end
+
+    scenario "clicking 'Recover' button puts the thread back to its folder", retry: 3 do
+      @b_thread1.emails[0..1].each { |e| e.update(trash: true) }
+      click_on_trash_folder
+      wait_for_ajax
+      click_on_email_list_item_link
+      wait_for_ajax
+      
+      click_on_recover
+      find('div', text: "The conversation has been recovered.", match: :first)
+      wait_for_ajax
+      find('aside', text: 'No conversations in Trash')
+      click_on_inbox_folder
+      wait_for_ajax
+      expect(page).to have_content('Hillary Clinton (4)')
+      expect(page).to have_content('checking in')
+    end
   end
 end

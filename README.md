@@ -6,42 +6,30 @@
 
 ## Welcome!
 
-Maildog is a clone of Gmail built with Ruby on Rails and Backbone.js that I created
-as my final project at App Academy to demonstrate my proficiency in the various aspects
-of full-stack web development.
+Maildog is a clone of Gmail built with Ruby on Rails and Backbone.js that I created to demonstrate my proficiency in the various aspects of full-stack web development.
 
 The single-page setup choice came naturally as I was looking for a responsive design to
 provide quick UX.
 
 ## What did I use?
 
-#### Languages
-* Ruby
-* JavaScript
-* HTML/CSS
+Languages            | Frameworks          | Database     |
+-------------------- | ------------------- | ------------ |
+Ruby                 | Backbone.js         | PostgreSQL   |
+JavaScript           | Rails               |              |
+HTML/CSS             |                     |              |
 
-#### Frameworks
-* Backbone.js
-* Rails
+Libraries                | Third-party APIs    |
+------------------------ |-------------------- |
+JQuery                   | sendgrid            |
+JQuery.serializeJSON     |                     |
+moment.js                |                     |
+JQuery.transit           |                     |
+pg_search                |                     |
+jbuilder                 |                     |
+figaro                   |                     |
+BCrypt                   |                     |
 
-#### Database
-* PostgreSQL
-
-#### Libraries
-* Front-end
-  * JQuery
-  * JQuery.serializeJSON
-  * moment.js
-  * JQuery.transit
-
-* Back-end
-  * pg_search
-  * jbuilder
-  * figaro
-  * BCrypt
-
-#### Third party APIs:
-* sendgrid
 
 ## What can I do on this website?
 
@@ -83,9 +71,13 @@ Glad you asked! :)
 ## Tests
 
 I wrote comprehensive unit and integration tests with RSpec and Capybara.
-
 Capybara uses Poltergeist as its JavaScript driver.
-Helper libraries are FactoryGirl and Faker.
+
+My test setup includes these libraries:
+
+* FactoryGirl
+* Faker
+* RSpec::Retry
 
 Tests live [here][specs].
 

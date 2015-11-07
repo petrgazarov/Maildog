@@ -5,7 +5,8 @@ RSpec.feature "Labels", js: true, type: :feature do
     wait_for_ajax
   end
 
-  scenario "clicking 'Create new label' button puts an empty input field on the page" do
+  scenario "clicking 'Create new label' button puts an empty input field on "\
+           "the page", retry: 3 do
     find('#create-new-label-button')
     page.execute_script("$('#create-new-label-button').trigger('click');")
     find('input.new-label-input')
@@ -20,7 +21,8 @@ RSpec.feature "Labels", js: true, type: :feature do
     expect(page).not_to have_css('input.new-label-input')
   end
 
-  scenario "pressing enter or clicking away from the new label input creates a new label" do
+  scenario "pressing enter or clicking away from the new label input creates "\
+           "a new label", retry: 3 do
     # testing click away
     find('#create-new-label-button')
     page.execute_script("$('#create-new-label-button').trigger('click');")
@@ -43,7 +45,7 @@ RSpec.feature "Labels", js: true, type: :feature do
     expect(Label.find_by(name: another_label)).not_to be nil
   end
 
-  scenario "a label is not created when the input field is empty" do
+  scenario "a label is not created when the input field is empty", retry: 3 do
     # testing click away
     find('#create-new-label-button')
     page.execute_script("$('#create-new-label-button').trigger('click');")
