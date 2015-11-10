@@ -63,7 +63,7 @@ RSpec.feature "Labels", js: true, type: :feature do
     expect(Label.all).to be_empty
   end
 
-  scenario "clicking on the label shows the labeled email threads" do
+  scenario "clicking on the label shows the labeled email threads", retry: 3 do
     # create label and labeled thread
     thread = create(:email_thread_with_emails, owner: @barack)
     thread.emails.update_all(sender_id: @barack.id)
@@ -77,7 +77,7 @@ RSpec.feature "Labels", js: true, type: :feature do
     expect(page).to have_content(thread.subject)
   end
 
-  scenario "clicking the cross next to the label name deletes the label" do
+  scenario "clicking the cross next to the label name deletes the label", retry: 3 do
     name = Faker::Lorem.word
     create(:label, owner: @barack, name: name)
     page.visit page.current_path

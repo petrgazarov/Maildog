@@ -1,10 +1,27 @@
-<form action='/session' method='post' class='log-out-form'>
-  <input type='hidden' name='_method' value='delete'>
-  <input type='hidden' name='authenticity_token'>
-  <button class='log-out-button'>Log out</button>
-</form>
-
 <p>
   <%= currentUser.escape("first_name") %>
 </p>
-<aside class='thumb'></aside>
+<aside id='current-user-profile-thumb' class='thumb'>
+  <div class='overlay'></div>
+</aside>
+<div class='current-user-profile invisible'>
+  <span class='arrow toggle-view-up-arrow'></span>
+  <div class='user-profile-thumb-container'>
+    <aside class="thumb">
+      <span>Change</span>
+    </aside>
+  </div>
+  <div class='user-profile-main-container'>
+    <span class='current-user-profile-name'>
+      <%= Maildog.currentUser.get('first_name') + " " + Maildog.currentUser.escape('last_name') %>
+    </span>
+    <span class='current-user-profile-email'>
+      <%= Maildog.currentUser.escape('email') %>
+    </span>
+    <form action='/session' method='post' class='log-out-form'>
+      <input type='hidden' name='_method' value='delete'>
+      <input type='hidden' name='authenticity_token'>
+      <button class='blue-button'>Log out</button>
+    </form>
+  </div>
+</div>
